@@ -1,0 +1,38 @@
+$header-height: 90px;
+
+header {
+    padding-bottom: 90px;
+}
+
+// Navbar
+
+.navbar {
+    .navbar-nav {
+        letter-spacing: 2px;
+    }
+
+    // Custom styles for navbar-brand after sm breakpoint
+    .navbar-brand-custom {
+        font-size: 1rem; // Default font size
+        letter-spacing: 4.8px;
+
+        @media (min-width: 576px) {
+            // sm breakpoint
+            font-size: 1.5rem; // Increase font size after sm breakpoint
+        }
+    }
+}
+
+// Search
+
+input.custom-search {
+
+    &:focus {
+        color: #212529;
+        font-weight: 500;
+    }
+
+    &::placeholder {
+        color: var(--bs-dark-border-subtle);
+    }
+}
