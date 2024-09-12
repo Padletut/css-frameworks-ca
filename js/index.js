@@ -50,9 +50,24 @@ if (signUpButton) {
 // Eventlistener Post page
 
 const postButton = document.getElementById("postButton");
+const postModalElement = document.getElementById('createPostModal');
+
 if (postButton) {
     postButton.addEventListener("click", function (event) {
         event.preventDefault();
-        validateInputs();
+        if (validateInputs()) {
+            const modal = bootstrap.Modal.getInstance(postModalElement);
+            modal.hide();
+        }
+    });
+}
+
+if (postModalElement) {
+    postModalElement.addEventListener('show.bs.modal', function () {
+        const form = postModalElement.querySelector('.needs-validation');
+        if (form) {
+            form.classList.remove('was-validated');
+            form.reset();
+        }
     });
 }
