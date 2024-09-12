@@ -51,5 +51,8 @@ if (signUpButton) {
 
 const postButton = document.getElementById("postButton");
 if (postButton) {
-    postButton.addEventListener("click", validateInputs);
+    postButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        validateInputs();
+    });
 }
