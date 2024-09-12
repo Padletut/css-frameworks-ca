@@ -5,8 +5,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="../dist/css/index.css">
-        <script defer src="..\node_modules\bootstrap\dist\js\bootstrap.bundle.min.js"></script>
+        <script defer src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script defer type="module" src="../js/index.js"></script>
         <title>ConnectSphere - Profile</title>
     </head>
@@ -17,7 +18,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand navbar-brand-custom text-wrap" href="#"> <img
                             src="../images/ConnectSphere logo.png" alt="Logo" width="64" height="64"
-                            class="d-inlince-block align-text-center">ConnectSphere</a>
+                            class="d-inline-block align-text-center">ConnectSphere</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -59,46 +60,67 @@
         </header>
         <main>
             <div class="container-fluid d-flex justify-content-center flex-column feed-container">
-                <div class="card bg-white rounded-3 flex-grow-1 flex-sm-grow-0 create-post-card card-custom">
-                    <div class="card-body">
-                        <form class="needs-validation d-flex flex-column gap-3" novalidate>
-                            <h1 class="fw-semibold">
-                                <p class="h1">Create New Post</p>
-                            </h1>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="title" aria-describedby="titleHelp"
-                                    placeholder="Title" required>
-                                <label for="title" class="form-label">Title</label>
-                                <div class="invalid-feedback">
-                                    Please enter a title
+                <button type="button" class="btn btn-primary mb-3 btn-auth-form-custom" data-bs-toggle="modal"
+                    data-bs-target="#createPostModal">
+                    Create New Post
+                </button>
+                <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="createPostModalLabel">Create New Post</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div
+                                    class="card bg-white rounded-3 flex-grow-1 flex-sm-grow-0 create-post-card card-custom">
+                                    <div class="card-body">
+                                        <form class="needs-validation d-flex flex-column gap-3" novalidate>
+                                            <h1 class="fw-semibold">
+                                                <p class="h1">Create New Post</p>
+                                            </h1>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="title"
+                                                    aria-describedby="titleHelp" placeholder="Title" required>
+                                                <label for="title" class="form-label">Title</label>
+                                                <div class="invalid-feedback">
+                                                    Please enter a title
+                                                </div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <textarea class="form-control" placeholder="What's on your mind?"
+                                                    id="postText" required></textarea>
+                                                <label for="postText">What's on your mind?</label>
+                                                <div class="invalid-feedback">
+                                                    Please write post content
+                                                </div>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="tags"
+                                                    aria-describedby="tagsHelp" placeholder="Tags (comma-separated)">
+                                                <label for="tags" class="form-label">Tags (comma-separated)</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="url" class="form-control" id="imageURL"
+                                                    aria-describedby="urlHelp"
+                                                    placeholder="Image url (www.example.com/example.jpg)">
+                                                <label for="imageURL" class="form-label">Image url
+                                                    (www.example.com/example.jpg)</label>
+                                            </div>
+                                            <div class="mb-3 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-auth-form-custom w-25"
+                                                    id="postButton">Post</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" placeholder="What's on your mind?" id="postText"
-                                    required></textarea>
-                                <label for="postText">What's on your mind?</label>
-                                <div class="invalid-feedback">
-                                    Please write post content
-                                </div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="tags" aria-describedby="tagsHelp"
-                                    placeholder="Tags (comma-separated)">
-                                <label for="tags" class="form-label">Tags (comma-separated)</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="url" class="form-control" id="imageURL" aria-describedby="urlHelp"
-                                    placeholder="Image url (www.example.com/example.jpg)">
-                                <label for="imageURL" class="form-label">Image url
-                                    (www.example.com/example.jpg)</label>
-                            </div>
-                            <div class="mb-3 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-auth-form-custom w-25"
-                                    id="postButton">Post</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
+
                 <div class="card bg-white rounded-3 flex-grow-1 flex-sm-grow-0 feed-post-card card-custom">
                     <div class="card-body d-flex flex-column">
                         <div class="card-header d-flex">
