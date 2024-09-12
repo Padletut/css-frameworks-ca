@@ -3,25 +3,42 @@ import { validateInputs } from "./validateinputs.mjs";
 
 // Switch between Login and Register account tabs
 
-document.getElementById("signUpLink").addEventListener("click", function (event) {
-    event.preventDefault();
-    const signUpTab = new bootstrap.Tab(document.getElementById("signUp-tab"));
-    signUpTab.show();
-});
+const signUpLink = document.getElementById("signUpLink");
+const signInLink = document.getElementById("signInLink");
 
-document.getElementById("signInLink").addEventListener("click", function (event) {
-    event.preventDefault();
-    const signInTab = new bootstrap.Tab(document.getElementById("signIn-tab"));
-    signInTab.show();
-});
+if (signUpLink) {
+    signUpLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        const signUpTab = new bootstrap.Tab(document.getElementById("signUp-tab"));
+        signUpTab.show();
+    });
+}
+
+if (signInLink) {
+    signInLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        const signInTab = new bootstrap.Tab(document.getElementById("signIn-tab"));
+        signInTab.show();
+    });
+}
 
 
 // Eventlistener Sign in and Sign up
 
-document.getElementById("signInButton").addEventListener("click", function (event) {
-    validateInputs();
-});
+const signInButton = document.getElementById("signInButton");
+const signUpButton = document.getElementById("signUpButton");
 
-document.getElementById("signUpButton").addEventListener("click", function (event) {
-    validateInputs();
-});
+if (signInButton) {
+    signInButton.addEventListener("click", validateInputs);
+}
+
+if (signUpButton) {
+    signUpButton.addEventListener("click", validateInputs);
+}
+
+// Eventlistener Post page
+
+const postButton = document.getElementById("postButton");
+if (postButton) {
+    postButton.addEventListener("click", validateInputs);
+}

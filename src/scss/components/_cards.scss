@@ -20,3 +20,41 @@
 .nav-tabs {
     display: none;
 }
+
+// Feed page
+
+.feed-container {
+    max-width: 500px;
+    row-gap: 1.5rem;
+}
+
+.create-post-card {
+    h1 {
+        font-size: 24px;
+    }
+
+    #postText {
+        height: 150px;
+    }
+
+}
+
+.feed-post-card {
+
+    .card-body {
+        gap: 25px;
+    }
+
+    .card-header,
+    .card-footer {
+        column-gap: 3rem;
+        background-color: var(--bs-card-color);
+
+        .card-like,
+        .card-comments {
+            column-gap: 1rem;
+            //  color: var(--bs-secondary-color);
+        }
+    }
+
+}

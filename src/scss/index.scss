@@ -1,5 +1,6 @@
 @import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules//bootstrap-icons/font/bootstrap-icons.min.css";
 @import "components/header";
 @import "components/footer";
 @import "components/buttons";
@@ -17,7 +18,7 @@ body {
     height: 100vh;
 
     main {
-        padding: 10% 0;
+        padding: 2vh 0;
         position: relative;
 
         .card {
