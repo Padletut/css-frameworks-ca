@@ -66,3 +66,4 @@ To start the development server and begin working on your project, run:
 ```bash
 npm run dev
 ```
+This will run both the sass watcher and live-server, allowing you to see live changes as you develop.
