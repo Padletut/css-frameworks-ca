@@ -1,4 +1,5 @@
 export function validateInputs() {
+    let isValid = true;
     (() => {
         'use strict'
 
@@ -7,14 +8,11 @@ export function validateInputs() {
 
         // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-
-                form.classList.add('was-validated')
-            }, false)
-        })
-    })()
+            if (!form.checkValidity()) {
+                isValid = false;
+            }
+            form.classList.add('was-validated');
+        });
+    })();
+    return isValid;
 }

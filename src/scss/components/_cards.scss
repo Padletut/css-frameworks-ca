@@ -45,6 +45,17 @@
         gap: 25px;
     }
 
+    .card-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .card-tags .badge {
+        font-size: 0.875rem;
+        padding: 0.5rem;
+    }
+
     .card-header,
     .card-footer {
         column-gap: 3rem;

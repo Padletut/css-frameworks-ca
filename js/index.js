@@ -29,11 +29,22 @@ const signInButton = document.getElementById("signInButton");
 const signUpButton = document.getElementById("signUpButton");
 
 if (signInButton) {
-    signInButton.addEventListener("click", validateInputs);
+    signInButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        const form = document.querySelector('.needs-validation');
+        if (form.checkValidity()) {
+            window.location.href = "profile/index.html";
+        } else {
+            form.classList.add('was-validated');
+        }
+    });
 }
 
 if (signUpButton) {
-    signUpButton.addEventListener("click", validateInputs);
+    signUpButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        validateInputs();
+    });
 }
 
 // Eventlistener Post page
