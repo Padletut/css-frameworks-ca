@@ -24,8 +24,9 @@
 // Feed page
 
 .feed-container {
-    max-width: 500px;
+    max-width: 800px;
     row-gap: 1.5rem;
+    align-items: center;
 }
 
 .create-post-card {
@@ -72,6 +73,11 @@
             height: fit-content;
             position: absolute;
             transform: translate(20px, -60px);
+
+            img {
+                width: 128px;
+                height: auto;
+            }
         }
 
         #profile-cover-edit-button {
@@ -105,4 +111,24 @@
             margin-bottom: 1.5rem;
         }
     }
+
+    @media (max-width: 768px) {
+        .card-header {
+            #profile-image {
+                transform: translate(10px, -45px);
+
+                img {
+                    max-width: 80px;
+                }
+            }
+
+            #profile-picture-edit-button {
+                transform: translate(5rem, 1.5rem);
+            }
+        }
+    }
+}
+
+.card-follow {
+    min-height: auto;
 }
