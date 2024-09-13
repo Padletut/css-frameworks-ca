@@ -1,0 +1,128 @@
+.card-custom {
+    box-shadow: $card-box-shadow, 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    min-height: 100%;
+
+    h1 {
+        font-size: 24px;
+        margin: $card-title-spacer-y 0 $card-spacer-y;
+    }
+
+    .form-check-container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    @media (min-width: 576px) {
+        min-width: 300px;
+    }
+}
+
+.nav-tabs {
+    display: none;
+}
+
+// Feed page
+.feed-container {
+    max-width: 800px;
+    row-gap: 1.5rem;
+    align-items: center;
+}
+
+.create-post-card h1 {
+    font-size: 24px;
+}
+
+#createText {
+    height: 150px;
+}
+
+.feed-post-card {
+    .card-body {
+        gap: 25px;
+    }
+
+    .card-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+
+        .badge {
+            font-size: 0.875rem;
+            padding: 0.5rem;
+        }
+    }
+
+    .card-header,
+    .card-footer {
+        background-color: var(--bs-card-color);
+    }
+}
+
+// Profile page
+.profile-card {
+    .card-header {
+        #profile-image {
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.10), 0px 4px 6px 0px rgba(0, 0, 0, 0.25);
+            border: 3px solid $white;
+            border-radius: 50%;
+            height: fit-content;
+            position: absolute;
+            transform: translate(20px, -60px);
+
+            img {
+                width: 128px;
+                height: auto;
+            }
+        }
+
+        #profile-cover-edit-button,
+        #profile-picture-edit-button {
+            position: absolute;
+
+            button {
+                @include edit-button-styles;
+            }
+        }
+
+        #profile-cover-edit-button {
+            left: 95%;
+            transform: translate(-95%, -50px);
+        }
+
+        #profile-picture-edit-button {
+            transform: translate(8.5rem, 3.1rem);
+        }
+    }
+
+    .card-main {
+        padding: 3rem 1.5rem 0;
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        #profile-id {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .card-header {
+            #profile-image {
+                transform: translate(10px, -45px);
+
+                img {
+                    max-width: 80px;
+                }
+            }
+
+            #profile-picture-edit-button {
+                transform: translate(5rem, 1.5rem);
+            }
+        }
+    }
+}
+
+.card-follow {
+    min-height: auto;
+}
