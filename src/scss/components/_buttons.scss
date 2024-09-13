@@ -38,7 +38,22 @@
     }
 }
 
-.btn-auth-form-custom {
+@mixin edit-button-styles {
+    background-color: $white;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.10), 0px 4px 6px 0px rgba(0, 0, 0, 0.10);
+    width: 36px;
+    height: 36px;
+
+    &:hover {
+        box-shadow: $btn-hover-box-shadow;
+    }
+
+    &:active {
+        box-shadow: $btn-active-box-shadow;
+    }
+}
+
+.btn-custom {
     @include custom-button($btn-primary-bg,
         $btn-primary-border-color,
         $btn-primary-color,
