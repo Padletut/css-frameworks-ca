@@ -22,26 +22,21 @@
 }
 
 // Feed page
-
 .feed-container {
     max-width: 800px;
     row-gap: 1.5rem;
     align-items: center;
 }
 
-.create-post-card {
-    h1 {
-        font-size: 24px;
-    }
+.create-post-card h1 {
+    font-size: 24px;
+}
 
-    #postText {
-        height: 150px;
-    }
-
+#createText {
+    height: 150px;
 }
 
 .feed-post-card {
-
     .card-body {
         gap: 25px;
     }
@@ -50,11 +45,11 @@
         display: flex;
         gap: 0.5rem;
         flex-wrap: wrap;
-    }
 
-    .card-tags .badge {
-        font-size: 0.875rem;
-        padding: 0.5rem;
+        .badge {
+            font-size: 0.875rem;
+            padding: 0.5rem;
+        }
     }
 
     .card-header,
@@ -80,28 +75,27 @@
             }
         }
 
-        #profile-cover-edit-button {
+        #profile-cover-edit-button,
+        #profile-picture-edit-button {
             position: absolute;
-            left: 95%;
-            transform: translate(-95%, -50px);
 
             button {
                 @include edit-button-styles;
             }
         }
 
-        #profile-picture-edit-button {
-            position: absolute;
-            transform: translate(8.5rem, 3.1rem);
+        #profile-cover-edit-button {
+            left: 95%;
+            transform: translate(-95%, -50px);
+        }
 
-            button {
-                @include edit-button-styles;
-            }
+        #profile-picture-edit-button {
+            transform: translate(8.5rem, 3.1rem);
         }
     }
 
     .card-main {
-        padding: 3rem 1.5rem 0 1.5rem;
+        padding: 3rem 1.5rem 0;
 
         h1 {
             margin-bottom: 0;
