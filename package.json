@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "ConnectSphere - CSS Frameworks CA project",
   "scripts": {
-    "build": "sass src/scss:dist/css",
+    "build": "sass src/scss:dist/css --style=compressed && postcss dist/css/*.css --use autoprefixer -d dist/css/",
     "watch": "sass --watch src/scss:dist/css",
     "start": "live-server",
     "dev": "npm-run-all --parallel watch start"
@@ -31,6 +31,7 @@
     "bootstrap-icons": "^1.11.3"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^6.0.0",
     "live-server": "^1.2.2",
     "npm-run-all": "^4.1.5",
     "sass": "^1.77.8"

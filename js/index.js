@@ -1,5 +1,7 @@
 import { validateInputs } from "./validateinputs.mjs";
+import { postcss } from "./postcss.config.mjs";
 
+postcss();
 
 // Switch between Login and Register account tabs
 
