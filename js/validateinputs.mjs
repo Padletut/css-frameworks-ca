@@ -1,14 +1,18 @@
-export function validateInputs(form) {
-    'use strict';
+export function validateInputs() {
+    let isValid = true;
+    (() => {
+        'use strict'
 
-    if (!form) {
-        console.error('Form element is not provided');
-        return false;
-    }
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
 
-    const isValid = form.checkValidity();
-    if (!isValid) {
-        form.classList.add('was-validated');
-    }
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            if (!form.checkValidity()) {
+                isValid = false;
+            }
+            form.classList.add('was-validated');
+        });
+    })();
     return isValid;
 }

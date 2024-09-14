@@ -1,12 +1,4 @@
 import { validateInputs } from "./validateinputs.mjs";
-import { loadHTML } from "./loadhtml.mjs";
-
-// Load modals
-const modalsContainer = document.getElementById("modals-container");
-if (modalsContainer) {
-    loadHTML('../modals/createnewpostmodal.html', 'modals-container', initializeCreatePostModal)
-    loadHTML('../modals/commentmodal.html', 'modals-container', initializeCommentModal);
-}
 
 // Switch between Login and Register account tabs
 
@@ -29,96 +21,52 @@ if (signInLink) {
     });
 }
 
+
 // Eventlistener Sign in and Sign up
+
 const signInButton = document.getElementById("signInButton");
 const signUpButton = document.getElementById("signUpButton");
 
-function handleFormSubmission(buttonElement, formId, redirectUrl) {
-    if (buttonElement) {
-        buttonElement.addEventListener("click", function (event) {
-            event.preventDefault();
-            const form = document.getElementById(formId);
-            if (validateInputs(form)) {
-                form.reset();
-                window.location.href = redirectUrl;
-            } else {
-                event.preventDefault();
-                event.stopPropagation();
-                form.classList.add('was-validated');
-            }
-        });
-    }
+if (signInButton) {
+    signInButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        const form = document.querySelector('.needs-validation');
+        if (form.checkValidity()) {
+            window.location.href = "profile/index.html";
+        } else {
+            form.classList.add('was-validated');
+        }
+    });
 }
 
-handleFormSubmission(signInButton, "signInForm", "profile/index.html");
-handleFormSubmission(signUpButton, "signUpForm", "profile/index.html");
-
-function initializeCreatePostModal() {
-    // Handle create new post modal
-    const openPostModalButton = document.getElementById("openPostModalButton");
-    if (openPostModalButton) {
-        openPostModalButton.addEventListener("click", function (event) {
-            event.preventDefault();
-            const createNewPostModalElement = document.getElementById("createPostModal");
-            if (createNewPostModalElement) {
-                const createNewPostModal = new bootstrap.Modal(createNewPostModalElement);
-                createNewPostModal.show();
-                const submitButton = createNewPostModalElement.querySelector('button[type="submit"]');
-                if (submitButton) {
-                    submitButton.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        const form = createNewPostModalElement.querySelector('.needs-validation');
-                        if (validateInputs(form)) {
-                            createNewPostModal.hide();
-                        }
-                    });
-                }
-                // Reset validation state when modal is hidden
-                createNewPostModalElement.addEventListener('hidden.bs.modal', function () {
-                    const form = createNewPostModalElement.querySelector('.needs-validation');
-                    if (form) {
-                        form.classList.remove('was-validated');
-                        form.reset();
-                    }
-                });
-            } else {
-                console.error('Post modal element not found');
-            }
-        });
-    }
+if (signUpButton) {
+    signUpButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        validateInputs();
+    });
 }
 
-function initializeCommentModal() {
-    // Handle comment modal
-    const openCommentModalButton = document.getElementById("commentOpenModalButton");
-    if (openCommentModalButton) {
-        openCommentModalButton.addEventListener("click", function (event) {
-            event.preventDefault();
-            const commentModalElement = document.getElementById("commentModal");
-            if (commentModalElement) {
-                const commentModal = new bootstrap.Modal(commentModalElement);
-                commentModal.show();
-                const submitButton = commentModalElement.querySelector('button[type="submit"]');
-                if (submitButton) {
-                    submitButton.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        const form = commentModalElement.querySelector('.needs-validation');
-                        if (validateInputs(form)) {
-                            commentModal.hide();
-                        }
-                    });
-                }
-                // Reset validation state when modal is hidden
-                commentModalElement.addEventListener('hidden.bs.modal', function () {
-                    const form = commentModalElement.querySelector('.needs-validation');
-                    if (form) {
-                        form.classList.remove('was-validated');
-                        form.reset();
-                    }
-                });
-            } else {
-                console.error('Comment modal element not found');
-            }
-        });
-    }
+// Eventlistener Post page
+
+const postButton = document.getElementById("postButton");
+const postModalElement = document.getElementById('createPostModal');
+
+if (postButton) {
+    postButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (validateInputs()) {
+            const modal = bootstrap.Modal.getInstance(postModalElement);
+            modal.hide();
+        }
+    });
+}
+
+if (postModalElement) {
+    postModalElement.addEventListener('show.bs.modal', function () {
+        const form = postModalElement.querySelector('.needs-validation');
+        if (form) {
+            form.classList.remove('was-validated');
+            form.reset();
+        }
+    });
 }
