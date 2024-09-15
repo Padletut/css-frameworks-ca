@@ -1,4 +1,3 @@
-@ -1,69 +1,2 @@
 # ConnectSphere (css-frameworks-ca)
 
 ConnectSphere is a dynamic social media platform designed to enhance user engagement. Users can create personalized profiles, share diverse content, and interact effortlessly. 
