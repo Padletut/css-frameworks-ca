@@ -67,5 +67,3 @@ To start the development server and begin working on your project, run:
 npm run dev
 ```
 This will run both the sass watcher and live-server, allowing you to see live changes as you develop.
-# css-frameworks-ca
-Replace this text with a description of your social media project.
