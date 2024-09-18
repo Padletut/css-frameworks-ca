@@ -33,11 +33,10 @@
                                     placeholder="Tags (comma-separated)">
                                 <label for="tags" class="form-label">Tags (comma-separated)</label>
                             </div>
-                            <div class="form-floating mb-3">
-                                <input type="url" class="form-control" id="imageURL" aria-describedby="urlHelp"
-                                    placeholder="Image url (www.example.com/example.jpg)">
-                                <label for="imageURL" class="form-label">Image url
-                                    (www.example.com/example.jpg)</label>
+                            <div class="form-floating mb-3" id="form-image-upload">
+                                <input type="file" class="form-control mt-2" id="imageUpload"
+                                    aria-describedby="uploadHelp" accept="image/*">
+                                <label for="imageUpload" class="form-label text-wrap">Upload Image</label>
                             </div>
                             <div class="mb-3 d-flex justify-content-end">
                                 <button type="submit" class="btn btn-custom" id="postButton">Post</button>

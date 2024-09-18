@@ -29,3 +29,23 @@ body {
         }
     }
 }
+
+
+#form-image-upload {
+
+    .form-control {
+        padding-top: 3rem;
+        min-height: 5rem;
+    }
+
+    .form-label {
+        top: 1rem;
+    }
+}
+
+@media (max-width: 420px) {
+
+    #imageURL {
+        min-height: 75px;
+    }
+}
