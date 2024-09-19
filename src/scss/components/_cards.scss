@@ -37,6 +37,14 @@
 }
 
 .feed-post-card {
+    .post-card-header-userinformation {
+        width: fit-content;
+
+        .postheader-username {
+            color: $black;
+        }
+    }
+
     .card-body {
         gap: 25px;
     }
