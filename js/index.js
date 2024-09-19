@@ -39,7 +39,9 @@ function handleFormSubmission(buttonElement, formId, redirectUrl) {
             event.preventDefault();
             const form = document.getElementById(formId);
             if (validateInputs(form)) {
-                form.reset();
+                setTimeout(() => {
+                    form.reset();
+                }, 2000);
                 window.location.href = redirectUrl;
             } else {
                 event.preventDefault();
