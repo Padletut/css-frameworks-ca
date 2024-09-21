@@ -8,6 +8,8 @@ if (modalsContainer) {
     loadHTML('../modals/commentmodal.html', 'modals-container', initializeCommentModal);
 }
 
+
+
 // Switch between Login and Register account tabs
 
 const signUpLink = document.getElementById("signUpLink");
@@ -124,3 +126,25 @@ function initializeCommentModal() {
         });
     }
 }
+
+// Function to calculate and set body padding
+function setBodyPadding() {
+    const header = document.querySelector('.fixed-top');
+    const footer = document.querySelector('footer.fixed-bottom');
+    const body = document.body;
+
+    if (header && footer && body) {
+        const headerHeight = header.offsetHeight;
+        const footerHeight = footer.offsetHeight;
+
+        // Set padding for the body
+        body.style.paddingTop = `${headerHeight + 30}px`;
+        body.style.paddingBottom = `${footerHeight + 30}px`;
+    }
+}
+
+// Set body padding on initial load and window resize
+window.addEventListener('load', setBodyPadding);
+window.addEventListener('resize', setBodyPadding);
+
+setBodyPadding();

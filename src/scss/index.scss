@@ -17,12 +17,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     --bs-body-bg: #{$body-bg};
-    height: 100vh;
 
     main {
-        padding: 4rem 0;
-        position: relative;
-
         .card {
             display: flex;
 
