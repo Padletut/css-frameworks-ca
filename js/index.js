@@ -1,4 +1,4 @@
-import { loadHTML } from "./loadhtml.mjs";
+import { loadHTML } from "./ui/loadhtml.mjs";
 import { authSwitchTabs } from "./ui/bootstrap/authswitchtabs.mjs";
 import { handleFormSubmission } from "./ui/bootstrap/handleFormSubsimission.mjs";
 import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmodal.mjs";
