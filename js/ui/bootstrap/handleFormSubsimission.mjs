@@ -1,22 +1,21 @@
 import { validateInputs } from "./validateinputs.mjs";
-import { login } from "../../API/auth/login.mjs";
-import { register } from "../../API/auth/register.mjs";
+import { onAuth } from "../../API/ui/events/onauth.mjs";
 
 export function handleFormSubmission(buttonElement, formId, redirectUrl) {
     if (buttonElement) {
-        buttonElement.addEventListener("click", function (event) {
+        buttonElement.addEventListener("click", async function (event) {
             event.preventDefault();
             const form = document.getElementById(formId);
             if (validateInputs(form)) {
-                if (formId === "signInForm") {
-                    login(form.Email.value, form.Password.value);
-                } else {
-                    register(form.firstName.value, form.signUpEmail.value, form.signUpPassword.value);
+                try {
+                    await onAuth(event);
+                    window.location.href = redirectUrl;
+                    setTimeout(() => {
+                        form.reset();
+                    }, 2000);
+                } catch (error) {
+                    console.error("Error during form submission:", error);
                 }
-                setTimeout(() => {
-                    form.reset();
-                }, 2000);
-                //   window.location.href = redirectUrl;
             } else {
                 event.preventDefault();
                 event.stopPropagation();
