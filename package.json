@@ -3,14 +3,9 @@
   "version": "0.0.1",
   "description": "ConnectSphere - CSS Frameworks CA project",
   "scripts": {
-<<<<<<< Updated upstream
-    "build": "npx sass src/scss:dist/css --style=compressed && postcss dist/css/*.css --use autoprefixer -d dist/css/",
-    "watch": "npx sass --watch src/scss:dist/css",
-=======
     "build": "sass src/scss:dist/css --style=compressed && postcss dist/css/*.css --use autoprefixer -d dist/css/",
     "watch": "sass --watch src/scss:dist/css",
     "docs": "jsdoc -c ./conf.json -r",
->>>>>>> Stashed changes
     "start": "live-server",
     "dev": "npm-run-all --parallel watch start"
   },
