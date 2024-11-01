@@ -1,9 +1,15 @@
+<<<<<<< Updated upstream
 import { loadHTML } from "./ui/loadhtml.mjs";
 import { authSwitchTabs } from "./ui/bootstrap/authswitchtabs.mjs";
 import { handleFormSubmission } from "./ui/bootstrap/handleFormSubsimission.mjs";
 import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmodal.mjs";
 import { initializeCommentModal } from "./ui/bootstrap/initializecommentmodal.mjs";
 import { setBodyPadding } from "./ui/bootstrap/setbodypadding.mjs";
+=======
+import { validateInputs } from "./validateinputs.mjs";
+import { loadHTML } from "./loadhtml.mjs";
+import { switchTabs } from "./ui/bootstrap/authTabs.mjs";
+>>>>>>> Stashed changes
 
 // Load modals
 const modalsContainer = document.getElementById("modals-container");
@@ -12,7 +18,12 @@ if (modalsContainer) {
     loadHTML('../modals/commentmodal.html', 'modals-container', initializeCommentModal);
 }
 
+<<<<<<< Updated upstream
 authSwitchTabs();
+=======
+switchTabs();
+
+>>>>>>> Stashed changes
 
 // Eventlistener Sign in and Sign up
 const signInButton = document.getElementById("signInButton");
