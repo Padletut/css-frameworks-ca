@@ -1,6 +1,7 @@
 import * as constants from "../constants.mjs";
 import { headers } from "../headers.mjs";
 import { authFetch } from "./fetch.mjs";
+import { handleErrors } from "./handleerrors.mjs";
 
 const { API_BASE_URL, API_AUTH, API_REGISTER } = constants;
 
@@ -15,5 +16,5 @@ export async function register(name, email, password) {
         return await response.json();
     }
 
-    throw new Error("Could not register the account");
+    await handleErrors(response);
 }

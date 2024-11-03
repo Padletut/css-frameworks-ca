@@ -1,6 +1,8 @@
 import * as global from "../constants.mjs";
 import { saveStorage } from "../../storage/savestorage.mjs";
 import { authFetch } from "./fetch.mjs";
+import { handleErrors } from "./handleerrors.mjs";
+import { renderErrors } from "../ui/rendererrors.mjs";
 
 const { API_BASE_URL, API_AUTH, API_LOGIN } = global;
 
@@ -17,5 +19,5 @@ export async function login(email, password) {
         return profile;
     }
 
-    throw new Error("Could not login the account");
+    await handleErrors(response);
 }
