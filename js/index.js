@@ -5,6 +5,7 @@ import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmo
 import { initializeCommentModal } from "./ui/bootstrap/initializecommentmodal.mjs";
 import { setBodyPadding } from "./ui/bootstrap/setbodypadding.mjs";
 import { checkAuth } from "./ui/checkauth.mjs";
+import { logout } from "./API/auth/logout.mjs";
 
 // Check if user is logged in
 checkAuth();
@@ -30,3 +31,12 @@ window.addEventListener('load', setBodyPadding);
 window.addEventListener('resize', setBodyPadding);
 
 setBodyPadding();
+
+// Eventlistener for logout button
+const logoutButton = document.querySelector(".logout");
+if (logoutButton) {
+    logoutButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        logout();
+    });
+}

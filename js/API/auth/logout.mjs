@@ -4,5 +4,5 @@ import { saveStorage } from "../../storage/savestorage.mjs";
 export function logout() {
     saveStorage("accessToken", "");
     saveStorage("profile", "");
-    window.location.replace("../../index.html");
+    window.location.replace("../index.html");
 }
