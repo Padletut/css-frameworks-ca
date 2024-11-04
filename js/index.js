@@ -13,7 +13,7 @@ checkAuth();
 // Load modals
 const modalsContainer = document.getElementById("modals-container");
 if (modalsContainer) {
-    loadHTML('../modals/createnewpostmodal.html', 'modals-container', initializeCreatePostModal)
+    loadHTML('../modals/createnewpostmodal.html', 'modals-container', initializeCreatePostModal);
     loadHTML('../modals/commentmodal.html', 'modals-container', initializeCommentModal);
 }
 
