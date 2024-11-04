@@ -1,4 +1,5 @@
 import { validateEmail } from './validateemail.mjs';
+import { renderErrors } from '../../API/ui/rendererrors.mjs';
 
 export function validateInputs(form) {
     'use strict';
@@ -12,8 +13,13 @@ export function validateInputs(form) {
 
     const emailInput = form.querySelector("#signUpEmail");
     if (emailInput) {
-        // Validate email input
-        isValid = validateEmail(form, emailInput) && isValid;
+        try {
+            // Validate email input
+            isValid = validateEmail(form, emailInput) && isValid;
+        } catch (error) {
+            renderErrors(error);
+            isValid = false;
+        }
 
         if (!isValid) {
             form.classList.add('was-validated');
