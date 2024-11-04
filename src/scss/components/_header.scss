@@ -6,6 +6,8 @@ header {
 
 .navbar {
 
+    min-height: 80px;
+
     @media (max-width: 991px) {
         .position-absolute {
             position: relative !important;
