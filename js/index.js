@@ -4,6 +4,10 @@ import { handleFormSubmission } from "./ui/bootstrap/handleFormSubsimission.mjs"
 import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmodal.mjs";
 import { initializeCommentModal } from "./ui/bootstrap/initializecommentmodal.mjs";
 import { setBodyPadding } from "./ui/bootstrap/setbodypadding.mjs";
+import { checkAuth } from "./ui/checkauth.mjs";
+
+// Check if user is logged in
+checkAuth();
 
 // Load modals
 const modalsContainer = document.getElementById("modals-container");
