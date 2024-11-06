@@ -7,8 +7,8 @@ const { API_BASE_URL, API_PROFILES } = global;
 const loggedInUser = loadStorage("profile");
 
 // Fetches the profile data from the API
-export async function getProfile() {
-    const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${loggedInUser.name}`, {
+export async function getProfile(profileName = loggedInUser.name) {
+    const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${profileName}`, {
         method: "GET",
     });
 
