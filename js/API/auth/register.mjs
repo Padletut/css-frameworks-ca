@@ -1,7 +1,7 @@
 import * as constants from "../constants.mjs";
 import { headers } from "../headers.mjs";
 import { authFetch } from "./fetch.mjs";
-import { handleErrors } from "./handleerrors.mjs";
+import { handleErrors } from "../handleerrors/handleerrors.mjs";
 
 const { API_BASE_URL, API_AUTH, API_REGISTER } = constants;
 
