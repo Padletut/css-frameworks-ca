@@ -9,6 +9,7 @@ import { logout } from "./API/auth/logout.mjs";
 import { getProfile } from "./API/profiles/getprofile.mjs";
 import { getAllProfiles } from "./API/profiles/getallprofiles.mjs";
 import { getPosts } from "./API/feed/getposts.mjs";
+import { getPost } from "./API/feed/getpost.mjs";
 
 // Check if user is logged in
 checkAuth();
@@ -53,5 +54,6 @@ if (document.title === "Profile | ConnectSphere") {
 // if <title>Feed | ConnectSphere</title> fetch all prosts
 if (document.title === "Feed | ConnectSphere") {
     getPosts();
+    getPost();
     getAllProfiles();
 }
