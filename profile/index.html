@@ -71,10 +71,11 @@
                             class="card bg-white rounded-3 flex-grow-1 flex-sm-grow-0 feed-post-card card-custom profile-card">
                             <div class="card-body d-flex flex-column p-0">
                                 <div class="card-header p-0">
-                                    <img src="images/coverphotoplaceholder.svg" width="100%" alt="Cover Photo">
+                                    <div id="profile-cover">
+                                        <!-- Dynamic Cover Picture -->
+                                    </div>
                                     <div id="profile-image">
-                                        <img src="/feed/images/profilepictureplaceholder.svg" width="128px"
-                                            alt="Profile Picture">
+                                        <!-- Dynamic Profile Picture -->
                                     </div>
                                     <div id="profile-picture-edit-button">
                                         <button type="button" title="Edit Profile Picture"
@@ -90,8 +91,7 @@
                                 <div class="card-main">
                                     <div class="d-flex flex-row justify-content-between align-items-baseline">
                                         <div id="profile-id">
-                                            <h2 class="fw-semibold fs-2">John Doe</h2>
-                                            <small class="text-body-secondary">@johndoe</small>
+                                            <!-- Dynamic Username -->
                                         </div>
                                         <div class="follow">
                                             <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
@@ -99,9 +99,9 @@
                                                 for="btn-check">Follow</label>
                                         </div>
                                     </div>
-                                    <p>Passionate about technology and connecting people. Software engineer by day,
-                                        avid
-                                        reader by night.</p>
+                                    <div id="profile-bio">
+                                        <!-- Dynamic Bio -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer d-flex flex-wrap pt-3 justify-content-between">
