@@ -26,7 +26,7 @@ export async function renderPosts() {
                 postCard.innerHTML = `
                     <div class="card-body d-flex flex-column">
                         <div class="card-header">
-                            <a href="../profile/index.html?profile=${encodeURIComponent(post.author.name)}" class="text-decoration-none post-profile-link">
+                            <a href="../profile/index.html?profile=${post.author.name}" class="text-decoration-none post-profile-link">
                                 <div class="d-flex column-gap-3 post-card-header-userinformation" role="button">
                                     <div class="post-profile-image">
                                         <img src="images/profilepictureplaceholder.svg" alt="image" width="64" height="64">

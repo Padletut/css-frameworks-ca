@@ -7,22 +7,21 @@ import { renderProfileBio } from "../ui/profiles/renderprofilebio.mjs";
 export async function renderProfile() {
     document.addEventListener("DOMContentLoaded", async () => {
         const urlParams = new URLSearchParams(window.location.search);
-        const profileName = urlParams.get("profile");
+        let profileName = urlParams.get("profile");
+        if (profileName === null) {
+            profileName = undefined;
+        }
 
-        if (profileName) {
-            try {
-                const profile = await getProfile(profileName);
-                if (document.title === "Profile | ConnectSphere") {
-                    renderProfileBanner(profile);
-                    renderProfileAvatar(profile);
-                    renderProfileName(profile);
-                    renderProfileBio(profile);
-                }
-            } catch (error) {
-                console.error("Error rendering profile data:", error);
+        try {
+            const profile = await getProfile(profileName);
+            if (document.title === "Profile | ConnectSphere") {
+                renderProfileBanner(profile);
+                renderProfileAvatar(profile);
+                renderProfileName(profile);
+                renderProfileBio(profile);
             }
-        } else {
-            console.error("Profile name not found in URL");
+        } catch (error) {
+            console.error("Error rendering profile data:", error);
         }
     });
 }
