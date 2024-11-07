@@ -48,4 +48,6 @@ if (document.title === "Feed | ConnectSphere") {
     renderPosts();
 }
 
+// Render profile data
+
 renderProfile();

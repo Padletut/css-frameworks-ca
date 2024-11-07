@@ -1,8 +1,6 @@
 // Renders the profile banner in div with id "profile-cover"
 export async function renderProfileName(profileName) {
     const profileNameElement = document.getElementById("profile-id");
-
-    console.log(profileName);
     if (!profileNameElement) {
         console.error("Profile name element not found");
         return;
