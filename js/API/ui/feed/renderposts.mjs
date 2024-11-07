@@ -1,4 +1,6 @@
 import { getPosts } from "../../feed/getposts.mjs";
+import { loadHTML } from "../../../ui/loadhtml.mjs";
+import { initializeCommentModal } from "../../../ui/bootstrap/initializecommentmodal.mjs";
 
 export async function renderPosts() {
     const feedContainer = document.getElementById("feed-container");
@@ -12,27 +14,37 @@ export async function renderPosts() {
             }
 
             posts.data.forEach((post) => {
+
+                // Destructure the post object
+                const { author, title, body, media, tags, reactions, comments, created } = post;
+
                 const postCard = document.createElement("div");
                 postCard.classList.add("card", "bg-white", "rounded-3", "flex-grow-1", "flex-sm-grow-0", "feed-post-card", "card-custom");
 
                 // Format the date
-                const postDate = new Date(post.created);
+                const postDate = new Date(created);
                 const formattedDate = postDate.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "2-digit",
                 });
 
+                // Capitalize the first letter of the author's name
+                const authorName = capitalizeFirstLetter(author.name);
+
+                // Capitalize the first letter of the title
+                const postTitle = capitalizeFirstLetter(title);
+
                 postCard.innerHTML = `
                     <div class="card-body d-flex flex-column">
                         <div class="card-header">
-                            <a href="../profile/index.html?profile=${post.author.name}" class="text-decoration-none post-profile-link">
+                            <a href="../profile/index.html?profile=${authorName}" class="text-decoration-none post-profile-link">
                                 <div class="d-flex column-gap-3 post-card-header-userinformation" role="button">
                                     <div class="post-profile-image">
-                                        <img src="images/profilepictureplaceholder.svg" alt="image" width="64" height="64">
+                                        <img src="${author.avatar.url}" alt="${author.avatar.alt}" width="64" height="64">
                                     </div>
                                     <div class="postheader-username">
-                                        <h2>${post.author.name}</h2>
+                                        <h2>${authorName}</h2>
                                         <small class="text-body-secondary">Posted on ${formattedDate}</small>
                                     </div>
                                 </div>
@@ -40,22 +52,22 @@ export async function renderPosts() {
                         </div>
                         <div class="card-main">
                             <div class="card-title">
-                                <h3>${post.title}</h3>
+                                <h3>${postTitle}</h3>
                             </div>
                             <div class="card-text">
-                                <p>${post.body}</p>
-                                ${post.media ? `<img src="${post.media.url}" alt="${post.media.alt}" width="100%">` : ''}
+                                <p>${body}</p>
+                                ${media ? `<img src="${media.url}" alt="${media.alt}" width="100%">` : ''}
                             </div>
                             <div class="card-tags mt-3">
-                                ${post.tags.map(tag => `<span class="badge bg-secondary" role="button">${tag}</span>`).join('')}
+                                ${tags.map(tag => `<span class="badge bg-secondary" role="button">${tag}</span>`).join('')}
                             </div>
                         </div>
                         <div class="card-footer d-flex p-1 pt-3 column-gap-5" role="button">
                             <div class="d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover">
-                                <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary">Like (${post.reactions.length})</small>
+                                <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary">Like (${reactions.length})</small>
                             </div>
-                            <div id="commentOpenModalButton" class="d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
-                                <i class="bi bi-chat-left-dots-fill"></i><small class="text-body-secondary">Comments (${post.comments.length})</small>
+                            <div class="comment-open-modal-button d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
+                                <i class="bi bi-chat-left-dots-fill"></i><small class="text-body-secondary">Comments (${comments.length})</small>
                             </div>
                         </div>
                     </div>
@@ -63,9 +75,22 @@ export async function renderPosts() {
 
                 // Append the post card to the feed container
                 feedContainer.appendChild(postCard);
+
+                // Handle comment modal buttons
+                const commentButton = postCard.querySelector('.comment-open-modal-button');
+                if (commentButton) {
+                    commentButton.addEventListener('click', function () {
+                        initializeCommentModal(post);
+                    });
+                }
+
             });
         } catch (error) {
             console.error("Error rendering posts:", error);
         }
     }
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

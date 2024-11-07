@@ -16,7 +16,7 @@ checkAuth();
 const modalsContainer = document.getElementById("modals-container");
 if (modalsContainer) {
     loadHTML('../modals/createnewpostmodal.html', 'modals-container', initializeCreatePostModal);
-    loadHTML('../modals/commentmodal.html', 'modals-container', initializeCommentModal);
+    loadHTML('../modals/commentmodal.html', 'modals-container');
 }
 
 authSwitchTabs();
@@ -49,5 +49,6 @@ if (document.title === "Feed | ConnectSphere") {
 }
 
 // Render profile data
-
-renderProfile();
+if (document.title === "Profile | ConnectSphere") {
+    renderProfile();
+}
