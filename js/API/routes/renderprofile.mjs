@@ -6,16 +6,23 @@ import { renderProfileBio } from "../ui/profiles/renderprofilebio.mjs";
 
 export async function renderProfile() {
     document.addEventListener("DOMContentLoaded", async () => {
-        try {
-            const profile = await getProfile();
-            if (document.title === "Profile | ConnectSphere") {
-                renderProfileBanner(profile);
-                renderProfileAvatar(profile);
-                renderProfileName(profile);
-                renderProfileBio(profile);
+        const urlParams = new URLSearchParams(window.location.search);
+        const profileName = urlParams.get("profile");
+
+        if (profileName) {
+            try {
+                const profile = await getProfile(profileName);
+                if (document.title === "Profile | ConnectSphere") {
+                    renderProfileBanner(profile);
+                    renderProfileAvatar(profile);
+                    renderProfileName(profile);
+                    renderProfileBio(profile);
+                }
+            } catch (error) {
+                console.error("Error rendering profile data:", error);
             }
-        } catch (error) {
-            console.error("Error rendering profile data:", error);
+        } else {
+            console.error("Profile name not found in URL");
         }
     });
 }

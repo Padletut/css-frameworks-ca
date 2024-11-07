@@ -11,6 +11,7 @@ export async function getPosts() {
         _author: "true",
         _comments: "true",
         _reactions: "true",
+        limit: "10",
     });
 
     const response = await feedProfileFetch(`${API_BASE_URL}${API_POSTS}?${queryParams.toString()}`, {
@@ -19,7 +20,6 @@ export async function getPosts() {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
         return data;
     } else {
         handleErrors(response);

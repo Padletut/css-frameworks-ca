@@ -6,10 +6,8 @@ import { initializeCommentModal } from "./ui/bootstrap/initializecommentmodal.mj
 import { setBodyPadding } from "./ui/bootstrap/setbodypadding.mjs";
 import { checkAuth } from "./ui/checkauth.mjs";
 import { logout } from "./API/auth/logout.mjs";
-import { getProfile } from "./API/profiles/getprofile.mjs";
-import { getAllProfiles } from "./API/profiles/getallprofiles.mjs";
-import { getPosts } from "./API/feed/getposts.mjs";
 import { renderProfile } from "./API/routes/renderprofile.mjs";
+import { renderPosts } from "./API/ui/feed/renderposts.mjs";
 
 // Check if user is logged in
 checkAuth();
@@ -47,9 +45,7 @@ if (logoutButton) {
 
 // if <title>Feed | ConnectSphere</title> fetch all prosts
 if (document.title === "Feed | ConnectSphere") {
-    getPosts();
-    //  getPost();
-    getAllProfiles();
+    renderPosts();
 }
 
 renderProfile();
