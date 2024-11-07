@@ -9,7 +9,13 @@ const loggedInUser = loadStorage("profile");
 // Fetches the profile data from the API
 export async function getProfile(profileName = loggedInUser.name) {
 
-    const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${profileName}`, {
+    const queryParams = new URLSearchParams({
+        _following: "true",
+        _followers: "true",
+        _posts: "true",
+    });
+
+    const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${profileName}?${queryParams}`, {
         method: "GET",
     });
 
