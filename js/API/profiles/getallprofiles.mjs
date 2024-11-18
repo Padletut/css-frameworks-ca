@@ -5,7 +5,7 @@ import { handleErrors } from "../handleerrors/handleerrors.mjs";
 const { API_BASE_URL, API_PROFILES } = global;
 
 // Fetches all profile data from the API across multiple pages
-export async function getAllProfiles() {
+export async function getAllProfiles(filterName) {
     let allProfiles = [];
     let currentPage = 1;
     let isLastPage = false;
@@ -27,8 +27,8 @@ export async function getAllProfiles() {
         }
     }
 
-    console.log(allProfiles);
+    return allProfiles;
     // Find profile by contain pert of a name
-    const profile = allProfiles.filter(profile => profile.name.includes("Nat"));
-    console.log(profile);
+    //const profile = allProfiles.filter(profile => profile.name.filter(name => name.includes(filterName)));
+    //console.log(profile);
 }

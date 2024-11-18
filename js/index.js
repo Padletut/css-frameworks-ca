@@ -46,10 +46,10 @@ if (logoutButton) {
 
 // if <title>Feed | ConnectSphere</title> fetch all prosts
 if (document.title === "Feed | ConnectSphere") {
-    renderPosts();
+    await renderPosts();
 }
 
 // Render profile data
 if (document.title === "Profile | ConnectSphere") {
-    renderProfile();
+    await renderProfile();
 }
