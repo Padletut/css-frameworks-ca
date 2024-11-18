@@ -2,12 +2,18 @@ import { getPosts } from "../../feed/getposts.mjs";
 import { loadHTML } from "../../../ui/loadhtml.mjs";
 import { initializeCommentModal } from "../../../ui/bootstrap/initializecommentmodal.mjs";
 
+let nextPage;
+let isLastPage = false;
+
 export async function renderPosts() {
     const feedContainer = document.getElementById("feed-container");
     if (feedContainer) {
         try {
-            const posts = await getPosts();
-            console.log("Posts data:", posts);
+            if (!nextPage) {
+                nextPage = 1;
+            }
+            const posts = await getPosts(nextPage);
+            nextPage = posts.meta.nextPage;
 
             if (!Array.isArray(posts.data)) {
                 throw new Error("Posts data is not an array");
@@ -83,14 +89,31 @@ export async function renderPosts() {
                         initializeCommentModal(post);
                     });
                 }
-
             });
         } catch (error) {
             console.error("Error rendering posts:", error);
         }
     }
+    if (!isLastPage) {
+        createShowMoreButton();
+    }
 }
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function createShowMoreButton() {
+    const feedContainer = document.getElementById("feed-container");
+    const showMoreButton = document.createElement("button");
+    showMoreButton.classList.add("btn", "btn-primary", "show-more-button");
+    showMoreButton.textContent = "Show more";
+    feedContainer.appendChild(showMoreButton);
+    showMoreButton.addEventListener("click", async function () {
+        showMoreButton.remove();
+        await renderPosts();
+
+    });
+
+    return showMoreButton;
 }

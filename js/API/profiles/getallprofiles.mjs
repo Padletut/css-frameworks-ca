@@ -1,21 +1,34 @@
 import * as global from "../constants.mjs";
-import { headers } from "../headers.mjs";
 import { feedProfileFetch } from "../fetch/fetch.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 
 const { API_BASE_URL, API_PROFILES } = global;
 
-// Fetches the profile data from the API
+// Fetches all profile data from the API across multiple pages
 export async function getAllProfiles() {
-    const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}`, {
-        method: "GET",
-    });
+    let allProfiles = [];
+    let currentPage = 1;
+    let isLastPage = false;
 
-    if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        return data;
-    } else {
-        handleErrors(response);
+    while (!isLastPage) {
+        const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}?page=${currentPage}`, {
+            method: "GET",
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            allProfiles = allProfiles.concat(data.data);
+            currentPage = data.meta.currentPage + 1;
+            isLastPage = data.meta.isLastPage;
+        } else {
+            handleErrors(response);
+            break;
+        }
     }
+
+    console.log(allProfiles);
+    // Find profile by contain pert of a name
+    const profile = allProfiles.filter(profile => profile.name.includes("Nat"));
+    console.log(profile);
 }

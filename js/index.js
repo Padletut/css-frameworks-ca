@@ -8,6 +8,7 @@ import { checkAuth } from "./ui/checkauth.mjs";
 import { logout } from "./API/auth/logout.mjs";
 import { renderProfile } from "./API/routes/renderprofile.mjs";
 import { renderPosts } from "./API/ui/feed/renderposts.mjs";
+import { getAllProfiles } from "./API/profiles/getallprofiles.mjs";
 
 // Check if user is logged in
 checkAuth();
