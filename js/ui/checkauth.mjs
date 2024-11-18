@@ -1,6 +1,7 @@
-import { isLoggedIn } from "../API/auth/isloggedin.mjs";
+import { loadStorage } from "../storage/loadstorage.mjs";
 
 export function checkAuth() {
+    const accessToken = loadStorage("accessToken");
     document.addEventListener("DOMContentLoaded", () => {
         const currentPath = window.location.pathname;
         const authPaths = ["/index.html", "/"]; // Add all paths that correspond to the authentication page
@@ -9,8 +10,10 @@ export function checkAuth() {
             return;
         }
 
-        if (!isLoggedIn()) {
+        if (!accessToken) {
             window.location.href = "/index.html"; // Ensure this path is correct
+        } else {
+            return true;
         }
     });
 }

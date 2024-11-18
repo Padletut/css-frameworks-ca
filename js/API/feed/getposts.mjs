@@ -2,7 +2,6 @@ import * as global from "../constants.mjs";
 import { feedProfileFetch } from "../fetch/fetch.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
-import { getProfile } from "../profiles/getprofile.mjs";
 
 const { API_BASE_URL, API_POSTS } = global;
 
