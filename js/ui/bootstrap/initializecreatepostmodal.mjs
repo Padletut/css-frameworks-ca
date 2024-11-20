@@ -1,4 +1,5 @@
 import { validateInputs } from "./validateinputs.mjs";
+import { createPost } from "../../API/feed/createPost.mjs";
 
 export function initializeCreatePostModal() {
     // Handle create new post modal
@@ -16,7 +17,24 @@ export function initializeCreatePostModal() {
                         event.preventDefault();
                         const form = createNewPostModalElement.querySelector('.needs-validation');
                         if (validateInputs(form)) {
-                            createNewPostModal.hide();
+                            const formData = new FormData(form);
+                            const title = formData.get("title");
+                            const content = formData.get("postText");
+                            const tags = formData.get("tags") ? formData.get("tags").split(",").map(tag => tag.trim()) : [];
+                            const imageUrl = formData.get("imageUrl");
+
+                            let media = null;
+                            if (imageUrl) {
+                                media = {
+                                    url: imageUrl,
+                                    alt: title
+                                };
+                            }
+
+                            createPost(title, content, tags, media).then(() => {
+                                createNewPostModal.hide();
+                            });
+
                         }
                     });
                 }

@@ -7,6 +7,7 @@ import { checkAuth } from "./ui/checkauth.mjs";
 import { logout } from "./API/auth/logout.mjs";
 import { renderProfile } from "./API/ui/routes/renderprofile.mjs";
 import { renderPosts } from "./API/ui/feed/renderposts.mjs";
+import { getPostsbyUser } from "./API/feed/getpostsbyuser.mjs";
 
 // Check if user is logged in
 checkAuth();
@@ -50,4 +51,5 @@ if (document.title === "Feed | ConnectSphere") {
 // Render profile data
 if (document.title === "Profile | ConnectSphere") {
     await renderProfile();
+    await renderPosts();
 }
