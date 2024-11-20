@@ -51,5 +51,4 @@ if (document.title === "Feed | ConnectSphere") {
 // Render profile data
 if (document.title === "Profile | ConnectSphere") {
     await renderProfile();
-    await renderPosts();
 }

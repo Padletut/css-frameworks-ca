@@ -1,21 +1,28 @@
 import { getPosts } from "../../feed/getposts.mjs";
+import { getPostsbyUser } from "../../feed/getpostsbyuser.mjs";
 import { initializeCommentModal } from "../../../ui/bootstrap/initializecommentmodal.mjs";
 
 let nextPage;
 let isLastPage = false;
 
-export async function renderPosts() {
+export async function renderPosts(profileName) {
     const feedContainer = document.getElementById("feed-container");
+
     if (feedContainer) {
         try {
+            let posts;
             if (!nextPage) {
                 nextPage = 1;
             }
-            const posts = await getPosts(nextPage);
-            nextPage = posts.meta.nextPage;
 
-            if (!Array.isArray(posts.data)) {
-                throw new Error("Posts data is not an array");
+            if (!profileName) {
+                posts = await getPosts(nextPage);
+                isLastPage = posts.meta.isLastPage
+                nextPage = posts.meta.nextPage;
+            } else {
+                posts = await getPostsbyUser(profileName, nextPage);
+                isLastPage = posts.meta.isLastPage
+                nextPage = posts.meta.nextPage;
             }
 
             posts.data.forEach((post) => {
@@ -110,7 +117,7 @@ function createShowMoreButton() {
     feedContainer.appendChild(showMoreButton);
     showMoreButton.addEventListener("click", async function () {
         showMoreButton.remove();
-        await renderPosts();
+        await renderPosts(profileName);
 
     });
 

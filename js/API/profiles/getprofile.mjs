@@ -23,8 +23,11 @@ export async function getProfile(profileName = loggedInUser.name) {
         if (response.ok) {
             const data = await response.json();
             return data;
-        } else {
+        } else if (response.status === 404) {
+            // Return null if profile not found
             return null;
+        } else {
+            throw new Error("An error occurred while fetching the profile");
         }
     }
 

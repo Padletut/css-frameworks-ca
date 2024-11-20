@@ -3,6 +3,7 @@ import { renderProfileBanner } from "../profiles/renderprofilebanner.mjs";
 import { renderProfileAvatar } from "../profiles/renderprofileavatar.mjs";
 import { renderProfileName } from "../profiles/renderprofilename.mjs";
 import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
+import { renderPosts } from "../feed/renderposts.mjs";
 
 export async function renderProfile() {
     document.addEventListener("DOMContentLoaded", async () => {
@@ -19,6 +20,7 @@ export async function renderProfile() {
                 renderProfileAvatar(profile);
                 renderProfileName(profile);
                 renderProfileBio(profile);
+                await renderPosts(profile);
             }
         } catch (error) {
             console.error("Error rendering profile data:", error);
