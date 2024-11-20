@@ -20,12 +20,13 @@ export function validateInputs(form) {
             renderErrors(error);
             isValid = false;
         }
-
-        if (!isValid) {
-            form.classList.add('was-validated');
-        } else {
-            form.classList.remove('was-validated');
-        }
     }
+
+    if (!isValid) {
+        form.classList.add('was-validated');
+    } else {
+        form.classList.remove('was-validated');
+    }
+
     return isValid;
 }

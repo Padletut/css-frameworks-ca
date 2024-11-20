@@ -1,7 +1,7 @@
 import { headers } from "../headers.mjs";
 import { isLoggedIn } from "../auth/isloggedin.mjs";
 
-// Fetches the profile data from the API
+// Fetches the profile and post feed data from the API
 
 export function feedProfileFetch(url, options = {}) {
     // Load check if the user is logged in

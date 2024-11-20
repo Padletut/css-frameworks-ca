@@ -1,5 +1,4 @@
 import { getPosts } from "../../feed/getposts.mjs";
-import { loadHTML } from "../../../ui/loadhtml.mjs";
 import { initializeCommentModal } from "../../../ui/bootstrap/initializecommentmodal.mjs";
 
 let nextPage;

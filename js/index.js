@@ -2,13 +2,11 @@ import { loadHTML } from "./ui/loadhtml.mjs";
 import { authSwitchTabs } from "./ui/bootstrap/authswitchtabs.mjs";
 import { handleFormSubmission } from "./ui/bootstrap/handleFormSubsimission.mjs";
 import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmodal.mjs";
-import { initializeCommentModal } from "./ui/bootstrap/initializecommentmodal.mjs";
 import { setBodyPadding } from "./ui/bootstrap/setbodypadding.mjs";
 import { checkAuth } from "./ui/checkauth.mjs";
 import { logout } from "./API/auth/logout.mjs";
-import { renderProfile } from "./API/routes/renderprofile.mjs";
+import { renderProfile } from "./API/ui/routes/renderprofile.mjs";
 import { renderPosts } from "./API/ui/feed/renderposts.mjs";
-import { getAllProfiles } from "./API/profiles/getallprofiles.mjs";
 
 // Check if user is logged in
 checkAuth();
