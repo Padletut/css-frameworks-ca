@@ -1,5 +1,8 @@
 import { addComment } from "../../API/feed/addcomment.mjs";
 import { deleteComment } from "../../API/feed/deletecomment.mjs";
+import { loadStorage } from "../../storage/loadstorage.mjs";
+
+const loggedInUser = loadStorage("profile");
 
 export function handleEdits(commentsSection, postId) {
     // Add event listeners to edit buttons
