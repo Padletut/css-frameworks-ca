@@ -37,9 +37,6 @@ export function initializeCommentModal(post) {
             }
         });
 
-        // Log the processed comments and replies
-        console.log("Processed comments and replies:", Array.from(commentsMap.values()));
-
         // Populate the comments section
         const commentsSection = commentModalElement.querySelector('.comments-section');
         if (commentsSection) {
