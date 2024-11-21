@@ -4,6 +4,8 @@ import { renderProfileAvatar } from "../profiles/renderprofileavatar.mjs";
 import { renderProfileName } from "../profiles/renderprofilename.mjs";
 import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
+import { editProfileBanner } from "../profiles/editprofile.mjs";
+import { editProfileAvatarAndBio } from "../profiles/editprofile.mjs";
 
 export async function renderProfile() {
     document.addEventListener("DOMContentLoaded", async () => {
@@ -21,9 +23,28 @@ export async function renderProfile() {
                 renderProfileName(profile);
                 renderProfileBio(profile);
                 await renderPosts(profile);
+
+                setupEditButtons(profile);
             }
         } catch (error) {
             console.error("Error rendering profile data:", error);
         }
     });
+}
+
+function setupEditButtons(profile) {
+    const editCoverButton = document.querySelector('[name="edit-cover"]');
+    const editProfileButton = document.querySelector('[name="edit-profile"]');
+
+    if (editCoverButton) {
+        editCoverButton.addEventListener("click", async () => {
+            await editProfileBanner(profile);
+        });
+    }
+
+    if (editProfileButton) {
+        editProfileButton.addEventListener("click", async () => {
+            await editProfileAvatarAndBio(profile);
+        });
+    }
 }

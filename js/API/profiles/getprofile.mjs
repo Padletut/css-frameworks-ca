@@ -7,12 +7,14 @@ const { API_BASE_URL, API_PROFILES } = global;
 const loggedInUser = loadStorage("profile");
 
 // Fetches the profile data from the API
-export async function getProfile(profileName = loggedInUser.name) {
+export async function getProfile(profileName = loggedInUser) {
     const queryParams = new URLSearchParams({
         _following: "true",
         _followers: "true",
         _posts: "true",
     });
+
+    const { name } = profileName.data;
 
     // Helper function to fetch profile data
     async function fetchProfile(name) {
@@ -32,13 +34,13 @@ export async function getProfile(profileName = loggedInUser.name) {
     }
 
     // Try fetching the profile with the provided name
-    let profile = await fetchProfile(profileName);
+    let profile = await fetchProfile(name);
     if (profile) {
         return profile;
     }
 
     // Retry with the lowercase profile name
-    profile = await fetchProfile(profileName.toLowerCase());
+    profile = await fetchProfile(name.toLowerCase());
     if (profile) {
         return profile;
     }
