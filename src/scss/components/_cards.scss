@@ -40,6 +40,12 @@
     .post-card-header-userinformation {
         width: fit-content;
 
+        .post-profile-image {
+            img {
+                border-radius: 50%;
+            }
+        }
+
         .postheader-username {
             color: $black;
         }
