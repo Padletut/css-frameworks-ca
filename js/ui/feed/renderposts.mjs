@@ -1,9 +1,9 @@
-import { getPosts } from "../../feed/getposts.mjs";
-import { getPostsbyUser } from "../../feed/getpostsbyuser.mjs";
-import { initializeCommentModal } from "../../../ui/bootstrap/initializecommentmodal.mjs";
-import { postCheckOwner } from "../../feed/postCheckOwner.mjs";
-import { initializeUpdatePostModal } from "../../../ui/bootstrap/initializecreatepostmodal.mjs";
-import { deletePost } from "../../feed/deletepost.mjs";
+import { getPosts } from "../../API/feed/getposts.mjs";
+import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
+import { initializeCommentModal } from "../bootstrap/initializecommentmodal.mjs";
+import { postCheckOwner } from "../../API/feed/postCheckOwner.mjs";
+import { initializeUpdatePostModal } from "../bootstrap/initializecreatepostmodal.mjs";
+import { deletePost } from "../../API/feed/deletepost.mjs";
 
 let nextPage;
 let isLastPage = false;

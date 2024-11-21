@@ -3,7 +3,7 @@ import { renderProfileBanner } from "../profiles/renderprofilebanner.mjs";
 import { renderProfileAvatar } from "../profiles/renderprofileavatar.mjs";
 import { renderProfileName } from "../profiles/renderprofilename.mjs";
 import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
-import { renderPosts } from "../feed/renderposts.mjs";
+import { renderPosts } from "../../../ui/feed/renderposts.mjs";
 
 export async function renderProfile() {
     document.addEventListener("DOMContentLoaded", async () => {

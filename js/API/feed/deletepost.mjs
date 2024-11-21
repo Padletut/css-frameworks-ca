@@ -1,8 +1,7 @@
 import * as global from "../constants.mjs";
 import { headers } from "../headers.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
-import { renderPosts } from "../../API/ui/feed/renderposts.mjs";
-
+import { renderPosts } from "../../ui/feed/renderposts.mjs";
 // Function to delete a post, ask for confirmation, and remove the post from the feed
 // This function is called when the user clicks the "Delete" button on a post
 

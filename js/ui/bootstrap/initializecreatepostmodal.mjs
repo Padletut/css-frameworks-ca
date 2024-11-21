@@ -1,7 +1,7 @@
 import { validateInputs } from "./validateinputs.mjs";
 import { createPost } from "../../API/feed/createPost.mjs";
 import { updatePost } from "../../API/feed/updatepost.mjs";
-import { renderPosts } from "../../API/ui/feed/renderposts.mjs";
+import { renderPosts } from "../feed/renderposts.mjs";
 
 export function initializeCreatePostModal(post, profileName) {
     // Handle create new post modal

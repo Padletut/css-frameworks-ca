@@ -6,7 +6,7 @@ import { checkAuth } from "./ui/checkauth.mjs";
 import { logout } from "./API/auth/logout.mjs";
 import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmodal.mjs";
 import { renderProfile } from "./API/ui/routes/renderprofile.mjs";
-import { renderPosts } from "./API/ui/feed/renderposts.mjs";
+import { renderPosts } from "./ui/feed/renderposts.mjs";
 import { loadStorage } from "./storage/loadstorage.mjs";
 
 // Check if user is logged in
