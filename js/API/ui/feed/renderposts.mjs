@@ -11,138 +11,127 @@ let isLastPage = false;
 export async function renderPosts(profileName, append = false) {
     const feedContainer = document.getElementById("feed-container");
 
-    if (feedContainer) {
+    if (!feedContainer) return;
 
-        if (!append) {
-            // Clear the feed container
-            feedContainer.innerHTML = "";
-        }
-
-        try {
-            let posts;
-            if (!nextPage) {
-                nextPage = 1;
-            }
-
-            if (!profileName) {
-                posts = await getPosts(nextPage);
-                isLastPage = posts.meta.isLastPage
-                nextPage = posts.meta.nextPage;
-            } else {
-                posts = await getPostsbyUser(profileName, nextPage);
-                isLastPage = posts.meta.isLastPage
-                nextPage = posts.meta.nextPage;
-            }
-
-            posts.data.forEach((post) => {
-
-                // Destructure the post object
-                const { author, title, body, media, tags, reactions, comments, created } = post;
-
-                const postCard = document.createElement("div");
-                postCard.classList.add("card", "bg-white", "rounded-3", "flex-grow-1", "flex-sm-grow-0", "feed-post-card", "card-custom");
-
-                // Format the date
-                const postDate = new Date(created);
-                const formattedDate = postDate.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit",
-                });
-
-                // Capitalize the first letter of the author's name
-                const authorName = capitalizeFirstLetter(author.name);
-
-                // Capitalize the first letter of the title
-                const postTitle = capitalizeFirstLetter(title);
-
-                postCard.innerHTML = `
-                    <div class="card-body d-flex flex-column">
-                        <div class="card-header">
-                            <a href="../profile/index.html?profile=${authorName}" class="text-decoration-none post-profile-link">
-                                <div class="d-flex column-gap-3 post-card-header-userinformation" role="button">
-                                    <div class="post-profile-image">
-                                        <img src="${author.avatar.url}" alt="${author.avatar.alt}" width="64" height="64">
-                                    </div>
-                                    <div class="postheader-username">
-                                        <h2>${authorName}</h2>
-                                        <small class="text-body-secondary">Posted on ${formattedDate}</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card-main">
-                            <div class="card-title">
-                                <h3>${postTitle}</h3>
-                            </div>
-                            <div class="card-text">
-                                <p>${body}</p>
-                                ${media ? `<img src="${media.url}" alt="${media.alt}" width="100%">` : ''}
-                            </div>
-                            <div class="card-tags mt-3">
-                                ${tags.map(tag => `<span class="badge bg-secondary" role="button">${tag}</span>`).join('')}
-                            </div>
-                            <div class="card-comments mt-3 collapse" id="comments-${post.id}">
-                                ${comments.map(comment => `
-                                    <div class="comment">
-                                        <p><strong>${comment.author.name}:</strong> ${comment.body}</p>
-                                    </div>
-                                `).join('')}
-                                </div>
-                        </div>
-                        <div class="card-footer d-flex p-1 pt-3 column-gap-5" role="button">
-                            <div class="d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover">
-                                <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary">Like (${reactions.length})</small>
-                            </div>
-                            <div class="comment-open-modal-button d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
-                                <i class="bi bi-chat-left-dots-fill"></i><small class="text-body-secondary">Comments (${comments.length})</small>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                // Append the post card to the feed container
-                feedContainer.appendChild(postCard);
-
-                // Handle comment modal buttons
-                const commentButton = postCard.querySelector('.comment-open-modal-button');
-                if (commentButton) {
-                    commentButton.addEventListener('click', function () {
-                        initializeCommentModal(post);
-                    });
-                }
-
-                // Add "Edit" and "Delete" buttons if the post belongs to the logged-in user
-                if (postCheckOwner(author.name)) {
-                    const cardFooter = postCard.querySelector('.card-footer');
-                    const editButton = document.createElement("div");
-                    editButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "edit-button");
-                    editButton.innerHTML = `<i class="bi bi-pencil-fill"></i><small class="text-body-secondary">Edit</small>`;
-                    editButton.addEventListener('click', function () {
-
-                        initializeUpdatePostModal(post, profileName);
-                    });
-
-                    const deleteButton = document.createElement("div");
-                    deleteButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "delete-button");
-                    deleteButton.innerHTML = `<i class="bi bi-trash-fill"></i><small class="text-body-secondary">Delete</small>`;
-                    deleteButton.addEventListener('click', function () {
-
-                        deletePost(post.id, profileName);
-                    });
-
-                    cardFooter.appendChild(editButton);
-                    cardFooter.appendChild(deleteButton);
-
-                }
-            });
-        } catch (error) {
-            console.error("Error rendering posts:", error);
-        }
+    if (!append) {
+        feedContainer.innerHTML = "";
     }
+
+    try {
+        const posts = await fetchPosts(profileName);
+        posts.data.forEach(post => createPostCard(post, profileName, feedContainer));
+    } catch (error) {
+        console.error("Error rendering posts:", error);
+    }
+
     if (!isLastPage) {
         createShowMoreButton(profileName);
     }
+}
+
+async function fetchPosts(profileName) {
+    if (!nextPage) nextPage = 1;
+
+    let posts;
+    if (!profileName) {
+        posts = await getPosts(nextPage);
+    } else {
+        posts = await getPostsbyUser(profileName, nextPage);
+    }
+
+    isLastPage = posts.meta.isLastPage;
+    nextPage = posts.meta.nextPage;
+
+    return posts;
+}
+
+function createPostCard(post, profileName, feedContainer) {
+    const { author, title, body, media, tags, reactions, comments, created } = post;
+
+    const postCard = document.createElement("div");
+    postCard.classList.add("card", "bg-white", "rounded-3", "flex-grow-1", "flex-sm-grow-0", "feed-post-card", "card-custom");
+
+    const formattedDate = new Date(created).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+    });
+
+    const authorName = capitalizeFirstLetter(author.name);
+    const postTitle = capitalizeFirstLetter(title);
+
+    postCard.innerHTML = `
+        <div class="card-body d-flex flex-column">
+            <div class="card-header">
+                <a href="../profile/index.html?profile=${authorName}" class="text-decoration-none post-profile-link">
+                    <div class="d-flex column-gap-3 post-card-header-userinformation" role="button">
+                        <div class="post-profile-image">
+                            <img src="${author.avatar.url}" alt="${author.avatar.alt}" width="64" height="64">
+                        </div>
+                        <div class="postheader-username">
+                            <h2>${authorName}</h2>
+                            <small class="text-body-secondary">Posted on ${formattedDate}</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="card-main">
+                <div class="card-title">
+                    <h3>${postTitle}</h3>
+                </div>
+                <div class="card-text">
+                    <p>${body}</p>
+                    ${media ? `<img src="${media.url}" alt="${media.alt}" width="100%">` : ''}
+                </div>
+                <div class="card-tags mt-3">
+                    ${tags.map(tag => `<span class="badge bg-secondary" role="button">${tag}</span>`).join('')}
+                </div>
+                <div class="card-comments mt-3 collapse" id="comments-${post.id}">
+                    ${comments.map(comment => `
+                        <div class="comment">
+                            <p><strong>${comment.author.name}:</strong> ${comment.body}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            <div class="card-footer d-flex p-1 pt-3 column-gap-5" role="button">
+                <div class="d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover">
+                    <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary">Like (${reactions.length})</small>
+                </div>
+                <div class="comment-open-modal-button d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
+                    <i class="bi bi-chat-left-dots-fill"></i><small class="text-body-secondary">Comments (${comments.length})</small>
+                </div>
+            </div>
+        </div>
+    `;
+
+    feedContainer.appendChild(postCard);
+
+    const commentButton = postCard.querySelector('.comment-open-modal-button');
+    if (commentButton) {
+        commentButton.addEventListener('click', () => initializeCommentModal(post));
+    }
+
+    if (postCheckOwner(author.name)) {
+        addEditDeleteButtons(postCard, post, profileName);
+    }
+}
+
+function addEditDeleteButtons(postCard, post, profileName) {
+    const cardFooter = postCard.querySelector('.card-footer');
+
+    const editButton = document.createElement("div");
+    editButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "edit-button");
+    editButton.innerHTML = `<i class="bi bi-pencil-fill"></i><small class="text-body-secondary">Edit</small>`;
+    editButton.addEventListener('click', () => initializeUpdatePostModal(post, profileName));
+
+    const deleteButton = document.createElement("div");
+    deleteButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "delete-button");
+    deleteButton.innerHTML = `<i class="bi bi-trash-fill"></i><small class="text-body-secondary">Delete</small>`;
+    deleteButton.addEventListener('click', () => deletePost(post.id, profileName));
+
+    cardFooter.appendChild(editButton);
+    cardFooter.appendChild(deleteButton);
 }
 
 function capitalizeFirstLetter(string) {
@@ -155,10 +144,9 @@ function createShowMoreButton(profileName) {
     showMoreButton.classList.add("btn", "btn-primary", "show-more-button");
     showMoreButton.textContent = "Show more";
     feedContainer.appendChild(showMoreButton);
-    showMoreButton.addEventListener("click", async function () {
+    showMoreButton.addEventListener("click", async () => {
         showMoreButton.remove();
         await renderPosts(profileName, true);
-
     });
 
     return showMoreButton;
