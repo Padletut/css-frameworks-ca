@@ -1,6 +1,7 @@
 import { getPosts } from "../../feed/getposts.mjs";
 import { getPostsbyUser } from "../../feed/getpostsbyuser.mjs";
 import { initializeCommentModal } from "../../../ui/bootstrap/initializecommentmodal.mjs";
+import { postCheckOwner } from "../../feed/postCheckOwner.mjs";
 
 let nextPage;
 let isLastPage = false;
@@ -94,6 +95,29 @@ export async function renderPosts(profileName) {
                     commentButton.addEventListener('click', function () {
                         initializeCommentModal(post);
                     });
+                }
+
+                // Add "Edit" and "Delete" buttons if the post belongs to the logged-in user
+                if (postCheckOwner(author.name)) {
+                    const cardFooter = postCard.querySelector('.card-footer');
+                    const editButton = document.createElement("div");
+                    editButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover");
+                    editButton.innerHTML = `<i class="bi bi-pencil-fill"></i><small class="text-body-secondary">Edit</small>`;
+                    editButton.addEventListener('click', function () {
+                        // Handle edit post logic here
+                        console.log(`Edit post: ${post.id}`);
+                    });
+
+                    const deleteButton = document.createElement("div");
+                    deleteButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover");
+                    deleteButton.innerHTML = `<i class="bi bi-trash-fill"></i><small class="text-body-secondary">Delete</small>`;
+                    deleteButton.addEventListener('click', function () {
+                        // Handle delete post logic here
+                        console.log(`Delete post: ${post.id}`);
+                    });
+
+                    cardFooter.appendChild(editButton);
+                    cardFooter.appendChild(deleteButton);
                 }
             });
         } catch (error) {

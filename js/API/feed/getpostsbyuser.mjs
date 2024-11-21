@@ -9,8 +9,14 @@ const { API_BASE_URL, API_PROFILES } = global;
 
 // Get all posts from the API
 export async function getPostsbyUser(profileName = loggedInUser.name, currentPage = 1) {
+
     const urlParams = new URLSearchParams(window.location.search);
     profileName = urlParams.get("profile") || profileName;
+
+    // If profilename is an object, get the name property
+    if (typeof profileName === "object") {
+        profileName = profileName.data.name;
+    }
 
     const queryParams = new URLSearchParams({
         _author: "true",
@@ -44,7 +50,8 @@ export async function getPostsbyUser(profileName = loggedInUser.name, currentPag
     }
 
     // Retry with the lowercase profile name
-    posts = await fetchPosts(profileName.toLowerCase());
+    profileName = profileName.toLowerCase()
+    posts = await fetchPosts(profileName);
     if (posts) {
         return posts;
     }
