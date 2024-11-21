@@ -3,12 +3,11 @@ import { headers } from "../headers.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 import * as global from "../constants.mjs";
 
-// Function to create a post
-// This function is called when the user submits the form to create a new post
-
+// Function to update a post
+// This function is called when the user submits the form to update an existing post
 const { API_BASE_URL, API_POSTS } = global;
 
-export async function createPost(title, body, tags, media) {
+export async function updatePost(postId, title, body, tags, media) {
 
     const postData = {
         title,
@@ -17,9 +16,9 @@ export async function createPost(title, body, tags, media) {
         media: media || {}
     };
 
-    const response = await feedProfileFetch(API_BASE_URL + API_POSTS, {
+    const response = await feedProfileFetch(API_BASE_URL + API_POSTS + "/" + postId, {
         headers: headers(true),
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify(postData)
     });
 
