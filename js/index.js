@@ -14,6 +14,15 @@ checkAuth();
 
 const profileName = loadStorage("profile");
 
+/**
+ * Loads the modals for creating posts and comments.
+ * @param {string} profileName - The name of the profile.
+ * @example
+ * ```javascript
+ * const profileName = "john_doe";
+ * loadModals(profileName);
+ * ```
+ */
 function loadModals(profileName) {
     // Load modals
     const modalsContainer = document.getElementById("modals-container");

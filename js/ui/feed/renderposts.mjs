@@ -6,6 +6,16 @@ import { createPostCard } from "./createpostcard.mjs";
 let nextPage;
 let isLastPage = false;
 
+/**
+ * Renders posts for a given profile.
+ * @param {string} profileName - The name of the profile.
+ * @param {boolean} [append=false] - Whether to append the posts to the existing content.
+ * @returns {Promise<void>} A promise that resolves when the posts are rendered.
+ * @example
+ * ```javascript
+ * await renderPosts("john_doe");
+ * ```
+ */
 export async function renderPosts(profileName, append = false) {
     const feedContainer = document.getElementById("feed-container");
 
@@ -27,6 +37,16 @@ export async function renderPosts(profileName, append = false) {
     }
 }
 
+/**
+ * Creates a "Show More" button to load additional posts.
+ * @param {string} profileName - The name of the profile.
+ * @returns {HTMLButtonElement} The "Show More" button element.
+ * @example
+ * ```javascript
+ * const showMoreButton = createShowMoreButton("john_doe");
+ * document.getElementById("feed-container").appendChild(showMoreButton);
+ * ```
+ */
 function createShowMoreButton(profileName) {
     const feedContainer = document.getElementById("feed-container");
     const showMoreButton = document.createElement("button");

@@ -1,12 +1,21 @@
-import * as global from "../constants.mjs";
 import { feedProfileFetch } from "../fetch/fetch.mjs";
-import { loadStorage } from "../../storage/loadstorage.mjs";
 import { renderErrors } from "../ui/rendererrors.mjs";
+import * as global from "../constants.mjs";
+import { loadStorage } from "../../storage/loadstorage.mjs";
 
 const { API_BASE_URL, API_PROFILES } = global;
 const loggedInUser = loadStorage("profile");
 
-// Fetches the profile data from the API
+/**
+ * Fetches the profile data from the API.
+ * @param {Object|string} profileName - The profile object or name.
+ * @returns {Promise<Object|null>} A promise that resolves to the profile data or null if not found.
+ * @example
+ * ```javascript
+ * const profile = await getProfile("john_doe");
+ * console.log(profile);
+ * ```
+ */
 export async function getProfile(profileName = loggedInUser) {
     const queryParams = new URLSearchParams({
         _following: "true",
@@ -14,9 +23,14 @@ export async function getProfile(profileName = loggedInUser) {
         _posts: "true",
     });
 
-    const { name } = profileName.data;
+    // Determine the profile name based on the structure of the profileName parameter
+    const name = typeof profileName === "string" ? profileName : profileName.data ? profileName.data.name : profileName.name;
 
-    // Helper function to fetch profile data
+    /**
+     * Helper function to fetch profile data.
+     * @param {string} name - The profile name.
+     * @returns {Promise<Object|null>} A promise that resolves to the profile data or null if not found.
+     */
     async function fetchProfile(name) {
         const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${name}?${queryParams}`, {
             method: "GET",

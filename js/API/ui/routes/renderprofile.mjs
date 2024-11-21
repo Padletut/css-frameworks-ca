@@ -4,9 +4,16 @@ import { renderProfileAvatar } from "../profiles/renderprofileavatar.mjs";
 import { renderProfileName } from "../profiles/renderprofilename.mjs";
 import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
-import { editProfileBanner } from "../profiles/editprofile.mjs";
-import { editProfileAvatarAndBio } from "../profiles/editprofile.mjs";
+import { setupEditButtons } from "../profiles/setupeditbuttons.mjs";
 
+/**
+ * Renders the profile page.
+ * @returns {Promise<void>} A promise that resolves when the profile page is rendered.
+ * @example
+ * ```javascript
+ * await renderProfile();
+ * ```
+ */
 export async function renderProfile() {
     document.addEventListener("DOMContentLoaded", async () => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -30,21 +37,4 @@ export async function renderProfile() {
             console.error("Error rendering profile data:", error);
         }
     });
-}
-
-function setupEditButtons(profile) {
-    const editCoverButton = document.querySelector('[name="edit-cover"]');
-    const editProfileButton = document.querySelector('[name="edit-profile"]');
-
-    if (editCoverButton) {
-        editCoverButton.addEventListener("click", async () => {
-            await editProfileBanner(profile);
-        });
-    }
-
-    if (editProfileButton) {
-        editProfileButton.addEventListener("click", async () => {
-            await editProfileAvatarAndBio(profile);
-        });
-    }
 }
