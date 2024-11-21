@@ -8,12 +8,16 @@ import { deletePost } from "../../feed/deletepost.mjs";
 let nextPage;
 let isLastPage = false;
 
-export async function renderPosts(profileName) {
+export async function renderPosts(profileName, append = false) {
     const feedContainer = document.getElementById("feed-container");
 
     if (feedContainer) {
-        // Clear the feed container
-        feedContainer.innerHTML = "";
+
+        if (!append) {
+            // Clear the feed container
+            feedContainer.innerHTML = "";
+        }
+
         try {
             let posts;
             if (!nextPage) {
@@ -78,6 +82,13 @@ export async function renderPosts(profileName) {
                             <div class="card-tags mt-3">
                                 ${tags.map(tag => `<span class="badge bg-secondary" role="button">${tag}</span>`).join('')}
                             </div>
+                            <div class="card-comments mt-3 collapse" id="comments-${post.id}">
+                                ${comments.map(comment => `
+                                    <div class="comment">
+                                        <p><strong>${comment.author.name}:</strong> ${comment.body}</p>
+                                    </div>
+                                `).join('')}
+                                </div>
                         </div>
                         <div class="card-footer d-flex p-1 pt-3 column-gap-5" role="button">
                             <div class="d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover">
@@ -122,6 +133,7 @@ export async function renderPosts(profileName) {
 
                     cardFooter.appendChild(editButton);
                     cardFooter.appendChild(deleteButton);
+
                 }
             });
         } catch (error) {
@@ -129,7 +141,7 @@ export async function renderPosts(profileName) {
         }
     }
     if (!isLastPage) {
-        createShowMoreButton();
+        createShowMoreButton(profileName);
     }
 }
 
@@ -137,7 +149,7 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function createShowMoreButton() {
+function createShowMoreButton(profileName) {
     const feedContainer = document.getElementById("feed-container");
     const showMoreButton = document.createElement("button");
     showMoreButton.classList.add("btn", "btn-primary", "show-more-button");
@@ -145,7 +157,7 @@ function createShowMoreButton() {
     feedContainer.appendChild(showMoreButton);
     showMoreButton.addEventListener("click", async function () {
         showMoreButton.remove();
-        await renderPosts(profileName);
+        await renderPosts(profileName, true);
 
     });
 
