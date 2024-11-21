@@ -3,6 +3,7 @@ import { getPostsbyUser } from "../../feed/getpostsbyuser.mjs";
 import { initializeCommentModal } from "../../../ui/bootstrap/initializecommentmodal.mjs";
 import { postCheckOwner } from "../../feed/postCheckOwner.mjs";
 import { initializeUpdatePostModal } from "../../../ui/bootstrap/initializecreatepostmodal.mjs";
+import { deletePost } from "../../feed/deletepost.mjs";
 
 let nextPage;
 let isLastPage = false;
@@ -11,6 +12,8 @@ export async function renderPosts(profileName) {
     const feedContainer = document.getElementById("feed-container");
 
     if (feedContainer) {
+        // Clear the feed container
+        feedContainer.innerHTML = "";
         try {
             let posts;
             if (!nextPage) {
@@ -105,16 +108,16 @@ export async function renderPosts(profileName) {
                     editButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "edit-button");
                     editButton.innerHTML = `<i class="bi bi-pencil-fill"></i><small class="text-body-secondary">Edit</small>`;
                     editButton.addEventListener('click', function () {
-                        // Handle edit post logic here
-                        initializeUpdatePostModal(post);
+
+                        initializeUpdatePostModal(post, profileName);
                     });
 
                     const deleteButton = document.createElement("div");
                     deleteButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "delete-button");
                     deleteButton.innerHTML = `<i class="bi bi-trash-fill"></i><small class="text-body-secondary">Delete</small>`;
                     deleteButton.addEventListener('click', function () {
-                        // Handle delete post logic here
-                        console.log(`Delete post: ${post.id}`);
+
+                        deletePost(post.id, profileName);
                     });
 
                     cardFooter.appendChild(editButton);

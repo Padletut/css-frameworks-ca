@@ -14,8 +14,12 @@ export async function createPost(title, body, tags, media) {
         title,
         body,
         tags,
-        media: media || {}
+
     };
+
+    if (media) {
+        postData.media = media;
+    }
 
     const response = await feedProfileFetch(API_BASE_URL + API_POSTS, {
         headers: headers(true),
@@ -24,7 +28,6 @@ export async function createPost(title, body, tags, media) {
     });
 
     if (response.ok) {
-        console.log(response);
         return await response.json();
     }
 

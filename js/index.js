@@ -1,23 +1,29 @@
 import { loadHTML } from "./ui/loadhtml.mjs";
 import { authSwitchTabs } from "./ui/bootstrap/authswitchtabs.mjs";
 import { handleFormSubmission } from "./ui/bootstrap/handleFormSubsimission.mjs";
-import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmodal.mjs";
 import { setBodyPadding } from "./ui/bootstrap/setbodypadding.mjs";
 import { checkAuth } from "./ui/checkauth.mjs";
 import { logout } from "./API/auth/logout.mjs";
+import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmodal.mjs";
 import { renderProfile } from "./API/ui/routes/renderprofile.mjs";
 import { renderPosts } from "./API/ui/feed/renderposts.mjs";
-import { getPostsbyUser } from "./API/feed/getpostsbyuser.mjs";
+import { loadStorage } from "./storage/loadstorage.mjs";
 
 // Check if user is logged in
 checkAuth();
 
-// Load modals
-const modalsContainer = document.getElementById("modals-container");
-if (modalsContainer) {
-    loadHTML('../modals/createnewpostmodal.html', 'modals-container', initializeCreatePostModal("create"));
-    loadHTML('../modals/commentmodal.html', 'modals-container');
+const profileName = loadStorage("profile");
+
+function loadModals(profileName) {
+    // Load modals
+    const modalsContainer = document.getElementById("modals-container");
+    if (modalsContainer) {
+        loadHTML('../modals/createnewpostmodal.html', 'modals-container', initializeCreatePostModal(null, profileName));
+        loadHTML('../modals/commentmodal.html', 'modals-container');
+    }
 }
+
+loadModals(profileName.name);
 
 authSwitchTabs();
 

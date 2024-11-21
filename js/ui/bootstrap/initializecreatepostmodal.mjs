@@ -1,31 +1,38 @@
 import { validateInputs } from "./validateinputs.mjs";
 import { createPost } from "../../API/feed/createPost.mjs";
 import { updatePost } from "../../API/feed/updatepost.mjs";
+import { renderPosts } from "../../API/ui/feed/renderposts.mjs";
 
-export function initializeCreatePostModal(post) {
+export function initializeCreatePostModal(post, profileName) {
     // Handle create new post modal
     const openPostModalButton = document.getElementById("openPostModalButton");
     if (openPostModalButton) {
         openPostModalButton.addEventListener("click", function (event) {
             event.preventDefault();
-            openModal("create", post);
+            openModal("create", null, profileName);
         });
     }
 }
 
-export function initializeUpdatePostModal(post) {
-    // Handle update post modal    
-    openModal("update", post);
+export function initializeUpdatePostModal(post, profileName) {
 
+    // Handle update post modal    
+    openModal("update", post, profileName);
 }
 
 
-function openModal(state, post) {
+function openModal(state, post, profileName) {
     const createNewPostModalElement = document.getElementById("createPostModal");
     if (createNewPostModalElement) {
         const createNewPostModal = new bootstrap.Modal(createNewPostModalElement);
         createNewPostModal.show();
         const form = createNewPostModalElement.querySelector('.needs-validation');
+        const modalTitle = document.getElementById("modal-title");
+
+        if (modalTitle) {
+            modalTitle.textContent = state === "create" ? "Create New Post" : "Edit Post";
+        }
+
         if (form) {
             // Pre-fill the form fields if editing a post
             if (state === "update" && post) {
@@ -36,9 +43,12 @@ function openModal(state, post) {
             }
 
             // Remove existing event listener to prevent multiple submissions
-            form.removeEventListener("submit", async function (event) { });
+            form.removeEventListener("submit", handleSubmit);
 
-            form.addEventListener("submit", async function (event) {
+            // Add new event listener for form submission
+            form.addEventListener("submit", handleSubmit);
+
+            async function handleSubmit(event) {
                 event.preventDefault();
                 if (validateInputs(form)) {
                     const formData = new FormData(form);
@@ -54,21 +64,24 @@ function openModal(state, post) {
                             alt: title
                         };
                     }
-                    if (state === "create" && !post) {
+                    if (state === "create") {
                         await createPost(title, content, tags, media);
                     }
-                    if (state === "update" && post) {
+                    if (state === "update") {
                         const postId = post.id;
                         await updatePost(postId, title, content, tags, media);
                     }
                     createNewPostModal.hide();
+                    await renderPosts(profileName); // Re-render posts with profileName
                 }
-            });
+            }
 
             // Reset validation state when modal is hidden
             createNewPostModalElement.addEventListener('hidden.bs.modal', function () {
                 form.classList.remove('was-validated');
                 form.reset();
+                // Remove the event listener to prevent multiple submissions
+                form.removeEventListener("submit", handleSubmit);
             });
         } else {
             console.error('Form element not found');
