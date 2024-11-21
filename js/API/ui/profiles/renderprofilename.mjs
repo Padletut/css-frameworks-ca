@@ -1,4 +1,12 @@
-// Renders the profile banner in div with id "profile-cover"
+/**
+ * Renders the profile name in the element with id "profile-id".
+ * @param {Object} profileName - The profile object containing name data.
+ * @example
+ * ```javascript
+ * const profile = { data: { name: "john_doe" } };
+ * await renderProfileName(profile);
+ * ```
+ */
 export async function renderProfileName(profileName) {
     const profileNameElement = document.getElementById("profile-id");
     if (!profileNameElement) {
@@ -22,6 +30,16 @@ export async function renderProfileName(profileName) {
     }
 }
 
+/**
+ * Capitalizes the first letter of a string.
+ * @param {string} string - The string to capitalize.
+ * @returns {string} The string with the first letter capitalized.
+ * @example
+ * ```javascript
+ * const capitalized = capitalizeFirstLetter("john");
+ * console.log(capitalized); // "John"
+ * ```
+ */
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }

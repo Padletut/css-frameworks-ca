@@ -1,6 +1,17 @@
 import { initializeCommentModal } from "../bootstrap/initializecommentmodal.mjs";
-import { postCheckOwner } from "../../API/feed/postCheckOwner.mjs";
+import { postCheckOwner } from "../../API/feed/postcheckowner.mjs";
 
+/**
+ * Creates a post card element and appends it to the feed container.
+ * @param {Object} post - The post object.
+ * @param {string} profileName - The name of the profile.
+ * @param {HTMLElement} feedContainer - The container element for the feed.
+ * @example
+ * ```javascript
+ * const post = { author: { name: "john_doe" }, title: "Post Title", body: "Post content", ... };
+ * createPostCard(post, "john_doe", document.getElementById("feed-container"));
+ * ```
+ */
 export function createPostCard(post, profileName, feedContainer) {
     const { author, title, body, media, tags, reactions, comments, created } = post;
 
@@ -73,10 +84,32 @@ export function createPostCard(post, profileName, feedContainer) {
     }
 }
 
+/**
+ * Capitalizes the first letter of a string.
+ * @param {string} string - The string to capitalize.
+ * @returns {string} The string with the first letter capitalized.
+ * @example
+ * ```javascript
+ * const capitalized = capitalizeFirstLetter("john");
+ * console.log(capitalized); // "John"
+ * ```
+ */
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ * Adds edit and delete buttons to a post card.
+ * @param {HTMLElement} postCard - The post card element.
+ * @param {Object} post - The post object.
+ * @param {string} profileName - The name of the profile.
+ * @example
+ * ```javascript
+ * const postCard = document.createElement("div");
+ * const post = { id: 123, ... };
+ * addEditDeleteButtons(postCard, post, "john_doe");
+ * ```
+ */
 function addEditDeleteButtons(postCard, post, profileName) {
     const cardFooter = postCard.querySelector('.card-footer');
 

@@ -1,5 +1,16 @@
 import { addComment } from '../../API/feed/addcomment.mjs';
 
+/**
+ * Handles the reply functionality for comments.
+ * @param {HTMLElement} commentsSection - The container element for the comments.
+ * @param {number} postId - The ID of the post.
+ * @example
+ * ```javascript
+ * const commentsSection = document.getElementById("comments-section");
+ * const postId = 123;
+ * handleReplies(commentsSection, postId);
+ * ```
+ */
 export function handleReplies(commentsSection, postId) {
     // Add event listeners to reply buttons
     commentsSection.querySelectorAll('.reply-button').forEach(button => {

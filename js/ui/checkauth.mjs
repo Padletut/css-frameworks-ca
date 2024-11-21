@@ -1,5 +1,13 @@
 import { loadStorage } from "../storage/loadstorage.mjs";
 
+/**
+ * Checks if the user is authenticated and redirects to the login page if not.
+ * @returns {boolean} True if the user is authenticated, false otherwise.
+ * @example
+ * ```javascript
+ * checkAuth();
+ * ```
+ */
 export function checkAuth() {
     const accessToken = loadStorage("accessToken");
     document.addEventListener("DOMContentLoaded", () => {

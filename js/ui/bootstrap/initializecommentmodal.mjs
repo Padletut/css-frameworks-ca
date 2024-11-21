@@ -8,6 +8,15 @@ import { handleDeletes } from "../comments/handledeletes.mjs";
 
 const loggedInUser = loadStorage("profile");
 
+/**
+ * Initializes the comment modal for a given post.
+ * @param {Object} post - The post object containing comments.
+ * @example
+ * ```javascript
+ * const post = { id: 1, title: "Sample Post", comments: [...] };
+ * initializeCommentModal(post);
+ * ```
+ */
 export function initializeCommentModal(post) {
     // Handle comment modal
     const commentModalElement = document.getElementById("commentModal");

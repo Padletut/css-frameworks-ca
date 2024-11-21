@@ -3,6 +3,17 @@ import { createPost } from "../../API/feed/createPost.mjs";
 import { updatePost } from "../../API/feed/updatepost.mjs";
 import { renderPosts } from "../feed/renderposts.mjs";
 
+/**
+ * Initializes the create post modal.
+ * @param {Object} post - The post object (optional).
+ * @param {string} profileName - The name of the profile.
+ * @example
+ * ```javascript
+ * const post = { title: "Sample Post", body: "Post content" };
+ * const profileName = "john_doe";
+ * initializeCreatePostModal(post, profileName);
+ * ```
+ */
 export function initializeCreatePostModal(post, profileName) {
     // Handle create new post modal
     const openPostModalButton = document.getElementById("openPostModalButton");
@@ -14,6 +25,17 @@ export function initializeCreatePostModal(post, profileName) {
     }
 }
 
+/**
+ * Initializes the update post modal.
+ * @param {Object} post - The post object.
+ * @param {string} profileName - The name of the profile.
+ * @example
+ * ```javascript
+ * const post = { id: 123, title: "Sample Post", body: "Post content" };
+ * const profileName = "john_doe";
+ * initializeUpdatePostModal(post, profileName);
+ * ```
+ */
 export function initializeUpdatePostModal(post, profileName) {
 
     // Handle update post modal    

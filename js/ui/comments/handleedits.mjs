@@ -4,6 +4,17 @@ import { loadStorage } from "../../storage/loadstorage.mjs";
 
 const loggedInUser = loadStorage("profile");
 
+/**
+ * Handles the edit functionality for comments.
+ * @param {HTMLElement} commentsSection - The container element for the comments.
+ * @param {number} postId - The ID of the post.
+ * @example
+ * ```javascript
+ * const commentsSection = document.getElementById("comments-section");
+ * const postId = 123;
+ * handleEdits(commentsSection, postId);
+ * ```
+ */
 export function handleEdits(commentsSection, postId) {
     // Add event listeners to edit buttons
     commentsSection.querySelectorAll('.edit-button').forEach(button => {

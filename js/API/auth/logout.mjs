@@ -1,6 +1,12 @@
 import { saveStorage } from "../../storage/savestorage.mjs";
 
-// Function to log out user
+/**
+ * Logs out the user by clearing the access token and profile from storage and redirecting to the index page.
+ * @example
+ * ```javascript
+ * logout();
+ * ```
+ */
 export function logout() {
     saveStorage("accessToken", "");
     saveStorage("profile", "");

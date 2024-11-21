@@ -1,6 +1,16 @@
 import { renderErrors } from "../ui/rendererrors.mjs";
 
-// Function to handle authorization errors
+/**
+ * Handles authorization errors and other response errors.
+ * @param {Response} response - The fetch response object.
+ * @returns {Promise<Response>} A promise that resolves to the response if no errors are found.
+ * @throws {Error} Throws an error if the response contains errors.
+ * @example
+ * ```javascript
+ * const response = await fetch("https://api.example.com/data");
+ * await handleErrors(response);
+ * ```
+ */
 export async function handleErrors(response) {
     if (response.ok) {
         return response;

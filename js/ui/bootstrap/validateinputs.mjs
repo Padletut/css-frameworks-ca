@@ -1,6 +1,17 @@
 import { validateEmail } from './validateemail.mjs';
 import { renderErrors } from '../../API/ui/rendererrors.mjs';
 
+/**
+ * Validates the inputs of a form.
+ * @param {HTMLFormElement} form - The form element to validate.
+ * @returns {boolean} True if the form inputs are valid, false otherwise.
+ * @example
+ * ```javascript
+ * const form = document.getElementById("signUpForm");
+ * const isValid = validateInputs(form);
+ * console.log(isValid); // true or false
+ * ```
+ */
 export function validateInputs(form) {
     'use strict';
 

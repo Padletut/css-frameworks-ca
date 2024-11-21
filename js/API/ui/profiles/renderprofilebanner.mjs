@@ -1,4 +1,12 @@
-// Renders the profile banner in div with id "profile-cover"
+/**
+ * Renders the profile banner in the element with id "profile-cover".
+ * @param {Object} profileName - The profile object containing banner data.
+ * @example
+ * ```javascript
+ * const profile = { data: { banner: { url: "https://example.com/banner.jpg", alt: "Profile Banner" } } };
+ * await renderProfileBanner(profile);
+ * ```
+ */
 export async function renderProfileBanner(profileName) {
     const profileBanner = document.getElementById("profile-cover");
 

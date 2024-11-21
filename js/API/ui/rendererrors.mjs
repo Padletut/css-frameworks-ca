@@ -1,4 +1,15 @@
-// Function to render authorization errors
+/**
+ * Renders authorization errors as alert messages.
+ * @param {Error} error - The error object containing the error message.
+ * @example
+ * ```javascript
+ * try {
+ *     // Some code that may throw an error
+ * } catch (error) {
+ *     renderErrors(error);
+ * }
+ * ```
+ */
 export function renderErrors(error) {
     const existingAlert = document.querySelector('.alert');
 

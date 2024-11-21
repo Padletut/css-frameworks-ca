@@ -1,4 +1,16 @@
-// Function to load HTML content into a container
+/**
+ * Loads HTML content into a container.
+ * @param {string} url - The URL of the HTML content to load.
+ * @param {string} containerId - The ID of the container to load the HTML content into.
+ * @param {Function} [callback] - A callback function to execute after the HTML content is loaded.
+ * @returns {Promise<void>} A promise that resolves when the HTML content is loaded.
+ * @example
+ * ```javascript
+ * loadHTML("path/to/content.html", "container-id", () => {
+ *     console.log("HTML content loaded");
+ * });
+ * ```
+ */
 export function loadHTML(url, containerId, callback) {
     return fetch(url)
         .then(response => {

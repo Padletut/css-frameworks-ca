@@ -2,6 +2,18 @@ import { loadStorage } from "../../storage/loadstorage.mjs";
 
 const loggedInUser = loadStorage("profile");
 
+/**
+ * Renders comments for a given post.
+ * @param {Array} comments - An array of comment objects.
+ * @param {string} postOwner - The owner of the post.
+ * @returns {string} The HTML string for the rendered comments.
+ * @example
+ * ```javascript
+ * const comments = [{ id: 1, body: "Sample comment", replies: [] }];
+ * const postOwner = "john_doe";
+ * const commentsHTML = renderComments(comments, postOwner);
+ * ```
+ */
 export function renderComments(comments, postOwner, isTopLevel = true) {
     return comments.map(comment => {
         if (!comment.author) {

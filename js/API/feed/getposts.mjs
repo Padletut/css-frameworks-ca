@@ -4,7 +4,16 @@ import { handleErrors } from "../handleerrors/handleerrors.mjs";
 
 const { API_BASE_URL, API_POSTS } = global;
 
-// Get all posts from the API
+/**
+ * Gets all posts from the API.
+ * @param {number} [currentPage=1] - The current page number for pagination.
+ * @returns {Promise<Object>} A promise that resolves to the posts data.
+ * @example
+ * ```javascript
+ * const posts = await getPosts();
+ * console.log(posts);
+ * ```
+ */
 export async function getPosts(currentPage = 1) {
     const queryParams = new URLSearchParams({
         _author: "true",

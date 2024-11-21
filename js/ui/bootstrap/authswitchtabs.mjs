@@ -1,4 +1,10 @@
-// Switch between Login and Register account tabs
+/**
+ * Switches between Login and Register account tabs.
+ * @example
+ * ```javascript
+ * authSwitchTabs();
+ * ```
+ */
 export function authSwitchTabs() {
     const signUpLink = document.getElementById("signUpLink");
     const signInLink = document.getElementById("signInLink");

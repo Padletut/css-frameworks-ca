@@ -1,4 +1,16 @@
-// Function to validate if an email input ends with @noroff.no or @stud.noroff.no
+/**
+ * Validates if an email input ends with @noroff.no or @stud.noroff.no.
+ * @param {HTMLFormElement} form - The form element containing the email input.
+ * @param {HTMLInputElement} emailInput - The email input element to validate.
+ * @returns {boolean} True if the email is valid, false otherwise.
+ * @example
+ * ```javascript
+ * const form = document.getElementById("signUpForm");
+ * const emailInput = form.querySelector("#signUpEmail");
+ * const isValid = validateEmail(form, emailInput);
+ * console.log(isValid); // true or false
+ * ```
+ */
 export function validateEmail(form, emailInput) {
     const emailPattern = /^[^\s@]+@(noroff\.no|stud\.noroff\.no)$/;
     const isValid = emailPattern.test(emailInput.value);

@@ -1,4 +1,12 @@
-// Renders the profile banner in div with id "profile-cover"
+/**
+ * Handles the authentication process for login and registration forms.
+ * @param {Event} event - The event object from the form submission.
+ * @returns {Promise<void>} A promise that resolves when the authentication process is complete.
+ * @example
+ * ```javascript
+ * document.querySelector("form").addEventListener("submit", onAuth);
+ * ```
+ */
 export async function renderProfileAvatar(profileName) {
     const profileAvatar = document.getElementById("profile-image");
 

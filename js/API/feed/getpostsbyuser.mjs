@@ -7,7 +7,17 @@ const loggedInUser = loadStorage("profile");
 
 const { API_BASE_URL, API_PROFILES } = global;
 
-// Get all posts from the API
+/**
+ * Gets all posts by a specific user from the API.
+ * @param {string} [profileName=loggedInUser.name] - The name of the profile.
+ * @param {number} [currentPage=1] - The current page number for pagination.
+ * @returns {Promise<Object>} A promise that resolves to the posts data.
+ * @example
+ * ```javascript
+ * const posts = await getPostsbyUser("john_doe");
+ * console.log(posts);
+ * ```
+ */
 export async function getPostsbyUser(profileName = loggedInUser.name, currentPage = 1) {
 
     const urlParams = new URLSearchParams(window.location.search);

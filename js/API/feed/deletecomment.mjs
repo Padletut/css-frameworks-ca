@@ -3,12 +3,21 @@ import { headers } from "../headers.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 import * as global from "../constants.mjs";
 
-
-// Function to delete a comment
-// This function is called when the user clicks the delete button on a comment
-
 const { API_BASE_URL, API_POSTS } = global;
 
+/**
+ * Deletes a comment from a post.
+ * @param {number} postId - The ID of the post.
+ * @param {number} commentId - The ID of the comment to delete.
+ * @param {boolean} [skipConfirmation=false] - Whether to skip the confirmation prompt.
+ * @returns {Promise<void>} A promise that resolves when the comment is deleted.
+ * @example
+ * ```javascript
+ * const postId = 123;
+ * const commentId = 456;
+ * await deleteComment(postId, commentId);
+ * ```
+ */
 export async function deleteComment(postId, commentId, skipConfirmation = false) {
 
     if (!skipConfirmation) {

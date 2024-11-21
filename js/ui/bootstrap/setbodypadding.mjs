@@ -1,4 +1,10 @@
-// Function to calculate and set body padding
+/**
+ * Calculates and sets body padding based on the header and footer heights.
+ * @example
+ * ```javascript
+ * setBodyPadding();
+ * ```
+ */
 export function setBodyPadding() {
     const header = document.querySelector('.fixed-top');
     const footer = document.querySelector('footer.fixed-bottom');
