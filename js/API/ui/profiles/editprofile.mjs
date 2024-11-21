@@ -7,7 +7,13 @@ import { saveStorage } from "../../../storage/savestorage.mjs";
 const { API_BASE_URL, API_PROFILES } = global;
 const loggedInUser = loadStorage("profile");
 
-// Generic function to handle profile updates
+/**
+ * Generic function to handle profile updates.
+ * @param {Object} profile - The profile object.
+ * @param {Object} updatedProfile - The updated profile data.
+ * @param {string} modalId - The ID of the modal to hide.
+ * @param {string} formId - The ID of the form to validate.
+ */
 async function handleProfileUpdate(profile, updatedProfile, modalId, formId) {
     const { name } = profile.data;
 
@@ -38,7 +44,10 @@ async function handleProfileUpdate(profile, updatedProfile, modalId, formId) {
     }
 }
 
-// Function to edit a profile banner
+/**
+ * Function to edit a profile banner.
+ * @param {Object} [profile=loggedInUser] - The profile object.
+ */
 export async function editProfileBanner(profile = loggedInUser) {
     // Ensure the banner property exists and provide default values if it does not
     const bannerUrl = profile.banner?.url || '';
@@ -92,7 +101,10 @@ export async function editProfileBanner(profile = loggedInUser) {
     });
 }
 
-// Function to edit avatar URL and bio
+/**
+ * Function to edit avatar URL and bio.
+ * @param {Object} [profile=loggedInUser] - The profile object.
+ */
 export async function editProfileAvatarAndBio(profile = loggedInUser) {
     // Ensure the avatar and bio properties exist and provide default values if they do not
     const avatarUrl = profile.avatar?.url || '';
