@@ -20,6 +20,7 @@ let isLastPage = false;
  * ```
  */
 export async function renderPosts(profileName, append = false) {
+    console.log("Rendering posts for profile:", profileName);
     const feedContainer = document.getElementById("feed-container");
 
     if (!feedContainer) return;

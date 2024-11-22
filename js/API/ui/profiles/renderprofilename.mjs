@@ -17,12 +17,12 @@ export async function renderProfileName(profileName) {
     try {
         const profileNameHeading = document.createElement("h2");
         profileNameHeading.classList.add("fw-semibold", "fs-2");
-        profileNameHeading.textContent = capitalizeFirstLetter(profileName.data.name);
+        profileNameHeading.textContent = capitalizeFirstLetter(profileName.name);
         profileNameElement.appendChild(profileNameHeading);
 
         const smallName = document.createElement("small");
         smallName.classList.add("text-body-secondary");
-        smallName.textContent = `@${profileName.data.name}`;
+        smallName.textContent = `@${profileName.name}`;
         profileNameElement.appendChild(smallName);
 
     } catch (error) {

@@ -23,13 +23,13 @@ export async function renderProfile() {
         }
 
         try {
-            const profile = await getProfile(profileName);
+            const { data: profile } = await getProfile(profileName);
             if (document.title === "Profile | ConnectSphere") {
                 renderProfileBanner(profile);
                 renderProfileAvatar(profile);
                 renderProfileName(profile);
                 renderProfileBio(profile);
-                await renderPosts(profile);
+                await renderPosts(profile.name);
 
                 setupEditButtons(profile);
             }

@@ -18,8 +18,8 @@ export async function renderProfileBanner(profileName) {
     try {
         const profileBannerImage = document.createElement("img");
         profileBannerImage.classList.add("profile-banner-image");
-        profileBannerImage.src = profileName.data.banner.url;
-        profileBannerImage.alt = profileName.data.banner.alt;
+        profileBannerImage.src = profileName.banner.url;
+        profileBannerImage.alt = profileName.banner.alt;
         profileBannerImage.style.width = "100%";
 
         profileBanner.appendChild(profileBannerImage);

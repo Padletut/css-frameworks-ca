@@ -18,8 +18,8 @@ export async function renderProfileAvatar(profileName) {
     try {
         const profileAvatarImage = document.createElement("img");
         profileAvatarImage.classList.add("profile-avatar-image");
-        profileAvatarImage.src = profileName.data.avatar.url;
-        profileAvatarImage.alt = profileName.data.avatar.alt;
+        profileAvatarImage.src = profileName.avatar.url;
+        profileAvatarImage.alt = profileName.avatar.alt;
         profileAvatarImage.style.width = "128px";
 
         profileAvatar.appendChild(profileAvatarImage);
