@@ -61,8 +61,8 @@ export function createPostCard(post, profileName, feedContainer) {
                     `).join('')}
                 </div>
             </div>
-            <div class="card-footer d-flex p-1 pt-3 column-gap-5" role="button">
-                <div class="d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
+            <div class="card-footer d-flex p-1 pt-3 column-gap-5">
+                <div class="d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" name="react-button" role="button">
                     <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary">Like (${reactions.length})</small>
                 </div>
                 <div class="comment-open-modal-button d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
@@ -115,11 +115,13 @@ function addEditDeleteButtons(postCard, post, profileName) {
 
     const editButton = document.createElement("div");
     editButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "edit-button");
+    editButton.setAttribute("role", "button");
     editButton.innerHTML = `<i class="bi bi-pencil-fill"></i><small class="text-body-secondary">Edit</small>`;
     editButton.addEventListener('click', () => initializeUpdatePostModal(post, profileName));
 
     const deleteButton = document.createElement("div");
     deleteButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "delete-button");
+    deleteButton.setAttribute("role", "button");
     deleteButton.innerHTML = `<i class="bi bi-trash-fill"></i><small class="text-body-secondary">Delete</small>`;
     deleteButton.addEventListener('click', () => deletePost(post.id, profileName));
 
