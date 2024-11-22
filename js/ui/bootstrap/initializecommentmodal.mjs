@@ -1,23 +1,25 @@
-import { validateInputs } from "./validateinputs.mjs";
-import { addComment } from "../../API/feed/addcomment.mjs";
 import { renderComments } from "../comments/rendercomments.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
 import { handleReplies } from "../comments/handlereplies.mjs";
 import { handleEdits } from "../comments/handleedits.mjs";
 import { handleDeletes } from "../comments/handledeletes.mjs";
+import { handleAddComment } from "../comments/handleaddcomment.mjs";
+import { renderErrors } from "../../API/ui/rendererrors.mjs";
 
 const loggedInUser = loadStorage("profile");
 
 /**
  * Initializes the comment modal for a given post.
  * @param {Object} post - The post object containing comments.
+ * @param {HTMLElement} commentsCounterElement - The element displaying the number of comments.
  * @example
  * ```javascript
  * const post = { id: 1, title: "Sample Post", comments: [...] };
  * initializeCommentModal(post);
  * ```
  */
-export function initializeCommentModal(post) {
+export function initializeCommentModal(post, commentsCounterElement) {
+
     // Handle comment modal
     const commentModalElement = document.getElementById("commentModal");
     if (commentModalElement) {
@@ -49,9 +51,9 @@ export function initializeCommentModal(post) {
         // Populate the comments section
         const commentsSection = commentModalElement.querySelector('.comments-section');
         if (commentsSection) {
-            commentsSection.innerHTML = renderComments(Array.from(commentsMap.values()), post.owner);
+            commentsSection.innerHTML = renderComments(Array.from(commentsMap.values()), post.author.name);
 
-            // Handle replies, edits, and deletes
+            // Handle add, replies, edits, and deletes
             handleReplies(commentsSection, post.id);
             handleEdits(commentsSection, post.id);
             handleDeletes(commentsSection, post.id);
@@ -61,30 +63,9 @@ export function initializeCommentModal(post) {
         if (submitButton) {
             submitButton.addEventListener("click", async function (event) {
                 event.preventDefault();
-                const form = commentModalElement.querySelector('.needs-validation');
-                if (!form.checkValidity()) {
-                    form.classList.add('was-validated');
-                    return;
-                }
 
-                if (validateInputs(form)) {
-                    // Retrieve the post ID from the data attribute
-                    const postId = commentModalElement.dataset.postId;
-
-                    // Add the comment to the correct post
-                    const formData = new FormData(form);
-                    const comment = formData.get("comment");
-                    await addComment(postId, comment);
-
-                    // Re-render comments
-                    commentsSection.innerHTML += `
-                        <div class="comment mb-3">
-                            <p class="mb-0"><strong>You:</strong> ${comment}</p>
-                        </div>
-                    `;
-
-                    commentModal.hide();
-                }
+                // Handle adding a comment
+                await handleAddComment(commentsSection, post.id, commentsCounterElement);
             });
         }
 
@@ -100,6 +81,7 @@ export function initializeCommentModal(post) {
         // Show the modal
         commentModal.show();
     } else {
+        renderErrors('Comment modal element not found');
         console.error('Comment modal element not found');
     }
 }

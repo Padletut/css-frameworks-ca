@@ -1,5 +1,6 @@
 import { fetchPosts } from "./fetchposts.mjs";
 import { createPostCard } from "./createpostcard.mjs";
+import { renderErrors } from "../../API/ui/rendererrors.mjs";
 
 let nextPage;
 let isLastPage = false;
@@ -31,6 +32,7 @@ export async function renderPosts(profileName, append = false) {
         const posts = await fetchPosts(profileName);
         posts.data.forEach(post => createPostCard(post, profileName, feedContainer));
     } catch (error) {
+        renderErrors("Failed to load posts " + error);
         console.error("Error rendering posts:", error);
     }
 

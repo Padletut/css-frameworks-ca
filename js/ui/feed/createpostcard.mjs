@@ -68,7 +68,7 @@ export function createPostCard(post, profileName, feedContainer) {
                     <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary like-counter">Like (${reactionsCounter})</small>
                 </div>
                 <div class="comment-open-modal-button d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
-                    <i class="bi bi-chat-left-dots-fill"></i><small class="text-body-secondary">Comments (${commentsCounter})</small>
+                    <i class="bi bi-chat-left-dots-fill"></i><small class="text-body-secondary comments-counter">Comments (${commentsCounter})</small>
                 </div>
             </div>
         </div>
@@ -77,8 +77,9 @@ export function createPostCard(post, profileName, feedContainer) {
     feedContainer.appendChild(postCard);
 
     const commentButton = postCard.querySelector(".comment-open-modal-button");
+    const commentsCounterElement = postCard.querySelector(".comments-counter");
     if (commentButton) {
-        commentButton.addEventListener("click", () => initializeCommentModal(post));
+        commentButton.addEventListener("click", () => initializeCommentModal(post, commentsCounterElement));
     }
 
     if (postCheckOwner(author.name)) {

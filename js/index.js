@@ -1,6 +1,6 @@
 import { loadHTML } from "./ui/loadhtml.mjs";
 import { authSwitchTabs } from "./ui/bootstrap/authswitchtabs.mjs";
-import { handleFormSubmission } from "./ui/bootstrap/handleFormSubsimission.mjs";
+import { handleFormSubmission } from "./ui/bootstrap/handleformsubmission.mjs";
 import { setBodyPadding } from "./ui/bootstrap/setbodypadding.mjs";
 import { checkAuth } from "./ui/checkauth.mjs";
 import { logout } from "./API/auth/logout.mjs";
