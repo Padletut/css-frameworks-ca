@@ -1,5 +1,6 @@
 import { initializeCommentModal } from "../bootstrap/initializecommentmodal.mjs";
 import { postCheckOwner } from "../../API/feed/postcheckowner.mjs";
+import { reactToPost } from "./reacttopost.mjs";
 
 /**
  * Creates a post card element and appends it to the feed container.
@@ -13,7 +14,8 @@ import { postCheckOwner } from "../../API/feed/postcheckowner.mjs";
  * ```
  */
 export function createPostCard(post, profileName, feedContainer) {
-    const { author, title, body, media, tags, reactions, comments, created } = post;
+
+    const { author, title, body, media, tags, comments, _count: { reactions: reactionsCounter, comments: commentsCounter }, created } = post;
 
     const postCard = document.createElement("div");
     postCard.classList.add("card", "bg-white", "rounded-3", "flex-grow-1", "flex-sm-grow-0", "feed-post-card", "card-custom");
@@ -62,11 +64,11 @@ export function createPostCard(post, profileName, feedContainer) {
                 </div>
             </div>
             <div class="card-footer d-flex p-1 pt-3 column-gap-5">
-                <div class="d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" name="react-button" role="button">
-                    <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary">Like (${reactions.length})</small>
+                <div class="react-button d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
+                    <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary like-counter">Like (${reactionsCounter})</small>
                 </div>
                 <div class="comment-open-modal-button d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
-                    <i class="bi bi-chat-left-dots-fill"></i><small class="text-body-secondary">Comments (${comments.length})</small>
+                    <i class="bi bi-chat-left-dots-fill"></i><small class="text-body-secondary">Comments (${commentsCounter})</small>
                 </div>
             </div>
         </div>
@@ -74,13 +76,19 @@ export function createPostCard(post, profileName, feedContainer) {
 
     feedContainer.appendChild(postCard);
 
-    const commentButton = postCard.querySelector('.comment-open-modal-button');
+    const commentButton = postCard.querySelector(".comment-open-modal-button");
     if (commentButton) {
-        commentButton.addEventListener('click', () => initializeCommentModal(post));
+        commentButton.addEventListener("click", () => initializeCommentModal(post));
     }
 
     if (postCheckOwner(author.name)) {
         addEditDeleteButtons(postCard, post, profileName);
+    }
+
+    const reactButton = postCard.querySelector(".react-button");
+    const likeCounterElement = postCard.querySelector(".like-counter");
+    if (reactButton) {
+        reactButton.addEventListener("click", () => reactToPost(post.id, "👍", likeCounterElement))
     }
 }
 
