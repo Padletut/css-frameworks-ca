@@ -21,10 +21,14 @@ const { API_BASE_URL, API_AUTH, API_REGISTER } = constants;
  * ```
  */
 export async function register(name, email, password) {
+    // Convert name and email to lowercase
+    const lowerCaseName = name.toLowerCase();
+    const lowerCaseEmail = email.toLowerCase();
+
     const response = await authFetch(API_BASE_URL + API_AUTH + API_REGISTER, {
         headers: headers(true),
         method: "POST",
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name: lowerCaseName, email: lowerCaseEmail, password })
     });
 
     if (response.ok) {
