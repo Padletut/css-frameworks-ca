@@ -35,6 +35,9 @@ export function createPostCard(post, profileName, feedContainer) {
     const authorName = capitalizeFirstLetter(author.name);
     const postTitle = capitalizeFirstLetter(title);
 
+    // Replace newline characters with <br> elements
+    const formattedBody = body.replace(/\n/g, '<br>');
+
     postCard.innerHTML = `
         <div class="card-body d-flex flex-column">
             <div class="card-header">
@@ -55,7 +58,7 @@ export function createPostCard(post, profileName, feedContainer) {
                     <h3>${postTitle}</h3>
                 </div>
                 <div class="card-text">
-                    <p>${body}</p>
+                    <p>${formattedBody}</p>
                     ${media ? `<img src="${media.url}" alt="${media.alt}" width="100%">` : ''}
                 </div>
                 <div class="card-tags mt-3">
