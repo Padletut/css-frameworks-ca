@@ -40,7 +40,6 @@ export async function updatePost(postId, title, body, tags, media) {
     });
 
     if (response.ok) {
-        console.log(response);
         return await response.json();
     }
 
