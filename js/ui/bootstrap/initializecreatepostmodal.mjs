@@ -61,7 +61,7 @@ function openModal(state, post, profileName) {
                 form.querySelector("#title").value = post.title;
                 form.querySelector("#postText").value = post.body;
                 form.querySelector("#tags").value = post.tags.join(", ");
-                form.querySelector("#imageUrl").value = post.media.url || "";
+                form.querySelector("#imageUrl").value = post.media && post.media.url ? post.media.url : "";
             }
 
             // Remove existing event listener to prevent multiple submissions

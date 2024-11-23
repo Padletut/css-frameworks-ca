@@ -1,6 +1,8 @@
 import { initializeCommentModal } from "../bootstrap/initializecommentmodal.mjs";
 import { postCheckOwner } from "../../API/feed/postcheckowner.mjs";
 import { reactToPost } from "./reacttopost.mjs";
+import { initializeUpdatePostModal } from "../bootstrap/initializecreatepostmodal.mjs";
+import { getPost } from "../../API/feed/getpost.mjs";
 
 /**
  * Creates a post card element and appends it to the feed container.
@@ -79,7 +81,12 @@ export function createPostCard(post, profileName, feedContainer) {
     const commentButton = postCard.querySelector(".comment-open-modal-button");
     const commentsCounterElement = postCard.querySelector(".comments-counter");
     if (commentButton) {
-        commentButton.addEventListener("click", () => initializeCommentModal(post, commentsCounterElement));
+        commentButton.addEventListener("click", () => {
+            getPost(post.id)
+                .then(post => {
+                    initializeCommentModal(post.data, commentsCounterElement);
+                });
+        });
     }
 
     if (postCheckOwner(author.name)) {

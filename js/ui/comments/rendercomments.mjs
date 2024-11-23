@@ -15,6 +15,9 @@ const loggedInUser = loadStorage("profile");
  * ```
  */
 export function renderComments(comments, postOwner, isTopLevel = true) {
+    // Sort comments by creation date
+    comments.sort((a, b) => new Date(a.created) - new Date(b.created));
+    console.log(comments.map(comment => comment.author));
     return comments.map(comment => {
         if (!comment.author) {
             return ''; // Skip rendering if author is not defined

@@ -20,7 +20,7 @@ let isLastPage = false;
  * ```
  */
 export async function renderPosts(profileName, append = false) {
-    console.log("Rendering posts for profile:", profileName);
+
     const feedContainer = document.getElementById("feed-container");
 
     if (!feedContainer) return;
@@ -30,15 +30,15 @@ export async function renderPosts(profileName, append = false) {
     }
 
     try {
-        const posts = await fetchPosts(profileName);
-        posts.data.forEach(post => createPostCard(post, profileName, feedContainer));
+        const response = await fetchPosts(profileName);
+        const posts = response.data;
+        posts.forEach(post => createPostCard(post, profileName, feedContainer));
+        if (!isLastPage && posts.length >= 10) {
+            createShowMoreButton(profileName);
+        }
     } catch (error) {
         renderErrors("Failed to load posts " + error);
         console.error("Error rendering posts:", error);
-    }
-
-    if (!isLastPage) {
-        createShowMoreButton(profileName);
     }
 }
 

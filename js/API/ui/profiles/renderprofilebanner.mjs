@@ -17,10 +17,13 @@ export async function renderProfileBanner(profileName) {
 
     try {
         const profileBannerImage = document.createElement("img");
-        profileBannerImage.classList.add("profile-banner-image");
+        profileBannerImage.classList.add("profile-banner-image", "rounded-top");
         profileBannerImage.src = profileName.banner.url;
         profileBannerImage.alt = profileName.banner.alt;
         profileBannerImage.style.width = "100%";
+        // radiues: 5px on top
+        // profileBannerImage.style.borderTopLeftRadius = "5px";
+        //  profileBannerImage.style.borderTopRightRadius = "5px";
 
         profileBanner.appendChild(profileBannerImage);
 

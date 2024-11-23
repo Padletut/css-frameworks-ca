@@ -1,6 +1,7 @@
-import * as global from "../../API/constants.mjs"
+import * as global from "../../API/constants.mjs";
 import { feedProfileFetch } from "../../API/fetch/fetch.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
+import { getPost } from "../../API/feed/getpost.mjs";
 
 const { API_BASE_URL, API_POSTS } = global;
 
@@ -26,8 +27,11 @@ export async function reactToPost(postId, symbol, likeCounterElement) {
         });
 
         if (response.ok) {
-            const updatedPost = await response.json();
-            likeCounterElement.textContent = `Like (${updatedPost.data.reactions.length})`;
+            // Fetch the updated post data
+            const { data: updatedPost } = await getPost(postId);
+
+            // Update the like counter element
+            likeCounterElement.textContent = `Like (${updatedPost._count.reactions})`;
             return updatedPost;
         } else {
             throw new Error("Failed to toggle reaction");

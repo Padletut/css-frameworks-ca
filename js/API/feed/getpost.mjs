@@ -21,13 +21,12 @@ export async function getPost(postId) {
     const queryParams = new URLSearchParams({
         _author: "true",
         _comments: "true",
-
+        _reactions: "true"
     });
 
     const response = await feedProfileFetch(`${API_BASE_URL}${API_POSTS}/${postId}?${queryParams}`, {
         method: "GET",
     });
-
     if (response.ok) {
         return await response.json();
     }
