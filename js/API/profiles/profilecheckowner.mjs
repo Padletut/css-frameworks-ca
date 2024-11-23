@@ -14,10 +14,9 @@ const loggedInUser = loadStorage("profile");
  * checkProfileOwner(profile);
  * ```
  */
-
 export function checkProfileOwner(profile) {
-    const { data: { name: profileName } = {} } = profile;
-    const { data: { name: loggedInUserName } = {} } = loggedInUser;
+    const { name: profileName = {} } = profile;
+    const { name: loggedInUserName } = {} = loggedInUser;
 
     return profileName === loggedInUserName;
 }
