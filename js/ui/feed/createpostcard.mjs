@@ -4,6 +4,7 @@ import { reactToPost } from "./reacttopost.mjs";
 import { initializeUpdatePostModal } from "../bootstrap/initializecreatepostmodal.mjs";
 import { getPost } from "../../API/feed/getpost.mjs";
 
+
 /**
  * Creates a post card element and appends it to the feed container.
  * @param {Object} post - The post object.
@@ -26,6 +27,9 @@ export function createPostCard(post, profileName, feedContainer) {
         year: "numeric",
         month: "long",
         day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
     });
 
     const authorName = capitalizeFirstLetter(author.name);

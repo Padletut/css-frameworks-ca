@@ -17,14 +17,28 @@ const loggedInUser = loadStorage("profile");
 export function renderComments(comments, postOwner, isTopLevel = true) {
     // Sort comments by creation date
     comments.sort((a, b) => new Date(a.created) - new Date(b.created));
-    console.log(comments.map(comment => comment.author));
+
     return comments.map(comment => {
         if (!comment.author) {
             return ''; // Skip rendering if author is not defined
         }
+
+        const formattedDate = new Date(comment.created).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+        });
+
+        // Capitalize the first letter of the author's name
+        const authorName = comment.author.name.charAt(0).toUpperCase() + comment.author.name.slice(1);
+
         return `
             <div class="comment mb-3" id="comment-${comment.id}">
-                <p class="mb-0"><strong>${comment.author.name}:</strong> ${comment.body}</p>
+                <small class="text-muted">${formattedDate}</small>
+                <p class="mb-0"><strong>${authorName}:</strong> ${comment.body}</p>
                 ${isTopLevel ? `
                 <button class="btn btn-link reply-button mb-2" data-comment-id="${comment.id}">Reply</button>
                 <div class="reply-form d-none mb-3">
