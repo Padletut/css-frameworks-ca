@@ -10,7 +10,7 @@ import { renderPosts } from "./ui/feed/renderposts.mjs";
 import { loadStorage } from "./storage/loadstorage.mjs";
 
 // Check if user is logged in
-checkAuth();
+let isLoggedIn = checkAuth();
 
 const profileName = loadStorage("profile");
 
@@ -32,7 +32,9 @@ function loadModals(profileName) {
     }
 }
 
-loadModals(profileName.name);
+if (isLoggedIn && profileName) {
+    loadModals(profileName.name);
+}
 
 authSwitchTabs();
 

@@ -17,7 +17,7 @@ const loggedInUser = loadStorage("profile");
  */
 export async function editProfileBanner(profile = loggedInUser) {
     // Ensure the banner property exists and provide default values if it does not
-    const { banner: { url: bannerUrl = '' } = {} } = profile.data || {};
+    const { banner: { url: bannerUrl = '' } = {} } = profile || {};
 
     // Create and show the Bootstrap modal
     const modalHtml = `
@@ -60,7 +60,7 @@ export async function editProfileBanner(profile = loggedInUser) {
         const updatedProfile = {
             banner: {
                 url: bannerUrl,
-                alt: `Banner for profile ${profile.data.name}` // Set a default alt text
+                alt: `Banner for profile ${profile.name}` // Set a default alt text
             }
         };
 

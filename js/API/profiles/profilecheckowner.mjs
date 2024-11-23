@@ -1,4 +1,3 @@
-import { getProfile } from "./getprofile.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
 
 const loggedInUser = loadStorage("profile");

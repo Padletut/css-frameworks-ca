@@ -19,26 +19,20 @@ export async function checkAuth() {
             const isValidToken = await validateAccessToken(accessToken);
             if (isValidToken) {
                 window.location.href = "/profile/index.html";
-                return;
+                return true;
             } else {
                 window.location.href = "/index.html";
-                return;
+                return false;
             }
         }
 
         if (authPaths.includes(currentPath)) {
-            return;
+            return true;
         }
 
         if (!accessToken) {
             window.location.href = "/index.html";
-        } else {
-            const isValidToken = await validateAccessToken(accessToken);
-            if (isValidToken) {
-                return true;
-            } else {
-                window.location.href = "/index.html";
-            }
+            return false;
         }
     });
 }

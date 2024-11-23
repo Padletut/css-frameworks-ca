@@ -15,7 +15,7 @@ const loggedInUser = loadStorage("profile");
  */
 export async function editProfileAvatarAndBio(profile = loggedInUser) {
     // Ensure the avatar and bio properties exist and provide default values if they do not
-    const { avatar: { url: avatarUrl = '' } = {}, bio = '' } = profile.data || {};
+    const { avatar: { url: avatarUrl = '' } = {}, bio = '' } = profile || {};
 
     // Create and show the Bootstrap modal
     const modalHtml = `
@@ -64,7 +64,7 @@ export async function editProfileAvatarAndBio(profile = loggedInUser) {
         const updatedProfile = {
             avatar: {
                 url: avatarUrl,
-                alt: `Avatar for profile ${profile.data.name}` // Set a default alt text
+                alt: `Avatar for profile ${profile.name}` // Set a default alt text
             },
             bio: bio
         };

@@ -1,7 +1,6 @@
 import * as global from "../../constants.mjs";
 import { feedProfileFetch } from "../../fetch/fetch.mjs";
 import { headers } from "../../headers.mjs";
-import { saveStorage } from "../../../storage/savestorage.mjs";
 
 const { API_BASE_URL, API_PROFILES } = global;
 
@@ -20,7 +19,7 @@ const { API_BASE_URL, API_PROFILES } = global;
  * ```
  */
 export async function handleProfileUpdate(profile, updatedProfile, modalId, formId) {
-    const { name } = profile.data;
+    const { name } = profile;
 
     try {
         const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${name}`, {
@@ -31,8 +30,7 @@ export async function handleProfileUpdate(profile, updatedProfile, modalId, form
 
         if (response.ok) {
             // Update the profile in local storage
-            const updatedProfileData = await response.json();
-            saveStorage("profile", updatedProfileData);
+            const updatedProfileData = await response.json().data;
 
             // Hide the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
