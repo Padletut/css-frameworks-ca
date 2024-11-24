@@ -3,6 +3,9 @@ import { renderProfileBanner } from "../profiles/renderprofilebanner.mjs";
 import { renderProfileAvatar } from "../profiles/renderprofileavatar.mjs";
 import { renderProfileName } from "../profiles/renderprofilename.mjs";
 import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
+import { renderFollowers } from "../profiles/renderfollowers.mjs";
+import { renderFollowing } from "../profiles/renderfollowing.mjs";
+import { renderErrors } from "../../ui/rendererrors.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
 import { setupEditButtons } from "../profiles/setupeditbuttons.mjs";
 import { setupFollowButton } from "../profiles/setupfollowbutton.mjs";
@@ -30,6 +33,8 @@ export async function renderProfile() {
                 renderProfileAvatar(profile);
                 renderProfileName(profile);
                 renderProfileBio(profile);
+                await renderFollowers(profile);
+                await renderFollowing(profile);
                 await renderPosts(profile.name);
 
                 setupEditButtons(profile);
@@ -37,7 +42,9 @@ export async function renderProfile() {
 
             }
         } catch (error) {
+            renderErrors(new Error("An error occurred while rendering the profile page"));
             console.error("Error rendering profile data:", error);
         }
     });
 }
+
