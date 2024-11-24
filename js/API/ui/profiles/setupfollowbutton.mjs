@@ -1,6 +1,8 @@
 import { followProfile } from "../profiles/followprofile.mjs";
 import { unfollowProfile } from "../profiles/unfollowprofile.mjs";
 import { checkIfProfileIsFollowed } from "../../profiles/checkifprofileisfollowed.mjs";
+import { loadStorage } from "../../../storage/loadstorage.mjs";
+const loggedInUser = loadStorage("profile");
 
 /**
  * Sets up the follow button.
@@ -12,8 +14,17 @@ import { checkIfProfileIsFollowed } from "../../profiles/checkifprofileisfollowe
  * ```
  */
 export async function setupFollowButton(profile) {
+
     const followButton = document.getElementById("btn-check");
     const followLabel = document.querySelector("label[for='btn-check']");
+
+    if (profile.name === loggedInUser.name) {
+        followButton.remove();
+        followLabel.remove();
+        return;
+    }
+
+
 
     // Check if the profile is followed and set the button state
     const isFollowed = await checkIfProfileIsFollowed(profile);
