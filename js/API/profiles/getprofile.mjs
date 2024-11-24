@@ -51,13 +51,15 @@ export async function getProfile(profileName = loggedInUser) {
     let profile = await fetchProfile(name);
     if (profile) {
         return profile;
+    } else {
+        // Retry with the lowercase profile name
+        profile = await fetchProfile(name.toLowerCase());
+        if (profile) {
+            return profile;
+        }
+
     }
 
-    // Retry with the lowercase profile name
-    profile = await fetchProfile(name.toLowerCase());
-    if (profile) {
-        return profile;
-    }
 
     // Render error if profile not found with both original and lowercase names
     renderErrors(new Error("We couldn't find the profile you were looking for"));

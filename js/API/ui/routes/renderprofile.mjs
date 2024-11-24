@@ -5,6 +5,7 @@ import { renderProfileName } from "../profiles/renderprofilename.mjs";
 import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
 import { setupEditButtons } from "../profiles/setupeditbuttons.mjs";
+import { setupFollowButton } from "../profiles/setupfollowbutton.mjs";
 
 /**
  * Renders the profile page.
@@ -32,6 +33,8 @@ export async function renderProfile() {
                 await renderPosts(profile.name);
 
                 setupEditButtons(profile);
+                setupFollowButton(profile);
+
             }
         } catch (error) {
             console.error("Error rendering profile data:", error);
