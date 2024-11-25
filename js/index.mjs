@@ -8,6 +8,7 @@ import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmo
 import { renderProfile } from "./API/ui/routes/renderprofile.mjs";
 import { renderPosts } from "./ui/feed/renderposts.mjs";
 import { loadStorage } from "./storage/loadstorage.mjs";
+import { search } from "./ui/shared/search.mjs";
 
 // Check if user is logged in
 let isLoggedIn = checkAuth();
@@ -68,4 +69,18 @@ if (document.title === "Feed | ConnectSphere") {
 // Render profile data
 if (document.title === "Profile | ConnectSphere") {
     await renderProfile();
+}
+
+// Event listener for search form
+const searchForm = document.querySelector('.search-form');
+
+if (searchForm) {
+    searchForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const query = e.target.querySelector('input[type="search"]').value;
+        console.log(query);
+        const searchResults = await search(query);
+        console.log(searchResults);
+        // Handle the search results (e.g., display them on the page)
+    });
 }

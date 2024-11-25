@@ -19,7 +19,6 @@ import { getPost } from "../../API/feed/getpost.mjs";
 export function createPostCard(post, profileName, feedContainer) {
 
     const { author, title, body, media, tags, comments, _count: { reactions: reactionsCounter, comments: commentsCounter }, created } = post;
-
     const postCard = document.createElement("div");
     postCard.classList.add("card", "bg-white", "rounded-3", "flex-grow-1", "flex-sm-grow-0", "feed-post-card", "card-custom");
 

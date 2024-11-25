@@ -2,7 +2,6 @@ import { feedProfileFetch } from "../fetch/fetch.mjs";
 import { renderErrors } from "../ui/rendererrors.mjs";
 import * as global from "../constants.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
-import { getAllProfiles } from "./getallprofiles.mjs";
 
 const { API_BASE_URL, API_PROFILES } = global;
 const loggedInUser = loadStorage("profile");

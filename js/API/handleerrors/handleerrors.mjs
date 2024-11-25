@@ -30,6 +30,11 @@ export async function handleErrors(response) {
         throw new Error(errorMessage);
     }
 
+    if (response.status === 429) {
+        renderErrors(new Error("Too many requests. Please try again later."));
+        throw new Error("Too many requests. Please try again later.");
+    }
+
     renderErrors(new Error("An error occurred"));
     throw new Error("An error occurred");
 }

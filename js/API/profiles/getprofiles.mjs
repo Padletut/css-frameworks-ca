@@ -15,26 +15,14 @@ const { API_BASE_URL, API_PROFILES } = global;
  * console.log(profiles);
  * ```
  */
-export async function getAllProfiles(filterName) {
-    let allProfiles = [];
-    let currentPage = 1;
-    let isLastPage = false;
+export async function getProfiles(filterName, queryParams) {
 
-    while (!isLastPage) {
-        const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}?page=${currentPage}`, {
+    try {
+        const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}?${queryParams.currentPage}`, {
             method: "GET",
         });
-
-        if (response.ok) {
-            const data = await response.json();
-            allProfiles = allProfiles.concat(data.data);
-            currentPage = data.meta.currentPage + 1;
-            isLastPage = data.meta.isLastPage;
-        } else {
-            handleErrors(response);
-            break;
-        }
+        return await response.json();
+    } catch (error) {
+        handleErrors(error);
     }
-
-    return allProfiles;
 }
