@@ -2,6 +2,7 @@ import { feedProfileFetch } from "../fetch/fetch.mjs";
 import { renderErrors } from "../ui/rendererrors.mjs";
 import * as global from "../constants.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
+import { getAllProfiles } from "./getallprofiles.mjs";
 
 const { API_BASE_URL, API_PROFILES } = global;
 const loggedInUser = loadStorage("profile");
@@ -26,38 +27,14 @@ export async function getProfile(profileName = loggedInUser) {
     // Determine the profile name based on the structure of the profileName parameter
     const name = typeof profileName === "string" ? profileName : profileName.data ? profileName.data.name : profileName.name;
 
-    /**
-     * Helper function to fetch profile data.
-     * @param {string} name - The profile name.
-     * @returns {Promise<Object|null>} A promise that resolves to the profile data or null if not found.
-     */
-    async function fetchProfile(name) {
-        const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${name}?${queryParams}`, {
-            method: "GET",
-        });
+    // Fetch the profile data from the API
+    const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${name}?${queryParams.toString()}`, {
+        method: "GET",
+    });
 
-        if (response.ok) {
-            const data = await response.json();
-            return data;
-        } else if (response.status === 404) {
-            // Return null if profile not found
-            return null;
-        } else {
-            throw new Error("An error occurred while fetching the profile");
-        }
-    }
-
-    // Try fetching the profile with the provided name
-    let profile = await fetchProfile(name);
-    if (profile) {
-        return profile;
-    } else {
-        // Retry with the lowercase profile name
-        profile = await fetchProfile(name.toLowerCase());
-        if (profile) {
-            return profile;
-        }
-
+    if (response.ok) {
+        const data = await response.json();
+        return data;
     }
 
 

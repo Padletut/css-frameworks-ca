@@ -41,7 +41,7 @@ export function createPostCard(post, profileName, feedContainer) {
     postCard.innerHTML = `
         <div class="card-body d-flex flex-column">
             <div class="card-header">
-                <a href="../profile/index.html?profile=${authorName}" class="text-decoration-none post-profile-link">
+                <a href="../profile/index.html?profile=${author.name}" class="text-decoration-none post-profile-link">
                     <div class="d-flex column-gap-3 post-card-header-userinformation" role="button">
                         <div class="post-profile-image">
                             <img src="${author.avatar.url}" alt="${author.avatar.alt}" width="64" height="64">

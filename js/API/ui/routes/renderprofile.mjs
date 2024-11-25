@@ -42,7 +42,7 @@ export async function renderProfile() {
 
             }
         } catch (error) {
-            renderErrors(new Error("An error occurred while rendering the profile page"));
+            renderErrors(new Error("An error occurred while loading the profile page"));
             console.error("Error rendering profile data:", error);
         }
     });

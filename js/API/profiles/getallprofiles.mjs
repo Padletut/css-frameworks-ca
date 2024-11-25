@@ -26,7 +26,6 @@ export async function getAllProfiles(filterName) {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
             allProfiles = allProfiles.concat(data.data);
             currentPage = data.meta.currentPage + 1;
             isLastPage = data.meta.isLastPage;
