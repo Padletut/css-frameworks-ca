@@ -5,6 +5,7 @@ import { renderProfileName } from "../profiles/renderprofilename.mjs";
 import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
 import { renderFollowers } from "../profiles/renderfollowers.mjs";
 import { renderFollowing } from "../profiles/renderfollowing.mjs";
+import { renderProfileCounters } from "../profiles/renderprofilecounters.mjs";
 import { renderErrors } from "../../ui/rendererrors.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
 import { setupEditButtons } from "../profiles/setupeditbuttons.mjs";
@@ -36,6 +37,7 @@ export async function renderProfile() {
                 await renderFollowers(profile);
                 await renderFollowing(profile);
                 await renderPosts(profile.name);
+                renderProfileCounters(profile);
 
                 setupEditButtons(profile);
                 setupFollowButton(profile);
