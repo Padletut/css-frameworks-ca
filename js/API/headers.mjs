@@ -2,7 +2,12 @@ import { loadStorage } from "../storage/loadstorage.mjs";
 import { API_KEY } from "./constants.mjs";
 
 /**
+ * @module API
+ */
+
+/**
  * Handles the authentication process for login and registration forms.
+ * @memberof module:API
  * @param {Event} event - The event object from the form submission.
  * @returns {Promise<void>} A promise that resolves when the authentication process is complete.
  * @example

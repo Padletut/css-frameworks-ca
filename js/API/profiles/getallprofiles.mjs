@@ -6,6 +6,7 @@ const { API_BASE_URL, API_PROFILES } = global;
 
 /**
  * Fetches all profile data from the API across multiple pages.
+ * @memberof module:Profile
  * @param {string} [filterName] - The name to filter profiles by (optional).
  * @returns {Promise<Array>} A promise that resolves to an array of all profile data.
  * @example

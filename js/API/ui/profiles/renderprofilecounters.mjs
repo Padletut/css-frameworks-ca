@@ -1,5 +1,6 @@
 /**
  * Renders the counters for following, followers, and posts.
+ * @memberof module:Profile
  * @param {Object} profile - The profile object containing the counts.
  * @example
  * ```javascript

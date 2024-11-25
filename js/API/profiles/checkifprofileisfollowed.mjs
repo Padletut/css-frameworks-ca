@@ -5,7 +5,8 @@ import { renderErrors } from '../ui/rendererrors.mjs';
 const loggedInUser = loadStorage('profile');
 
 /**
- * Checks if the profile is followed.
+ * Checks if the visited profile is followed.
+ * @memberof module:Profile
  * @param {Object} profile - The profile object.
  * @returns {Promise<boolean>} A promise that resolves to true if the profile is followed, false otherwise.
  * @example

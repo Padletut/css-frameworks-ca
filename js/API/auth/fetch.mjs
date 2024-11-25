@@ -1,7 +1,12 @@
 import { headers } from "../headers.mjs";
 
 /**
+ * @module Authorization
+ */
+
+/**
  * Performs an authenticated fetch request.
+ * @memberof module:Authorization
  * @param {string} url - The URL to fetch.
  * @param {Object} [options={}] - The options for the fetch request.
  * @param {string} [options.method] - The HTTP method to use (e.g., "GET", "POST").

@@ -1,5 +1,10 @@
 /**
+ * @module Rendererrors
+ */
+
+/**
  * Renders authorization errors as alert messages.
+ * @memberof module:Rendererrors
  * @param {Error} error - The error object containing the error message.
  * @example
  * ```javascript

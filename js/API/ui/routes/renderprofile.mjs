@@ -13,7 +13,12 @@ import { setupFollowButton } from "../profiles/setupfollowbutton.mjs";
 import { toggleLoader } from "../../../ui/shared/toggleLoader.mjs";
 
 /**
+ * @module Profile
+ */
+
+/**
  * Renders the profile page.
+ * @memberof module:Profile
  * @returns {Promise<void>} A promise that resolves when the profile page is rendered.
  * @example
  * ```javascript

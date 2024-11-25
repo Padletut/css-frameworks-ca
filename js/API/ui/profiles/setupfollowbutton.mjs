@@ -5,7 +5,8 @@ import { loadStorage } from "../../../storage/loadstorage.mjs";
 const loggedInUser = loadStorage("profile");
 
 /**
- * Sets up the follow button.
+ * Sets up eventlistener for the follow button.
+ * @memberof module:Profile
  * @param {Object} profile - The profile object.
  * @example
  * ```javascript

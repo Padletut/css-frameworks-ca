@@ -9,6 +9,7 @@ const loggedInUser = loadStorage("profile");
 
 /**
  * Fetches the profile data from the API.
+ * @memberof module:Profile
  * @param {Object|string} profileName - The profile object or name.
  * @returns {Promise<Object|null>} A promise that resolves to the profile data or null if not found.
  * @example

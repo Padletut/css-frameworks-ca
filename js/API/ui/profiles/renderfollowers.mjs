@@ -2,6 +2,7 @@ import { setupFollowers } from "../events/setupfollowers.mjs";
 
 /**
  * Renders the followers of a profile.
+ * @memberof module:Profile
  * @param {Object} profile - The profile object.
  * @returns {Promise<void>} A promise that resolves when the followers are rendered.
  * @example

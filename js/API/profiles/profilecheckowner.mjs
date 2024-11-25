@@ -2,10 +2,9 @@ import { loadStorage } from "../../storage/loadstorage.mjs";
 
 const loggedInUser = loadStorage("profile");
 
-// Function to check if the logged in user is the owner of the profile
-
 /**
  * Check if the logged in user is the owner of the profile and add the edit button
+ * @memberof module:Profile
  * @param {Object} profile - The profile object.
  * @example
  * ```javascript

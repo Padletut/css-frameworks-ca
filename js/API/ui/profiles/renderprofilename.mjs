@@ -1,5 +1,6 @@
 /**
  * Renders the profile name in the element with id "profile-id".
+ * @memberof module:Profile
  * @param {Object} profileName - The profile object containing name data.
  * @example
  * ```javascript

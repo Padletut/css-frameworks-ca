@@ -6,6 +6,7 @@ const { API_BASE_URL, API_PROFILES } = global;
 
 /**
  * Unfollows a profile by its name.
+ * @memberof module:Profile
  * @param {string} profileName - The name of the profile to unfollow.
  * @returns {Promise<void>} A promise that resolves when the profile is unfollowed.
  * @example

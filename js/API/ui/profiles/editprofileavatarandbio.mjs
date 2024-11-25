@@ -5,6 +5,7 @@ const loggedInUser = loadStorage("profile");
 
 /**
  * Function to edit avatar URL and bio.
+ * @memberof module:Profile
  * @param {Object} [profile=loggedInUser] - The profile object.
  * @returns {Promise<void>} A promise that resolves when the profile avatar and bio update is complete.
  * @example

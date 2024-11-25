@@ -4,6 +4,7 @@ import { checkProfileOwner } from "../../../API/profiles/profilecheckowner.mjs";
 
 /**
  * Sets up event listeners for edit buttons.
+ * @memberof module:Profile
  * @param {Object} profile - The profile object.
  * @example
  * ```javascript

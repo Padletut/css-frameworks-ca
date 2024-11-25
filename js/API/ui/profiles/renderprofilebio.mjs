@@ -1,5 +1,6 @@
 /**
  * Renders the profile bio in the element with id "profile-bio".
+ * @memberof module:Profile
  * @param {Object} profile - The profile object containing bio data.
  * @example
  * ```javascript

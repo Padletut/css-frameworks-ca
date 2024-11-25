@@ -7,6 +7,7 @@ const { API_BASE_URL, API_PROFILES } = global;
 
 /**
  * Follows a profile by its name.
+ * @memberof module:Profile
  * @param {string} profileName - The name of the profile to follow.
  * @returns {Promise<void>} A promise that resolves when the profile is followed.
  * @example

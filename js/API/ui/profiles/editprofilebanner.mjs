@@ -7,6 +7,7 @@ const loggedInUser = loadStorage("profile");
 
 /**
  * Function to edit a profile banner.
+ * @memberof module:Profile
  * @param {Object} [profile=loggedInUser] - The profile object.
  * @returns {Promise<void>} A promise that resolves when the profile banner update is complete.
  * @example
