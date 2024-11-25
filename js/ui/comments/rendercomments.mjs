@@ -1,4 +1,5 @@
 import { loadStorage } from "../../storage/loadstorage.mjs";
+import { toggleLoader } from "../shared/toggleLoader.mjs";
 
 const loggedInUser = loadStorage("profile");
 
@@ -15,10 +16,14 @@ const loggedInUser = loadStorage("profile");
  * ```
  */
 export function renderComments(comments, postOwner, isTopLevel = true) {
+
+    const loaderContainer = document.getElementById("comment-loader-container");
+    toggleLoader(true, loaderContainer);
+
     // Sort comments by creation date
     comments.sort((a, b) => new Date(a.created) - new Date(b.created));
 
-    return comments.map(comment => {
+    const commentsHTML = comments.map(comment => {
         if (!comment.author) {
             return ''; // Skip rendering if author is not defined
         }
@@ -62,4 +67,7 @@ export function renderComments(comments, postOwner, isTopLevel = true) {
             </div>
         `;
     }).join('');
+
+    toggleLoader(false, loaderContainer);
+    return commentsHTML;
 }

@@ -10,6 +10,7 @@ import { renderErrors } from "../../ui/rendererrors.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
 import { setupEditButtons } from "../profiles/setupeditbuttons.mjs";
 import { setupFollowButton } from "../profiles/setupfollowbutton.mjs";
+import { toggleLoader } from "../../../ui/shared/toggleLoader.mjs";
 
 /**
  * Renders the profile page.
@@ -27,7 +28,10 @@ export async function renderProfile() {
             profileName = undefined;
         }
 
+        const loaderContainer = document.getElementById("loader-container");
+
         try {
+            toggleLoader(true, loaderContainer);
             const { data: profile } = await getProfile(profileName);
             if (document.title === "Profile | ConnectSphere") {
                 renderProfileBanner(profile);
@@ -46,6 +50,8 @@ export async function renderProfile() {
         } catch (error) {
             renderErrors(new Error("An error occurred while loading the profile page"));
             console.error("Error rendering profile data:", error);
+        } finally {
+            toggleLoader(false, loaderContainer);
         }
     });
 }

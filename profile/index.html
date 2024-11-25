@@ -60,6 +60,11 @@
             </nav>
         </header>
         <main>
+            <div id="loader-container" class="justify-content-center align-items-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
             <div class="container-fluid d-flex flex-column feed-container">
                 <h1 class="visually-hidden">Profile</h1>
                 <button type="button" id="openPostModalButton" class="btn btn-primary mb-3 btn-custom">
@@ -106,13 +111,13 @@
                             </div>
                             <div class="card-footer d-flex flex-wrap pt-3 justify-content-between">
                                 <div class="flex-fill following-counter">
-                                    1,234<small class="text-body-secondary"> Following</small>
+                                    <!-- Dynamic Counter -->>
                                 </div>
                                 <div class="flex-fill followers-counter">
-                                    5,678<small class="text-body-secondary"> Followers</small>
+                                    <!-- Dynamic Counter -->>
                                 </div>
                                 <div class="flex-fill posts-counter">
-                                    5,678<small class="text-body-secondary"> Posts</small>
+                                    <!-- Dynamic Counter -->>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 import { fetchPosts } from "./fetchposts.mjs";
 import { createPostCard } from "./createpostcard.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
+import { toggleLoader } from "../shared/toggleLoader.mjs";
 
 let nextPage;
 let isLastPage = false;
@@ -22,6 +23,7 @@ let isLastPage = false;
 export async function renderPosts(profileName, append = false) {
 
     const feedContainer = document.getElementById("feed-container");
+    const loaderContainer = document.getElementById("loader-container");
 
     if (!feedContainer) return;
 
@@ -30,6 +32,7 @@ export async function renderPosts(profileName, append = false) {
     }
 
     try {
+        toggleLoader(true, loaderContainer);
         const response = await fetchPosts(profileName);
         const posts = response.data;
         posts.forEach(post => createPostCard(post, profileName, feedContainer));
@@ -39,6 +42,8 @@ export async function renderPosts(profileName, append = false) {
     } catch (error) {
         renderErrors("Failed to load posts " + error);
         console.error("Error rendering posts:", error);
+    } finally {
+        toggleLoader(false, loaderContainer);
     }
 }
 
