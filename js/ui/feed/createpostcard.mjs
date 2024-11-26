@@ -3,6 +3,7 @@ import { postCheckOwner } from "../../API/feed/postcheckowner.mjs";
 import { reactToPost } from "./reacttopost.mjs";
 import { initializeUpdatePostModal } from "../bootstrap/initializecreatepostmodal.mjs";
 import { getPost } from "../../API/feed/getpost.mjs";
+import { deletePost } from "../../API/feed/deletepost.mjs";
 
 
 /**
@@ -35,7 +36,7 @@ export function createPostCard(post, profileName, feedContainer) {
     const postTitle = capitalizeFirstLetter(title);
 
     // Replace newline characters with <br> elements
-    const formattedBody = body.replace(/\n/g, '<br>');
+    const formattedBody = body ? body.replace(/\n/g, '<br>') : '';
 
     postCard.innerHTML = `
         <div class="card-body d-flex flex-column">
@@ -90,7 +91,7 @@ export function createPostCard(post, profileName, feedContainer) {
         commentButton.addEventListener("click", () => {
             getPost(post.id)
                 .then(post => {
-                    initializeCommentModal(post.data, commentsCounterElement);
+                    initializeCommentModal(post, commentsCounterElement);
                 });
         });
     }
@@ -102,7 +103,7 @@ export function createPostCard(post, profileName, feedContainer) {
     const reactButton = postCard.querySelector(".react-button");
     const likeCounterElement = postCard.querySelector(".like-counter");
     if (reactButton) {
-        reactButton.addEventListener("click", () => reactToPost(post.id, "👍", likeCounterElement))
+        reactButton.addEventListener("click", () => reactToPost(post.id, "👍", likeCounterElement));
     }
 }
 

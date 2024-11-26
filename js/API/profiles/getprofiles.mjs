@@ -1,5 +1,5 @@
 import * as global from "../constants.mjs";
-import { feedProfileFetch } from "../fetch/fetch.mjs";
+import { fetchData } from "../fetch/fetch.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 
 const { API_BASE_URL, API_PROFILES, API_SEARCH } = global;
@@ -18,7 +18,7 @@ const { API_BASE_URL, API_PROFILES, API_SEARCH } = global;
 export async function getProfiles(search = false, queryParams) {
     try {
         const endpoint = search ? `${API_BASE_URL}${API_PROFILES}${API_SEARCH}?${queryParams}` : `${API_BASE_URL}${API_PROFILES}?${queryParams}`;
-        const response = await feedProfileFetch(endpoint, {
+        const response = await fetchData(endpoint, {
             method: "GET",
         });
         const data = await response.json();

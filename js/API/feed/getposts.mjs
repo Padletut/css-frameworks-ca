@@ -1,30 +1,29 @@
 import * as global from "../constants.mjs";
-import { feedProfileFetch } from "../fetch/fetch.mjs";
+import { fetchData } from "../fetch/fetch.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 
 const { API_BASE_URL, API_POSTS, API_SEARCH } = global;
 
+
 /**
  * Gets all posts from the API.
- * @param {number} [currentPage=1] - The current page number for pagination.
+ * @param {URLSearchParams} queryParams - The query parameters for the request.
+ * @param {boolean} [search=false] - Whether to use the search endpoint.
  * @returns {Promise<Object>} A promise that resolves to the posts data.
  * @example
  * ```javascript
- * const posts = await getPosts();
+ * const posts = await getPosts(new URLSearchParams({ _author: "true", _comments: "true", limit: 10, page: 1 }));
  * console.log(posts);
  * ```
  */
-export async function getPosts(currentPage = 1, queryParams = { _author: "true", _comments: "true", _reactions: "true", limit: 10, page: currentPage }, search = false) {
-
-    const endpoint = search ? `${API_BASE_URL}${API_POSTS}${API_SEARCH}?${queryParams}` : `${API_BASE_URL}${API_POSTS}?${queryParams}`;
-    const response = await feedProfileFetch(endpoint, {
+export async function getPosts(queryParams = new URLSearchParams({ _author: "true", _comments: "true", _reactions: "true", limit: "10", page: "1" }), search = false) {
+    const endpoint = search ? `${API_BASE_URL}${API_POSTS}${API_SEARCH}?${queryParams.toString()}` : `${API_BASE_URL}${API_POSTS}?${queryParams.toString()}`;
+    const response = await fetchData(endpoint, {
         method: "GET",
     });
 
     if (response.ok) {
         const data = await response.json();
-        console.log(response);
-        console.log(data);
         return data;
     } else {
         handleErrors(response);

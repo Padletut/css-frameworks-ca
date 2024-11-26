@@ -1,5 +1,5 @@
 import * as global from "../../constants.mjs";
-import { feedProfileFetch } from "../../fetch/fetch.mjs";
+import { fetchData } from "../../fetch/fetch.mjs";
 import { renderErrors } from "../rendererrors.mjs";
 
 
@@ -17,7 +17,7 @@ const { API_BASE_URL, API_PROFILES } = global;
  */
 export async function followProfile(profileName) {
     try {
-        const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${profileName}/follow`, {
+        const response = await fetchData(`${API_BASE_URL}${API_PROFILES}/${profileName}/follow`, {
             method: "PUT",
             headers: false
         });

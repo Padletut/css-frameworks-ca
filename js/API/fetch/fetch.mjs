@@ -1,8 +1,12 @@
 import { headers } from "../headers.mjs";
-import { isLoggedIn } from "../auth/isloggedin.mjs";
 
 /**
- * Performs an authenticated fetch request for profile and post feed data.
+ * @module Fetch
+ */
+
+/**
+ * Performs an fetch request.
+ * @memberof module:Fetch
  * @param {string} url - The URL to fetch.
  * @param {Object} [options={}] - The options for the fetch request.
  * @param {string} [options.method] - The HTTP method to use (e.g., "GET", "POST").
@@ -11,7 +15,7 @@ import { isLoggedIn } from "../auth/isloggedin.mjs";
  * @returns {Promise<Response>} A promise that resolves to the response of the fetch request.
  * @example
  * ```javascript
- * const response = await feedProfileFetch("https://api.example.com/data", {
+ * const response = await fetchData("https://api.example.com/data", {
  *     method: "POST",
  *     body: JSON.stringify({ key: "value" })
  * });
@@ -19,12 +23,9 @@ import { isLoggedIn } from "../auth/isloggedin.mjs";
  * console.log(data);
  * ```
  */
-export function feedProfileFetch(url, options = {}) {
-    // Load check if the user is logged in
-    if (isLoggedIn()) {
-        return fetch(url, {
-            ...options,
-            headers: headers(Boolean(options.body)),
-        });
-    }
+export function fetchData(url, options = {}) {
+    return fetch(url, {
+        ...options,
+        headers: headers(Boolean(options.body)),
+    });
 }

@@ -1,4 +1,4 @@
-import { feedProfileFetch } from "../fetch/fetch.mjs";
+import { fetchData } from "../fetch/fetch.mjs";
 import { headers } from "../headers.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 import * as global from "../constants.mjs";
@@ -33,7 +33,7 @@ export async function updatePost(postId, title, body, tags, media) {
         media: media || {}
     };
 
-    const response = await feedProfileFetch(API_BASE_URL + API_POSTS + "/" + postId, {
+    const response = await fetchData(API_BASE_URL + API_POSTS + "/" + postId, {
         headers: headers(true),
         method: "PUT",
         body: JSON.stringify(postData)

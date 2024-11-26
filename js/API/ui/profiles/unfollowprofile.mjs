@@ -1,5 +1,5 @@
 import * as global from "../../constants.mjs";
-import { feedProfileFetch } from "../../fetch/fetch.mjs";
+import { fetchData } from "../../fetch/fetch.mjs";
 import { handleErrors } from "../../handleerrors/handleerrors.mjs";
 
 const { API_BASE_URL, API_PROFILES } = global;
@@ -16,7 +16,7 @@ const { API_BASE_URL, API_PROFILES } = global;
  */
 export async function unfollowProfile(profileName) {
     try {
-        const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${profileName.toLowerCase()}/unfollow`, {
+        const response = await fetchData(`${API_BASE_URL}${API_PROFILES}/${profileName.toLowerCase()}/unfollow`, {
             method: "PUT",
             headers: false
         });

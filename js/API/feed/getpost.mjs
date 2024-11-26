@@ -1,5 +1,5 @@
 import * as global from "../constants.mjs";
-import { feedProfileFetch } from "../fetch/fetch.mjs";
+import { fetchData } from "../fetch/fetch.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 
 const { API_BASE_URL, API_POSTS } = global;
@@ -24,11 +24,12 @@ export async function getPost(postId) {
         _reactions: "true"
     });
 
-    const response = await feedProfileFetch(`${API_BASE_URL}${API_POSTS}/${postId}?${queryParams}`, {
+    const response = await fetchData(`${API_BASE_URL}${API_POSTS}/${postId}?${queryParams}`, {
         method: "GET",
     });
     if (response.ok) {
-        return await response.json();
+        const postData = await response.json();
+        return postData.data;
     }
 
     await handleErrors(response);

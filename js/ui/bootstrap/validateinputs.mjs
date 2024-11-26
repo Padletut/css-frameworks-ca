@@ -1,4 +1,5 @@
 import { validateEmail } from './validateemail.mjs';
+import { validateTags } from './validatetags.mjs';
 import { renderErrors } from '../../API/ui/rendererrors.mjs';
 
 /**
@@ -26,7 +27,18 @@ export function validateInputs(form) {
     if (emailInput) {
         try {
             // Validate email input
-            isValid = validateEmail(form, emailInput) && isValid;
+            isValid = validateEmail(emailInput) && isValid;
+        } catch (error) {
+            renderErrors(error);
+            isValid = false;
+        }
+    }
+
+    const tagsInput = form.querySelector("#tags");
+    if (tagsInput) {
+        try {
+            // Validate tags input
+            isValid = validateTags(tagsInput) && isValid;
         } catch (error) {
             renderErrors(error);
             isValid = false;

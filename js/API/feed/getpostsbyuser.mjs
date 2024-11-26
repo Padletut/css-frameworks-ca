@@ -1,5 +1,5 @@
 import * as global from "../constants.mjs";
-import { feedProfileFetch } from "../fetch/fetch.mjs";
+import { fetchData } from "../fetch/fetch.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
 
@@ -38,7 +38,7 @@ export async function getPostsbyUser(profileName = loggedInUser.name, currentPag
 
     // Helper function to fetch posts by user
     async function fetchPosts(name) {
-        const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}/${name}/posts?${queryParams.toString()}`, {
+        const response = await fetchData(`${API_BASE_URL}${API_PROFILES}/${name}/posts?${queryParams.toString()}`, {
             method: "GET",
         });
 

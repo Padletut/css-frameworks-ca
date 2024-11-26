@@ -1,6 +1,6 @@
 import * as constants from "../constants.mjs";
 import { headers } from "../headers.mjs";
-import { authFetch } from "./fetch.mjs";
+import { fetchData } from "../fetch/fetch.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 
 const { API_BASE_URL, API_AUTH, API_REGISTER } = constants;
@@ -26,7 +26,7 @@ export async function register(name, email, password) {
     const lowerCaseName = name.toLowerCase();
     const lowerCaseEmail = email.toLowerCase();
 
-    const response = await authFetch(API_BASE_URL + API_AUTH + API_REGISTER, {
+    const response = await fetchData(API_BASE_URL + API_AUTH + API_REGISTER, {
         headers: headers(true),
         method: "POST",
         body: JSON.stringify({ name: lowerCaseName, email: lowerCaseEmail, password })

@@ -11,12 +11,9 @@
  * console.log(isValid); // true or false
  * ```
  */
-export function validateEmail(form, emailInput) {
+export function validateEmail(emailInput) {
     const emailPattern = /^[^\s@]+@(noroff\.no|stud\.noroff\.no)$/;
     const isValid = emailPattern.test(emailInput.value);
-
-    console.log(`Validating email: ${emailInput.value}`);
-    console.log(`Email is valid: ${isValid}`);
 
     if (!isValid) {
         emailInput.setCustomValidity('Sorry, only users with email ending @noroff.no or @stud.noroff.no can register');

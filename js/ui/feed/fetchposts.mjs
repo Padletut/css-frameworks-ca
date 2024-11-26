@@ -15,17 +15,19 @@ let isLastPage = false;
  * ```
  */
 export async function fetchPosts(profileName) {
+    if (!nextPage) nextPage = 1;
+
     const queryParams = new URLSearchParams({
         _author: "true",
         _comments: "true",
         limit: "10",
+        page: nextPage,
     });
 
-    if (!nextPage) nextPage = 1;
 
     let posts;
     if (!profileName) {
-        posts = await getPosts(nextPage, queryParams);
+        posts = await getPosts(queryParams);
     } else {
         posts = await getPostsbyUser(profileName, nextPage);
     }

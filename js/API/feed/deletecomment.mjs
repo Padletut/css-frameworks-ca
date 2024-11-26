@@ -1,4 +1,4 @@
-import { feedProfileFetch } from "../fetch/fetch.mjs";
+import { fetchData } from "../fetch/fetch.mjs";
 import { headers } from "../headers.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 import * as global from "../constants.mjs";
@@ -27,7 +27,7 @@ export async function deleteComment(postId, commentId, skipConfirmation = false)
         }
     }
 
-    const response = await feedProfileFetch(API_BASE_URL + API_POSTS + "/" + postId + "/comment/" + commentId, {
+    const response = await fetchData(API_BASE_URL + API_POSTS + "/" + postId + "/comment/" + commentId, {
         headers: headers(true),
         method: "DELETE"
     });

@@ -1,5 +1,5 @@
 import * as global from "../../API/constants.mjs";
-import { feedProfileFetch } from "../../API/fetch/fetch.mjs";
+import { fetchData } from "../../API/fetch/fetch.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
 import { getPost } from "../../API/feed/getpost.mjs";
 
@@ -22,13 +22,13 @@ const { API_BASE_URL, API_POSTS } = global;
  */
 export async function reactToPost(postId, symbol, likeCounterElement) {
     try {
-        const response = await feedProfileFetch(`${API_BASE_URL}${API_POSTS}/${postId}/react/${symbol}`, {
+        const response = await fetchData(`${API_BASE_URL}${API_POSTS}/${postId}/react/${symbol}`, {
             method: "PUT",
         });
 
         if (response.ok) {
             // Fetch the updated post data
-            const { data: updatedPost } = await getPost(postId);
+            const updatedPost = await getPost(postId);
 
             // Update the like counter element
             likeCounterElement.textContent = `Like (${updatedPost._count.reactions})`;
@@ -38,6 +38,5 @@ export async function reactToPost(postId, symbol, likeCounterElement) {
         }
     } catch (error) {
         console.error("Error toggling reaction:", error);
-        renderErrors(error);
     }
 }
