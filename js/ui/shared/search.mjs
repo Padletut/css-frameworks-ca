@@ -1,7 +1,6 @@
 import { getPosts } from "../../API/feed/getposts.mjs";
 import { getProfiles } from "../../API/profiles/getprofiles.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
-import { createPostCard } from "../feed/createpostcard.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
 
 
@@ -35,10 +34,11 @@ export async function search(query) {
             limit: "10",
             q: query,
         });
-        const responseProfiles = await getProfiles(query, queryParams);
-        const responsePosts = await getPosts(query, queryParams);
+        const responseProfiles = await getProfiles(true, queryParams);
+        const responsePosts = await getPosts(undefined, queryParams, true);
         const postsData = responsePosts.data;
         const profileData = responseProfiles.data;
+        console.log("Posts data:", postsData);
         const searchResults = [...profileData, ...postsData];
         console.log("Search results:", searchResults);
         renderSearchResults(searchResults);
@@ -55,53 +55,119 @@ export async function search(query) {
 export function renderSearchResults(searchResults) {
     const feedContainer = document.getElementById("feed-container");
     feedContainer.innerHTML = "";
-    searchResults.forEach(result => {
-        if (!result.hasOwnProperty("title")) {
-            createProfileCard(result, feedContainer);
-        } else {
-            createPostCard(result, result.author.name, feedContainer); // Pass the author's name as profileName
-        }
-    });
+
+    const searchResultsHeader = document.createElement("h1");
+    searchResultsHeader.classList.add("mb-4", "text-center", "text-primary");
+    searchResultsHeader.textContent = "Search Results";
+    feedContainer.appendChild(searchResultsHeader);
+
+    const profilesList = document.createElement("div");
+    profilesList.classList.add("profiles-list", "mb-4");
+
+    const postsList = document.createElement("div");
+    postsList.classList.add("posts-list", "mb-4");
+
+    const profiles = searchResults.filter(result => !result.hasOwnProperty("title"));
+    const posts = searchResults.filter(result => result.hasOwnProperty("title"));
+
+    if (profiles.length > 0) {
+        const profilesHeader = document.createElement("h2");
+        profilesHeader.classList.add("mb-3", "text-primary");
+        profilesHeader.textContent = "Profiles";
+        profilesList.appendChild(profilesHeader);
+
+        profiles.forEach(profile => {
+            const profileItem = createProfileListItem(profile);
+            profilesList.appendChild(profileItem);
+        });
+
+        feedContainer.appendChild(profilesList);
+    }
+
+    if (posts.length > 0) {
+        const postsHeader = document.createElement("h2");
+        postsHeader.classList.add("mb-3", "text-primary");
+        postsHeader.textContent = "Posts";
+        postsList.appendChild(postsHeader);
+
+        posts.forEach(post => {
+            const postItem = createPostListItem(post);
+            postsList.appendChild(postItem);
+        });
+
+        feedContainer.appendChild(postsList);
+    }
 }
 
-/**
- * Creates a profile card element and appends it to the feed container.
- * @param {Object} profile - The profile object.
- * @param {HTMLElement} feedContainer - The container element for the feed.
- * @example
- * ```javascript
- * const profile = { name: "john_doe", bio: "Profile bio", avatar: { url: "avatar_url", alt: "avatar_alt" }, ... };
- * createProfileCard(profile, document.getElementById("feed-container"));
- * ```
- */
-export function createProfileCard(profile, feedContainer) {
-    const profileCard = document.createElement("div");
-    profileCard.classList.add("card", "bg-white", "rounded-3", "flex-grow-1", "flex-sm-grow-0", "feed-profile-card", "card-custom");
+// Function to create a profile list item
+function createProfileListItem(profile) {
+    const { name, bio, avatar } = profile;
 
-    const profileName = capitalizeFirstLetter(profile.name);
-    const profileBio = profile.bio ? profile.bio.replace(/\n/g, '<br>') : '';
+    const profileItem = document.createElement("div");
+    profileItem.classList.add("profile-list-item", "card", "mb-3", "p-3", "shadow-sm");
 
-    profileCard.innerHTML = `
-        <div class="card-body d-flex flex-column">
-            <div class="card-header">
-                <a href="../profile/index.html?profile=${profile.name}" class="text-decoration-none profile-link">
-                    <div class="d-flex column-gap-3 profile-card-header-userinformation" role="button">
-                        <div class="profile-image">
-                            <img src="${profile.avatar.url}" alt="${profile.avatar.alt}" width="64" height="64">
-                        </div>
-                        <div class="profileheader-username">
-                            <h2>${profileName}</h2>
-                            <small class="text-body-secondary">${profileBio}</small>
-                        </div>
+    const profileName = capitalizeFirstLetter(name);
+    const profileBio = bio ? bio.replace(/\n/g, '<br>') : '';
+
+    profileItem.innerHTML = `
+        <div class="profile-item-content">
+            <a href="../profile/index.html?profile=${name}" class="text-decoration-none profile-link">
+                <div class="d-flex align-items-center">
+                    <div class="profile-image me-3">
+                        <img src="${avatar.url}" alt="${avatar.alt}" class="rounded-circle" width="64" height="64">
                     </div>
-                </a>
-            </div>
+                    <div>
+                        <h5 class="mb-1">${profileName}</h5>
+                        <p class="mb-0 text-muted">${profileBio}</p>
+                    </div>
+                </div>
+            </a>
         </div>
     `;
 
-    feedContainer.appendChild(profileCard);
+    return profileItem;
 }
 
+// Function to create a post list item
+function createPostListItem(post) {
+    const postItem = document.createElement("div");
+    postItem.classList.add("post-list-item", "card", "mb-3", "p-3", "shadow-sm");
+
+    const { author, title, body, created } = post;
+
+    if (!author) {
+        console.error("Post author is undefined:", post);
+        return postItem;
+    }
+
+    const formattedDate = new Date(created).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+    });
+
+    const authorName = capitalizeFirstLetter(author.name);
+    const postTitle = capitalizeFirstLetter(title);
+
+    // Replace newline characters with <br> elements
+    const formattedBody = body.replace(/\n/g, '<br>');
+
+    postItem.innerHTML = `
+        <div class="post-item-content">
+            <h5 class="mb-1">${postTitle}</h5>
+            <h6 class="mb-2 text-muted">${authorName}</h6>
+            <p class="mb-2">${formattedBody}</p>
+            <p class="mb-0 text-muted"><small>${formattedDate}</small></p>
+        </div>
+    `;
+
+    return postItem;
+}
+
+// Function to capitalize the first letter of a string
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }

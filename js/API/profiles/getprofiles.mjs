@@ -2,26 +2,27 @@ import * as global from "../constants.mjs";
 import { feedProfileFetch } from "../fetch/fetch.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 
-const { API_BASE_URL, API_PROFILES } = global;
+const { API_BASE_URL, API_PROFILES, API_SEARCH } = global;
 
 /**
- * Fetches all profile data from the API across multiple pages.
- * @memberof module:Profile
- * @param {string} [filterName] - The name to filter profiles by (optional).
- * @returns {Promise<Array>} A promise that resolves to an array of all profile data.
+ * Fetches profile data from the API based on the search query.
+ * @param {boolean} search - Whether to use the search endpoint.
+ * @param {URLSearchParams} queryParams - The query parameters.
+ * @returns {Promise<Object>} A promise that resolves to an object containing the profile data.
  * @example
  * ```javascript
- * const profiles = await getAllProfiles();
+ * const profiles = await getProfiles(true, new URLSearchParams({ q: "john" }));
  * console.log(profiles);
  * ```
  */
-export async function getProfiles(filterName, queryParams) {
-
+export async function getProfiles(search = false, queryParams) {
     try {
-        const response = await feedProfileFetch(`${API_BASE_URL}${API_PROFILES}?${queryParams.currentPage}`, {
+        const endpoint = search ? `${API_BASE_URL}${API_PROFILES}${API_SEARCH}?${queryParams}` : `${API_BASE_URL}${API_PROFILES}?${queryParams}`;
+        const response = await feedProfileFetch(endpoint, {
             method: "GET",
         });
-        return await response.json();
+        const data = await response.json();
+        return data;
     } catch (error) {
         handleErrors(error);
     }
