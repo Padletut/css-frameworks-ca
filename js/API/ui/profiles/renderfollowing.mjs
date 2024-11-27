@@ -14,24 +14,35 @@ export async function renderFollowing(profile) {
     try {
         const followingList = profile.following;
 
-        const followingContainer = document.querySelector(".following .list-group");
-        followingContainer.innerHTML = ""; // Clear existing Following
+        const followingSection = document.querySelector(".following");
+        const followingContainer = followingSection.querySelector(".list-group");
+        if (!followingSection || !followingContainer) {
+            console.error("Following section or container not found");
+            return;
+        }
 
-        followingList.forEach(following => {
-            const followingItem = document.createElement("li");
-            followingItem.classList.add("list-group-item", "d-flex", "align-items-center");
+        if (followingList.length === 0) {
+            followingSection.classList.add("hidden");
+        } else {
+            followingSection.classList.remove("hidden");
+            followingContainer.innerHTML = ""; // Clear existing Following
 
-            const followingContent = `
-                <div class="d-flex align-items-center" role="button">
-                    <img src="${following.avatar.url || '../feed/images/profilepictureplaceholder.svg'}" alt="${following.avatar.alt}" width="32" height="32" class="me-2">
-                    ${following.name}
-                </div>
-            `;
+            followingList.forEach(following => {
+                const followingItem = document.createElement("li");
+                followingItem.classList.add("list-group-item", "d-flex", "align-items-center");
 
-            followingItem.innerHTML = followingContent;
-            followingContainer.appendChild(followingItem);
-            setupFollowing();
-        });
+                const followingContent = `
+                    <div class="d-flex align-items-center" role="button">
+                        <img src="${following.avatar.url || '../feed/images/profilepictureplaceholder.svg'}" alt="${following.avatar.alt}" width="32" height="32" class="me-2">
+                        ${following.name}
+                    </div>
+                `;
+
+                followingItem.innerHTML = followingContent;
+                followingContainer.appendChild(followingItem);
+                setupFollowing();
+            });
+        }
     } catch (error) {
         console.error("Error rendering Following:", error);
     }

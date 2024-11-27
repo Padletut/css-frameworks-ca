@@ -14,24 +14,35 @@ export async function renderFollowers(profile) {
     try {
         const followersList = profile.followers;
 
-        const followersContainer = document.querySelector(".followers .list-group");
-        followersContainer.innerHTML = ""; // Clear existing followers
+        const followersSection = document.querySelector(".followers");
+        const followersContainer = followersSection.querySelector(".list-group");
+        if (!followersSection || !followersContainer) {
+            console.error("Followers section or container not found");
+            return;
+        }
 
-        followersList.forEach(follower => {
-            const followerItem = document.createElement("li");
-            followerItem.classList.add("list-group-item", "d-flex", "align-items-center");
+        if (followersList.length === 0) {
+            followersSection.classList.add("hidden");
+        } else {
+            followersSection.classList.remove("hidden");
+            followersContainer.innerHTML = ""; // Clear existing followers
 
-            const followerContent = `
-                <div class="d-flex align-items-center" role="button">
-                    <img src="${follower.avatar.url || '../feed/images/profilepictureplaceholder.svg'}" alt="${follower.avatar.alt}" width="32" height="32" class="me-2">
-                    ${follower.name}
-                </div>
-            `;
+            followersList.forEach(follower => {
+                const followerItem = document.createElement("li");
+                followerItem.classList.add("list-group-item", "d-flex", "align-items-center");
 
-            followerItem.innerHTML = followerContent;
-            followersContainer.appendChild(followerItem);
-            setupFollowers();
-        });
+                const followerContent = `
+                    <div class="d-flex align-items-center" role="button">
+                        <img src="${follower.avatar.url || '../feed/images/profilepictureplaceholder.svg'}" alt="${follower.avatar.alt}" width="32" height="32" class="me-2">
+                        ${follower.name}
+                    </div>
+                `;
+
+                followerItem.innerHTML = followerContent;
+                followersContainer.appendChild(followerItem);
+                setupFollowers();
+            });
+        }
     } catch (error) {
         console.error("Error rendering followers:", error);
     }
