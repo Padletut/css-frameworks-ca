@@ -3,14 +3,13 @@ import { renderProfileBanner } from "../profiles/renderprofilebanner.mjs";
 import { renderProfileAvatar } from "../profiles/renderprofileavatar.mjs";
 import { renderProfileName } from "../profiles/renderprofilename.mjs";
 import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
-import { renderFollowers } from "../profiles/renderfollowers.mjs";
-import { renderFollowing } from "../profiles/renderfollowing.mjs";
 import { renderProfileCounters } from "../profiles/renderprofilecounters.mjs";
 import { renderErrors } from "../../ui/rendererrors.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
 import { setupEditButtons } from "../profiles/setupeditbuttons.mjs";
 import { setupFollowButton } from "../profiles/setupfollowbutton.mjs";
 import { toggleLoader } from "../../../ui/shared/toggleLoader.mjs";
+import { handleFollowSection } from "../profiles/handlefollowsection.mjs";
 
 /**
  * @module Profile
@@ -43,8 +42,7 @@ export async function renderProfile() {
                 renderProfileAvatar(profile);
                 renderProfileName(profile);
                 renderProfileBio(profile);
-                await renderFollowers(profile);
-                await renderFollowing(profile);
+                await handleFollowSection(profile);
                 await renderPosts(profile.name);
                 renderProfileCounters(profile);
 
