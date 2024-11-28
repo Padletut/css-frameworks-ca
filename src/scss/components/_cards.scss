@@ -27,6 +27,10 @@
     row-gap: 1.5rem;
 }
 
+#feed-container {
+    height: fit-content;
+}
+
 .create-post-card h1 {
     font-size: 24px;
 }
@@ -72,7 +76,32 @@
 }
 
 // Profile page
+
+.profile-container {
+    height: fit-content;
+    flex: 1;
+}
+
+.container-fluid {
+    max-width: 800px;
+}
+
+@media (min-width: 992px) {
+    .feed-profile {
+        margin-top: 0;
+        position: relative;
+        left: 17%;
+        transform: translate(-48.5%, -12.1%);
+        width: 34.9rem;
+    }
+}
+
+.profile-section {
+    height: fit-content;
+}
+
 .profile-card {
+
     .card-header {
         #profile-image {
             box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.10), 0px 4px 6px 0px rgba(0, 0, 0, 0.25);
@@ -135,6 +164,10 @@
             }
         }
     }
+}
+
+.profile-card-section {
+    height: fit-content;
 }
 
 .card-follow {
