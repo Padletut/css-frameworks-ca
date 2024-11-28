@@ -32,7 +32,8 @@ export function createPostCard(post, profileName, feedContainer) {
         hour12: false
     });
 
-    const authorName = capitalizeFirstLetter(author.name);
+    let authorName = splitName(author.name);
+    authorName = capitalizeFirstLetter(authorName);
     const postTitle = capitalizeFirstLetter(title);
 
     // Replace newline characters with <br> elements
@@ -119,6 +120,10 @@ export function createPostCard(post, profileName, feedContainer) {
  */
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function splitName(name) {
+    return name.split("_").join(" ");
 }
 
 /**

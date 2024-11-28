@@ -15,6 +15,12 @@ export function renderSearchResults(searchResults) {
     const feedContainer = document.getElementById("feed-container");
     feedContainer.innerHTML = "";
 
+    const feedprofile = document.querySelector(".feed-profile");
+    if (feedprofile) {
+        feedprofile.style.transform = "none";
+        feedprofile.style.left = "0";
+    }
+
     const searchResultsHeader = document.createElement("h1");
     searchResultsHeader.classList.add("mb-4", "text-center", "text-primary");
     searchResultsHeader.textContent = "Search Results";

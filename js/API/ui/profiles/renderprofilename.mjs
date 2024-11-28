@@ -18,7 +18,8 @@ export async function renderProfileName(profileName) {
     try {
         const profileNameHeading = document.createElement("h2");
         profileNameHeading.classList.add("fw-semibold", "fs-2");
-        profileNameHeading.textContent = capitalizeFirstLetter(profileName.name);
+        profileName = splitName(profileName.name);
+        profileNameHeading.textContent = capitalizeFirstLetter(profileName);
         profileNameElement.appendChild(profileNameHeading);
 
         const smallName = document.createElement("small");
@@ -43,4 +44,8 @@ export async function renderProfileName(profileName) {
  */
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function splitName(name) {
+    return name.split("_").join(" ");
 }

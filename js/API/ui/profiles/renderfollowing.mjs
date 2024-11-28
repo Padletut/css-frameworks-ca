@@ -1,5 +1,3 @@
-import { setupFollowing } from "../events/setupFollowing.mjs";
-
 /**
  * Renders the Following of a profile.
  * @memberof module:Profile
@@ -34,16 +32,23 @@ export async function renderFollowing(profile) {
                 const followingContent = `
                     <div class="d-flex align-items-center" role="button">
                         <img src="${following.avatar.url || '../feed/images/profilepictureplaceholder.svg'}" alt="${following.avatar.alt}" width="32" height="32" class="me-2">
-                        ${following.name}
+                        ${splitName(following.name)}
                     </div>
                 `;
 
                 followingItem.innerHTML = followingContent;
+                followingItem.querySelector('div[role="button"]').addEventListener('click', () => {
+                    window.location.href = `index.html?profile=${following.name}`;
+                });
+
                 followingContainer.appendChild(followingItem);
-                setupFollowing();
             });
         }
     } catch (error) {
         console.error("Error rendering Following:", error);
     }
+}
+
+function splitName(name) {
+    return name.split("_").join(" ");
 }
