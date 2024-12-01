@@ -25,37 +25,35 @@ import { handleFollowSection } from "../profiles/handlefollowsection.mjs";
  * ```
  */
 export async function renderProfile() {
-    document.addEventListener("DOMContentLoaded", async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        let profileName = urlParams.get("profile");
-        if (profileName === null) {
-            profileName = undefined;
-        }
+    const urlParams = new URLSearchParams(window.location.search);
+    let profileName = urlParams.get("profile");
+    if (profileName === null) {
+        profileName = undefined;
+    }
 
-        const loaderContainer = document.getElementById("loader-container");
+    const loaderContainer = document.getElementById("loader-container");
 
-        try {
-            toggleLoader(true, loaderContainer);
-            const { data: profile } = await getProfile(profileName);
-            if (document.title === "Profile | ConnectSphere") {
-                renderProfileBanner(profile);
-                renderProfileAvatar(profile);
-                renderProfileName(profile);
-                renderProfileBio(profile);
-                await handleFollowSection(profile);
-                await renderPosts(profile.name);
-                renderProfileCounters(profile);
+    try {
+        toggleLoader(true, loaderContainer);
+        const { data: profile } = await getProfile(profileName);
+        //  if (document.title === "Profile | ConnectSphere") {
+        renderProfileBanner(profile);
+        renderProfileAvatar(profile);
+        renderProfileName(profile);
+        renderProfileBio(profile);
+        await handleFollowSection(profile);
+        await renderPosts(profile.name);
+        renderProfileCounters(profile);
 
-                setupEditButtons(profile);
-                setupFollowButton(profile);
+        setupEditButtons(profile);
+        setupFollowButton(profile);
 
-            }
-        } catch (error) {
-            renderErrors(new Error("An error occurred while loading the profile page"));
-            console.error("Error rendering profile data:", error);
-        } finally {
-            toggleLoader(false, loaderContainer);
-        }
-    });
+        //   }
+    } catch (error) {
+        renderErrors(new Error("An error occurred while loading the profile page"));
+        console.error("Error rendering profile data:", error);
+    } finally {
+        toggleLoader(false, loaderContainer);
+    }
 }
 

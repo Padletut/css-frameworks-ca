@@ -89,7 +89,7 @@ function setFeedProfilePosition() {
         const feedProfile = document.querySelector('#feed-container');
         const feedContainer = document.querySelector('.feed-profile');
 
-        if (window.innerWidth > 921) {
+        if (window.innerWidth > 992) {
             const profileSectionRect = profileSection.getBoundingClientRect();
             const widthOffset = 1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
             const gapOffset = 3 * parseFloat(getComputedStyle(document.documentElement).fontSize);
