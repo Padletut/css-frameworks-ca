@@ -2,7 +2,7 @@ import { renderErrors } from "../rendererrors.mjs";
 import { fetchPosts } from "../../../ui/feed/fetchposts.mjs";
 import { createPostCard } from "../../../ui/feed/createpostcard.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
-import { fetchSearch } from "../../../ui/shared/search.mjs";
+import { searchFormListener } from "./searchformlistener.mjs";
 
 export function filterPostsListener(profileName = null, feedContainer) {
 
@@ -21,6 +21,7 @@ export function filterPostsListener(profileName = null, feedContainer) {
 
             if (selectedTags) {
                 try {
+
                     // Fetch posts for each tag, since the API does not support multiple tags
                     for (const tag of selectedTags) {
                         const response = await fetchPosts(profileName, tag);
@@ -28,6 +29,13 @@ export function filterPostsListener(profileName = null, feedContainer) {
                             allPosts = [...allPosts, ...response.data];
                         }
                     }
+
+                    const searchInput = document.querySelector('input[type="search"]');
+                    const query = searchInput ? searchInput.value : null;
+
+                    // Event listener for search form
+                    searchFormListener(query, selectedTags);
+
 
                     // Remove duplicates
                     const uniquePosts = Array.from(new Set(allPosts.map(post => post.id)))
@@ -46,22 +54,4 @@ export function filterPostsListener(profileName = null, feedContainer) {
             filterDropdown.textContent = filterText;
         });
     });
-
-    if (searchForm) {
-        searchForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const query = event.target.querySelector('input[type="search"]').value;
-
-            if (selectedTags) {
-                try {
-                    await fetchSearch(query, ...selectedTags);
-                } catch (error) {
-                    renderErrors(new Error("Failed to load search results"));
-                    console.error("Error searching posts:", error);
-                }
-            } else {
-                await fetchSearch(query);
-            }
-        });
-    }
 }

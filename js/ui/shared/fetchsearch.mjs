@@ -1,7 +1,7 @@
 import { getPosts } from "../../API/feed/getposts.mjs";
 import { getProfiles } from "../../API/profiles/getprofiles.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
-import { toggleLoader } from "../shared/toggleLoader.mjs";
+import { toggleLoader } from "./toggleLoader.mjs";
 import { renderSearchResults } from "./rendersearchresults.mjs";
 
 
@@ -22,13 +22,19 @@ Search profiles GET /social/profiles/search?q=<query> Search for profiles by the
  */
 
 export async function fetchSearch(query, tag = null) {
+
     const feedContainer = document.getElementById("feed-container");
     const loaderContainer = document.getElementById("loader-container");
 
     let responseProfiles;
     let profileData = [];
 
-    if (!query) return;
+    if (!query && !tag) return;
+
+    if (!query && tag) {
+        // Reload web page
+        location.reload();
+    }
 
     if (!feedContainer) return;
 
@@ -44,9 +50,13 @@ export async function fetchSearch(query, tag = null) {
         if (!tag) {
             responseProfiles = await getProfiles(true, queryParams);
             profileData = responseProfiles.data;
-            console.log(profileData);
         }
-        const responsePosts = await getPosts(queryParams, true, tag);
+
+        if (tag) {
+            queryParams.append("_tag", tag);
+        }
+
+        const responsePosts = await getPosts(queryParams, true);
         let postsData = responsePosts.data;
         // If tag is provided, filter out posts that do not have the tag
         if (tag) {

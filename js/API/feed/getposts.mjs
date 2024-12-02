@@ -16,11 +16,7 @@ const { API_BASE_URL, API_POSTS, API_SEARCH } = global;
  * console.log(posts);
  * ```
  */
-export async function getPosts(queryParams = new URLSearchParams({ _author: "true", _comments: "true", _reactions: "true", limit: "10", page: "1" }), search = false, tag = null) {
-
-    if (tag) {
-        queryParams.append("_tag", tag);
-    }
+export async function getPosts(queryParams = new URLSearchParams({ _author: "true", _comments: "true", _reactions: "true", limit: "10", page: "1" }), search = false) {
 
     const endpoint = search ? `${API_BASE_URL}${API_POSTS}${API_SEARCH}?${queryParams.toString()}` : `${API_BASE_URL}${API_POSTS}?${queryParams.toString()}`;
     const response = await fetchData(endpoint, {
