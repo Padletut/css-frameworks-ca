@@ -2,6 +2,8 @@ import { fetchPosts } from "./fetchposts.mjs";
 import { createPostCard } from "./createpostcard.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
+import { createShowMoreButton } from "../shared/createshowmorebutton.mjs";
+import { filterPostsListener } from "../../API/ui/events/filterpostslistener.mjs";
 
 let nextPage;
 let isLastPage = false;
@@ -20,7 +22,7 @@ let isLastPage = false;
  * await renderPosts();
  * ```
  */
-export async function renderPosts(profileName, append = false) {
+export async function renderPosts(profileName = null, append = false, tag = null) {
 
     const feedContainer = document.getElementById("feed-container");
     const loaderContainer = document.getElementById("loader-container");
@@ -33,40 +35,19 @@ export async function renderPosts(profileName, append = false) {
 
     try {
         toggleLoader(true, loaderContainer);
-        const response = await fetchPosts(profileName);
+        const response = await fetchPosts(profileName, tag);
         const posts = response.data;
+
         posts.forEach(post => createPostCard(post, profileName, feedContainer));
         if (!isLastPage && posts.length >= 10) {
             createShowMoreButton(profileName);
         }
+
     } catch (error) {
         renderErrors("Failed to load posts " + error);
         console.error("Error rendering posts:", error);
     } finally {
+        filterPostsListener(profileName, feedContainer);
         toggleLoader(false, loaderContainer);
     }
-}
-
-/**
- * Creates a "Show More" button to load additional posts.
- * @param {string} profileName - The name of the profile.
- * @returns {HTMLButtonElement} The "Show More" button element.
- * @example
- * ```javascript
- * const showMoreButton = createShowMoreButton("john_doe");
- * document.getElementById("feed-container").appendChild(showMoreButton);
- * ```
- */
-function createShowMoreButton(profileName) {
-    const feedContainer = document.getElementById("feed-container");
-    const showMoreButton = document.createElement("button");
-    showMoreButton.classList.add("btn", "btn-primary", "show-more-button");
-    showMoreButton.textContent = "Show more";
-    feedContainer.appendChild(showMoreButton);
-    showMoreButton.addEventListener("click", async () => {
-        showMoreButton.remove();
-        await renderPosts(profileName, true);
-    });
-
-    return showMoreButton;
 }

@@ -14,7 +14,8 @@ let isLastPage = false;
  * console.log(posts);
  * ```
  */
-export async function fetchPosts(profileName) {
+export async function fetchPosts(profileName, tag) {
+
     if (!nextPage) nextPage = 1;
 
     const queryParams = new URLSearchParams({
@@ -24,12 +25,17 @@ export async function fetchPosts(profileName) {
         page: nextPage,
     });
 
+    if (tag) {
+        queryParams.append("_tag", tag);
+        queryParams.delete("page");
+    }
 
     let posts;
     if (!profileName) {
         posts = await getPosts(queryParams);
     } else {
-        posts = await getPostsbyUser(profileName, nextPage);
+        queryParams.delete("limit");
+        posts = await getPostsbyUser(profileName, queryParams);
     }
 
     isLastPage = posts.meta.isLastPage;

@@ -9,6 +9,7 @@ import { renderProfile } from "./API/ui/routes/renderprofile.mjs";
 import { renderPosts } from "./ui/feed/renderposts.mjs";
 import { loadStorage } from "./storage/loadstorage.mjs";
 import { fetchSearch } from "./ui/shared/search.mjs";
+import { filterPostsListener } from "./API/ui/events/filterpostslistener.mjs";
 
 // Check if user is logged in
 let isLoggedIn = checkAuth();
@@ -69,17 +70,6 @@ if (document.title === "Feed | ConnectSphere") {
 // Render profile data
 if (document.title === "Profile | ConnectSphere") {
     await renderProfile();
-}
-
-// Event listener for search form
-const searchForm = document.querySelector('.search-form');
-
-if (searchForm) {
-    searchForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const query = e.target.querySelector('input[type="search"]').value;
-        const searchResults = await fetchSearch(query);
-    });
 }
 
 // Function to calculate and set the position of .feed-profile

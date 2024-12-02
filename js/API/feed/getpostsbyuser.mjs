@@ -1,6 +1,7 @@
 import * as global from "../constants.mjs";
 import { fetchData } from "../fetch/fetch.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
+import { renderErrors } from "../ui/rendererrors.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
 
 const loggedInUser = loadStorage("profile");
@@ -18,7 +19,7 @@ const { API_BASE_URL, API_PROFILES } = global;
  * console.log(posts);
  * ```
  */
-export async function getPostsbyUser(profileName = loggedInUser.name, currentPage = 1) {
+export async function getPostsbyUser(profileName = loggedInUser.name, queryParams) {
 
     const urlParams = new URLSearchParams(window.location.search);
     profileName = urlParams.get("profile") || profileName;
@@ -28,44 +29,21 @@ export async function getPostsbyUser(profileName = loggedInUser.name, currentPag
         profileName = profileName.data.name;
     }
 
-    const queryParams = new URLSearchParams({
-        _author: "true",
-        _comments: "true",
-        _reactions: "true",
-        limit: "10",
-        page: currentPage,
-    });
-
-    // Helper function to fetch posts by user
-    async function fetchPosts(name) {
-        const response = await fetchData(`${API_BASE_URL}${API_PROFILES}/${name}/posts?${queryParams.toString()}`, {
+    try {
+        const endpoint = `${API_BASE_URL}${API_PROFILES}/${profileName}/posts?${queryParams.toString()}`;
+        const response = await fetchData(endpoint, {
             method: "GET",
         });
 
         if (response.ok) {
             const data = await response.json();
             return data;
-        } else if (response.status === 404) {
-            // Return null if profile not found
-            return null;
         } else {
-            throw new Error("An error occurred while fetching the posts");
+            renderErrors(new Error("An error occurred while loading the posts"));
         }
+    } catch (error) {
+        // Handle error if posts not found with both original and lowercase names
+        renderErrors(new Error("We couldn't find the posts for the profile you were looking for"));
+        console.error("Error fetching posts by user:", error);
     }
-
-    // Try fetching the posts with the provided profile name
-    let posts = await fetchPosts(profileName);
-    if (posts) {
-        return posts;
-    }
-
-    // Retry with the lowercase profile name
-    profileName = profileName.toLowerCase()
-    posts = await fetchPosts(profileName);
-    if (posts) {
-        return posts;
-    }
-
-    // Handle error if posts not found with both original and lowercase names
-    handleErrors(new Error("We couldn't find the posts for the profile you were looking for"));
 }

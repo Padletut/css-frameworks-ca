@@ -1,6 +1,6 @@
 import * as global from "../constants.mjs";
 import { fetchData } from "../fetch/fetch.mjs";
-import { handleErrors } from "../handleerrors/handleerrors.mjs";
+import { renderErrors } from "../ui/rendererrors.mjs";
 
 const { API_BASE_URL, API_POSTS, API_SEARCH } = global;
 
@@ -16,7 +16,12 @@ const { API_BASE_URL, API_POSTS, API_SEARCH } = global;
  * console.log(posts);
  * ```
  */
-export async function getPosts(queryParams = new URLSearchParams({ _author: "true", _comments: "true", _reactions: "true", limit: "10", page: "1" }), search = false) {
+export async function getPosts(queryParams = new URLSearchParams({ _author: "true", _comments: "true", _reactions: "true", limit: "10", page: "1" }), search = false, tag = null) {
+
+    if (tag) {
+        queryParams.append("_tag", tag);
+    }
+
     const endpoint = search ? `${API_BASE_URL}${API_POSTS}${API_SEARCH}?${queryParams.toString()}` : `${API_BASE_URL}${API_POSTS}?${queryParams.toString()}`;
     const response = await fetchData(endpoint, {
         method: "GET",
@@ -26,6 +31,7 @@ export async function getPosts(queryParams = new URLSearchParams({ _author: "tru
         const data = await response.json();
         return data;
     } else {
-        handleErrors(response);
+        renderErrors(new Error("An error occurred while loading the posts"));
+        console.error("Error fetching posts:", response);
     }
 }

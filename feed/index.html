@@ -46,14 +46,23 @@
                                 <button class="btn btn-secondary me-2" type="submit">Search</button>
                             </form>
                             <div class="dropdown ms-3">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown"
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Filter by
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-                                    <li><a class="dropdown-item" href="#" data-sort="newest">Newest</a></li>
-                                    <li><a class="dropdown-item" href="#" data-sort="oldest">Oldest</a></li>
-                                    <li><a class="dropdown-item" href="#" data-sort="popularity">Popularity</a></li>
+                                <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                                    <li><a class="dropdown-item" href="#" data-tag="">No Filter</a></li>
+                                    <li><a class="dropdown-item" href="#" data-tag="dog,dogs,puppies,puppy,pug">Dogs</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#" data-tag="cat,cats,meow">Cats</a></li>
+                                    <li><a class="dropdown-item" href="#"
+                                            data-tag="nature,river,mountain,mountains,forest,landscape,lake,sunset,sunrise">Nature</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"
+                                            data-tag="food,fish,meat,cook,cooking">Food</a></li>
+                                    <li><a class="dropdown-item" href="#"
+                                            data-tag="travel,vacation,fly,flying">Travel</a></li>
+                                    <li><a class="dropdown-item" href="#" data-tag="yoga">Yoga</a></li>
                                 </ul>
                             </div>
                         </div>

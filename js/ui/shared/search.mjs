@@ -21,9 +21,14 @@ Search profiles GET /social/profiles/search?q=<query> Search for profiles by the
  * ```
  */
 
-export async function fetchSearch(query) {
+export async function fetchSearch(query, tag = null) {
     const feedContainer = document.getElementById("feed-container");
     const loaderContainer = document.getElementById("loader-container");
+
+    let responseProfiles;
+    let profileData = [];
+
+    if (!query) return;
 
     if (!feedContainer) return;
 
@@ -35,10 +40,18 @@ export async function fetchSearch(query) {
             limit: "100",
             q: query,
         });
-        const responseProfiles = await getProfiles(true, queryParams);
-        const responsePosts = await getPosts(queryParams, true);
-        const postsData = responsePosts.data;
-        const profileData = responseProfiles.data;
+
+        if (!tag) {
+            responseProfiles = await getProfiles(true, queryParams);
+            profileData = responseProfiles.data;
+            console.log(profileData);
+        }
+        const responsePosts = await getPosts(queryParams, true, tag);
+        let postsData = responsePosts.data;
+        // If tag is provided, filter out posts that do not have the tag
+        if (tag) {
+            postsData = postsData.filter(post => post.tags.includes(tag));
+        }
         const searchResults = [...profileData, ...postsData];
         renderSearchResults(searchResults);
 
