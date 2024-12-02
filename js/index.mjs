@@ -61,7 +61,7 @@ if (logoutButton) {
     });
 }
 
-// if <title>Feed | ConnectSphere</title> fetch all prosts
+// if <title>Feed | ConnectSphere</title> fetch all posts
 if (document.title === "Feed | ConnectSphere") {
     await renderPosts();
 }
