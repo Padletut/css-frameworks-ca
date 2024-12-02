@@ -38,7 +38,8 @@ export async function handleAddComment(commentsSection, postId, commentsCounterE
                 const newComment = await addComment(postId, comment);
 
                 // Fetch the updated post data
-                const { data: { comments, author: { name } } } = await getPost(postId);
+                //  const { data: { comments, author: { name } } } = await getPost(postId);
+                const { comments } = await getPost(postId);
 
                 // Update the comments section with the new comment
                 const commentsMap = new Map();
