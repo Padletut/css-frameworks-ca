@@ -92,10 +92,6 @@ export class FilterPosts {
                 renderErrors(new Error("Failed to load posts " + error));
                 console.error("Error rendering posts:", error);
             }
-        } else {
-            // Handle "No Filter" case
-            this.uniquePosts = [];
-            await renderPosts(this.profileName, false, null);
         }
         this.filterDropdown.textContent = filterText;
     }

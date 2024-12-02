@@ -82,13 +82,11 @@
     flex: 1;
 }
 
-/* @media (min-width: 992px) {
+@media (max-width: 991px) {
     .feed-profile {
-        margin-top: 0;
-        position: relative;
-        width: 34.9rem;
+        padding: 0;
     }
-} */
+}
 
 .profile-section {
     height: fit-content;

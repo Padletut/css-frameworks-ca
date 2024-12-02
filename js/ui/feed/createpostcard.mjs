@@ -73,7 +73,7 @@ export function createPostCard(post, profileName, feedContainer) {
                     `).join('')}
                 </div>
             </div>
-            <div class="card-footer d-flex p-1 pt-3 column-gap-5">
+            <div class="card-footer d-flex flex-wrap p-1 pt-3 column-gap-5">
                 <div class="react-button d-flex align-items-center column-gap-2 text-body-secondary icon-link-hover" role="button">
                     <i class="bi bi-hand-thumbs-up-fill"></i><small class="text-body-secondary like-counter">Like (${reactionsCounter})</small>
                 </div>
