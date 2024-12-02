@@ -8,7 +8,6 @@ import { initializeCreatePostModal } from "./ui/bootstrap/initializecreatepostmo
 import { renderProfile } from "./API/ui/routes/renderprofile.mjs";
 import { renderPosts } from "./ui/feed/renderposts.mjs";
 import { loadStorage } from "./storage/loadstorage.mjs";
-import { searchFormListener } from "./API/ui/events/searchformlistener.mjs";
 
 // Check if user is logged in
 let isLoggedIn = checkAuth();
@@ -116,10 +115,3 @@ window.addEventListener('resize', setFeedProfilePosition);
 
 // Recalculate .feed-profile position on scroll
 window.addEventListener('scroll', setFeedProfilePosition);
-
-// Search form event listener
-const searchForm = document.querySelector('.search-form');
-const query = searchForm ? searchForm.querySelector('input[type="search"]').value : null;
-if (searchForm) {
-    searchFormListener(query);
-}

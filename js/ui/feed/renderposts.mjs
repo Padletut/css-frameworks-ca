@@ -1,4 +1,5 @@
-import { fetchPosts } from "./fetchposts.mjs";
+import { getPosts } from "../../API/feed/getposts.mjs";
+import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
 import { createPostCard } from "./createpostcard.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
@@ -35,12 +36,24 @@ export async function renderPosts(profileName = null, append = false, tag = null
 
     try {
         toggleLoader(true, loaderContainer);
-        const response = await fetchPosts(profileName, tag);
+
+        if (!nextPage) nextPage = 1;
+
+        const queryParams = new URLSearchParams({
+            _author: "true",
+            _comments: "true",
+            limit: "10",
+            page: nextPage,
+        });
+
+        // Ternary operator to check if profile name is present
+        const response = profileName ? await getPostsbyUser(profileName, queryParams) : await getPosts(queryParams);
         const posts = response.data;
+
 
         posts.forEach(post => createPostCard(post, profileName, feedContainer));
         if (!isLastPage && posts.length >= 10) {
-            createShowMoreButton(profileName);
+            createShowMoreButton(() => renderPosts(profileName, true, tag));
         }
 
     } catch (error) {

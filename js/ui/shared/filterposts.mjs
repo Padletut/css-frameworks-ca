@@ -1,7 +1,10 @@
-import { fetchPosts } from "../feed/fetchposts.mjs";
-import { createPostCard } from "../feed/createpostcard.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
-import { renderPosts } from "../feed/renderposts.mjs";
+import { getPosts } from "../../API/feed/getposts.mjs";
+import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
+import { createPostCard } from "../../ui/feed/createpostcard.mjs";
+import { fetchSearch } from "./fetchsearch.mjs";
+import { renderSearchResults } from "./rendersearchresults.mjs";
+import { createShowMoreButton } from "../../ui/shared/createshowmorebutton.mjs";
 
 /**
  * Filters posts based on the selected tags.
@@ -11,30 +14,159 @@ import { renderPosts } from "../feed/renderposts.mjs";
  * @param {HTMLElement} filterDropdown - The dropdown element to update the text.
  * @param {string} filterText - The text to update the dropdown with.
  * @returns {Promise<void>}
- */
-export async function filterPosts(profileName, selectedTags, feedContainer, filterDropdown, filterText) {
-    let allPosts = [];
+ * @example
+ * ```javascript
+ * filterPosts("john_doe", ["tag1", "tag2"], feedContainer, filterDropdown, "Filter by tags");
+ * ```
+ **/
+export class FilterPosts {
+    constructor(profileName, feedContainer) {
+        this.profileName = profileName;
+        this.feedContainer = feedContainer;
+        this.selectedTags = [];
+        this.uniquePosts = [];
+        this.currentPage = 1;
+        this.isLastPage = false;
+        this.filterDropdown = document.getElementById('filterDropdown');
+        this.dropdownItems = document.querySelectorAll('.dropdown-item');
+        this.searchForm = document.querySelector('.search-form');
 
-    if (selectedTags) {
-        try {
-            for (const tag of selectedTags) {
-                const response = await fetchPosts(profileName, tag);
-                if (response && response.data) {
-                    allPosts = [...allPosts, ...response.data];
-                }
-            }
-            // Remove duplicates
-            const uniquePosts = Array.from(new Set(allPosts.map(post => post.id)))
-                .map(id => allPosts.find(post => post.id === id));
-            // Render unique posts
-            feedContainer.innerHTML = "";
-            uniquePosts.forEach(post => createPostCard(post, profileName, feedContainer));
-        } catch (error) {
-            renderErrors("Failed to load posts " + error);
-            console.error("Error rendering posts:", error);
-        }
-    } else {
-        renderPosts(profileName);
+        this.setupFilterListeners();
+        this.setupSearchListener();
     }
-    filterDropdown.textContent = filterText;
+
+    async fetchPage(queryParams, profileName, page) {
+        queryParams.set('page', page);
+        const response = profileName ? await getPostsbyUser(profileName, queryParams) : await getPosts(queryParams);
+        if (response && response.data) {
+            this.isLastPage = response.meta.isLastPage;
+            this.currentPage = response.meta.nextPage;
+            return response.data;
+        } else {
+            this.isLastPage = true;
+            return [];
+        }
+    }
+
+    async handleFilterClick(event) {
+        event.preventDefault();
+        const tagsAttribute = event.target.getAttribute('data-tag');
+        const filterText = event.target.textContent.trim();
+        this.selectedTags = tagsAttribute ? tagsAttribute.split(',') : null;
+        this.currentPage = 1;
+        this.isLastPage = false;
+        let allPosts = [];
+
+        if (this.selectedTags) {
+            try {
+                const fetchPromises = this.selectedTags.map(async (tag) => {
+                    const queryParams = new URLSearchParams({
+                        _tag: tag,
+                        _author: "true",
+                        _comments: "true",
+                        limit: "10",
+                    });
+                    const posts = await this.fetchPage(queryParams, this.profileName, this.currentPage);
+                    allPosts = [...allPosts, ...posts];
+                });
+
+                await Promise.all(fetchPromises);
+
+                // Remove duplicates
+                this.uniquePosts = Array.from(new Set(allPosts.map(post => post.id)))
+                    .map(id => allPosts.find(post => post.id === id));
+
+                // Render unique posts
+                this.feedContainer.innerHTML = "";
+                this.uniquePosts.forEach(post => createPostCard(post, this.profileName, this.feedContainer));
+
+                // If filter selected, scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Create "Show More" button if there are more pages
+                if (!this.isLastPage) {
+                    createShowMoreButton(this.fetchNextPage.bind(this));
+                }
+
+            } catch (error) {
+                renderErrors(new Error("Failed to load posts " + error));
+                console.error("Error rendering posts:", error);
+            }
+        } else {
+            // Handle "No Filter" case
+            this.uniquePosts = [];
+            await renderPosts(this.profileName, false, null);
+        }
+        this.filterDropdown.textContent = filterText;
+    }
+
+    async fetchNextPage() {
+        let allPosts = [];
+        try {
+            const fetchPromises = this.selectedTags.map(async (tag) => {
+                const queryParams = new URLSearchParams({
+                    _tag: tag,
+                    _author: "true",
+                    _comments: "true",
+                    limit: "10",
+                });
+                const posts = await this.fetchPage(queryParams, this.profileName, this.currentPage);
+                allPosts = [...allPosts, ...posts];
+            });
+
+            await Promise.all(fetchPromises);
+
+            // Remove duplicates
+            const newPosts = Array.from(new Set(allPosts.map(post => post.id)))
+                .map(id => allPosts.find(post => post.id === id));
+
+            // Render new posts
+            newPosts.forEach(post => createPostCard(post, this.profileName, this.feedContainer));
+
+            // Create "Show More" button if there are more pages
+            if (!this.isLastPage) {
+                createShowMoreButton(this.fetchNextPage.bind(this));
+            }
+
+        } catch (error) {
+            renderErrors(new Error("Failed to load more posts " + error));
+            console.error("Error fetching next page:", error);
+        }
+    }
+
+    setupFilterListeners() {
+        this.dropdownItems.forEach(item => {
+            item.addEventListener('click', this.handleFilterClick.bind(this));
+        });
+    }
+
+    async handleSearchSubmit(event) {
+        event.preventDefault();
+        const query = event.target.querySelector('input[type="search"]').value;
+
+        try {
+            if (this.selectedTags && this.uniquePosts.length > 0) {
+                // Filter uniquePosts based on the search query
+                const filteredPosts = this.uniquePosts.filter(post =>
+                    post.title.includes(query) || post.body.includes(query)
+                );
+                renderSearchResults(filteredPosts);
+            } else {
+                await fetchSearch(query);
+            }
+        } catch (error) {
+            renderErrors(new Error("Failed to load search results"));
+            console.error("Error searching posts:", error);
+        }
+    }
+
+    setupSearchListener() {
+        if (this.searchForm) {
+            this.searchForm.addEventListener('submit', this.handleSearchSubmit.bind(this));
+        }
+    }
+}
+
+export function filterPostsListener(profileName = null, feedContainer) {
+    new FilterPosts(profileName, feedContainer);
 }

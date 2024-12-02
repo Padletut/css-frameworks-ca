@@ -21,20 +21,12 @@ Search profiles GET /social/profiles/search?q=<query> Search for profiles by the
  * ```
  */
 
-export async function fetchSearch(query, tag = null) {
+export async function fetchSearch(query, tags = null) {
 
     const feedContainer = document.getElementById("feed-container");
     const loaderContainer = document.getElementById("loader-container");
 
-    let responseProfiles;
-    let profileData = [];
-
-    if (!query && !tag) return;
-
-    if (!query && tag) {
-        // Reload web page
-        location.reload();
-    }
+    if (!query) return;
 
     if (!feedContainer) return;
 
@@ -47,23 +39,14 @@ export async function fetchSearch(query, tag = null) {
             q: query,
         });
 
-        if (!tag) {
-            responseProfiles = await getProfiles(true, queryParams);
-            profileData = responseProfiles.data;
-        }
+        const profileResponse = await getProfiles(true, queryParams);
+        const postResponse = await getPosts(queryParams);
 
-        if (tag) {
-            queryParams.append("_tag", tag);
-        }
+        const profiles = profileResponse.data;
+        const posts = postResponse.data;
 
-        const responsePosts = await getPosts(queryParams, true);
-        let postsData = responsePosts.data;
-        // If tag is provided, filter out posts that do not have the tag
-        if (tag) {
-            postsData = postsData.filter(post => post.tags.includes(tag));
-        }
-        const searchResults = [...profileData, ...postsData];
-        renderSearchResults(searchResults);
+        const allResults = [...profiles, ...posts];
+        renderSearchResults(allResults, feedContainer);
 
     } catch (error) {
         renderErrors(new Error("Failed to load search results " + error));

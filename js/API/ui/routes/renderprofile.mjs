@@ -10,7 +10,6 @@ import { setupEditButtons } from "../profiles/setupeditbuttons.mjs";
 import { setupFollowButton } from "../profiles/setupfollowbutton.mjs";
 import { toggleLoader } from "../../../ui/shared/toggleLoader.mjs";
 import { handleFollowSection } from "../profiles/handlefollowsection.mjs";
-import { filterPostsListener } from "../events/filterpostslistener.mjs";
 
 /**
  * @module Profile
