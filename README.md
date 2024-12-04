@@ -43,12 +43,12 @@ ConnectSphere is a social media website that allows users to:
 - **Connection Metrics**: Show followers and following counts with clickable links.
 - **Profile Edit Option**: Update user information.
 
-## Planned Features
+## Features
 
 - **Account Management**: Create, modify, or delete profiles.
 - **Interaction Capabilities**: Like, comment, and manage followers.
 - **Content Management**: Create or delete posts and comments.
-- **Discoverability Tools**: Search for posts and user profiles.
+- **Discoverability Tools**: Search and filter for posts and user profiles.
 
 ## Installation
 
