@@ -5,6 +5,7 @@ import { getPost } from "../../API/feed/getpost.mjs";
 import { capitalizeFirstLetter } from "../shared/capitalizefirstletter.mjs";
 import { splitName } from "../shared/splitname.mjs";
 import { addEditDeleteButtons } from "../shared/addeditdeletebuttons.mjs";
+import { formatDate } from "../shared/formatdate.mjs";
 
 
 /**
@@ -24,14 +25,7 @@ export function createPostCard(post, profileName, feedContainer) {
     const postCard = document.createElement("div");
     postCard.classList.add("card", "bg-white", "rounded-3", "flex-grow-1", "flex-sm-grow-0", "feed-post-card", "card-custom");
 
-    const formattedDate = new Date(created).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-    });
+    const formattedDate = formatDate(created);
 
     let authorName = splitName(author.name);
     authorName = capitalizeFirstLetter(authorName);

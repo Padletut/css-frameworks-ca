@@ -1,6 +1,7 @@
 import { loadStorage } from "../../storage/loadstorage.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
 import { capitalizeFirstLetter } from "../shared/capitalizefirstletter.mjs";
+import { formatDate } from "../shared/formatdate.mjs";
 
 const loggedInUser = loadStorage("profile");
 
@@ -29,14 +30,7 @@ export function renderComments(comments, postOwner, isTopLevel = true) {
             return ''; // Skip rendering if author is not defined
         }
 
-        const formattedDate = new Date(comment.created).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false
-        });
+        const formattedDate = formatDate(comment.created);
 
         // Capitalize the first letter of the author's name
         const authorName = capitalizeFirstLetter(comment.author.name);

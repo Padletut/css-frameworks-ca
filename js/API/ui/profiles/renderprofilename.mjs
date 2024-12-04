@@ -27,7 +27,7 @@ export async function renderProfileName(profileName) {
 
         const smallName = document.createElement("small");
         smallName.classList.add("text-body-secondary");
-        smallName.textContent = `@${profileName.name}`;
+        smallName.textContent = `@${profileName}`;
         profileNameElement.appendChild(smallName);
 
     } catch (error) {
