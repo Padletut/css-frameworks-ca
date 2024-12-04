@@ -11,7 +11,7 @@ import { addComment } from '../../API/feed/addcomment.mjs';
  * handleReplies(commentsSection, postId);
  * ```
  */
-export async function handleReply(commentsSection, postId) {
+export async function handleCommentReply(commentsSection, postId) {
     // Add event listeners to reply buttons
     commentsSection.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function () {
@@ -46,6 +46,7 @@ export async function handleReply(commentsSection, postId) {
                 `;
                 replyForm.querySelector('.reply-text').classList.remove('is-invalid');
                 replyForm.querySelector('.reply-text').value = '';
+                replyForm.classList.add('d-none');
             }
         });
     });
