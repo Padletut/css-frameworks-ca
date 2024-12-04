@@ -1,3 +1,6 @@
+import { splitName } from "../../../ui/shared/splitname.mjs";
+import { capitalizeFirstLetter } from "../../../ui/shared/capitalizefirstletter.mjs";
+
 /**
  * Renders the profile name in the element with id "profile-id".
  * @memberof module:Profile
@@ -30,22 +33,4 @@ export async function renderProfileName(profileName) {
     } catch (error) {
         console.error(error);
     }
-}
-
-/**
- * Capitalizes the first letter of a string.
- * @param {string} string - The string to capitalize.
- * @returns {string} The string with the first letter capitalized.
- * @example
- * ```javascript
- * const capitalized = capitalizeFirstLetter("john");
- * console.log(capitalized); // "John"
- * ```
- */
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function splitName(name) {
-    return name.split("_").join(" ");
 }

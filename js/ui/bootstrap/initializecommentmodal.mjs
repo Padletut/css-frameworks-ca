@@ -1,7 +1,7 @@
 import { renderComments } from "../comments/rendercomments.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
-import { handleReplies } from "../comments/handlereplies.mjs";
-import { handleEdits } from "../comments/handleedits.mjs";
+import { handleReply } from "../comments/handlereplies.mjs";
+import { handleCommentEdit } from "../comments/handlecommentedit.mjs";
 import { handleDeletes } from "../comments/handledeletes.mjs";
 import { handleAddComment } from "../comments/handleaddcomment.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
@@ -54,8 +54,8 @@ export function initializeCommentModal(post, commentsCounterElement) {
             commentsSection.innerHTML = renderComments(Array.from(commentsMap.values()), post.author.name);
 
             // Handle add, replies, edits, and deletes
-            handleReplies(commentsSection, post.id);
-            handleEdits(commentsSection, post.id);
+            handleReply(commentsSection, post.id);
+            handleCommentEdit(commentsSection, post.id);
             handleDeletes(commentsSection, post.id);
         }
 

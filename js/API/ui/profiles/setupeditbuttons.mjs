@@ -12,7 +12,7 @@ import { checkProfileOwner } from "../../../API/profiles/profilecheckowner.mjs";
  * setupEditButtons(profile);
  * ```
  */
-export function setupEditButtons(profile) {
+export async function setupEditButtons(profile) {
     const editCoverButton = document.querySelector('[name="edit-cover"]');
     const editProfileButton = document.querySelector('[name="edit-profile"]');
     const isOwner = checkProfileOwner(profile);

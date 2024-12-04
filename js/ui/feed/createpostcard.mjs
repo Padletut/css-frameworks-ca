@@ -1,9 +1,10 @@
 import { initializeCommentModal } from "../bootstrap/initializecommentmodal.mjs";
 import { postCheckOwner } from "../../API/feed/postcheckowner.mjs";
 import { reactToPost } from "./reacttopost.mjs";
-import { initializeUpdatePostModal } from "../bootstrap/initializecreatepostmodal.mjs";
 import { getPost } from "../../API/feed/getpost.mjs";
-import { deletePost } from "../../API/feed/deletepost.mjs";
+import { capitalizeFirstLetter } from "../shared/capitalizefirstletter.mjs";
+import { splitName } from "../shared/splitname.mjs";
+import { addEditDeleteButtons } from "../shared/addeditdeletebuttons.mjs";
 
 
 /**
@@ -106,53 +107,4 @@ export function createPostCard(post, profileName, feedContainer) {
     if (reactButton) {
         reactButton.addEventListener("click", () => reactToPost(post.id, "👍", likeCounterElement));
     }
-}
-
-/**
- * Capitalizes the first letter of a string.
- * @param {string} string - The string to capitalize.
- * @returns {string} The string with the first letter capitalized.
- * @example
- * ```javascript
- * const capitalized = capitalizeFirstLetter("john");
- * console.log(capitalized); // "John"
- * ```
- */
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function splitName(name) {
-    return name.split("_").join(" ");
-}
-
-/**
- * Adds edit and delete buttons to a post card.
- * @param {HTMLElement} postCard - The post card element.
- * @param {Object} post - The post object.
- * @param {string} profileName - The name of the profile.
- * @example
- * ```javascript
- * const postCard = document.createElement("div");
- * const post = { id: 123, ... };
- * addEditDeleteButtons(postCard, post, "john_doe");
- * ```
- */
-function addEditDeleteButtons(postCard, post, profileName) {
-    const cardFooter = postCard.querySelector('.card-footer');
-
-    const editButton = document.createElement("div");
-    editButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "edit-button");
-    editButton.setAttribute("role", "button");
-    editButton.innerHTML = `<i class="bi bi-pencil-fill"></i><small class="text-body-secondary">Edit</small>`;
-    editButton.addEventListener('click', () => initializeUpdatePostModal(post, profileName));
-
-    const deleteButton = document.createElement("div");
-    deleteButton.classList.add("d-flex", "align-items-center", "column-gap-2", "text-body-secondary", "icon-link-hover", "delete-button");
-    deleteButton.setAttribute("role", "button");
-    deleteButton.innerHTML = `<i class="bi bi-trash-fill"></i><small class="text-body-secondary">Delete</small>`;
-    deleteButton.addEventListener('click', () => deletePost(post.id, profileName));
-
-    cardFooter.appendChild(editButton);
-    cardFooter.appendChild(deleteButton);
 }

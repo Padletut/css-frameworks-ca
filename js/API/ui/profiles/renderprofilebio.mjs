@@ -8,7 +8,7 @@
  * renderProfileBio(profile);
  * ```
  */
-export function renderProfileBio(profile) {
+export async function renderProfileBio(profile) {
     const bioContainer = document.getElementById("profile-bio");
     const bio = document.createElement("p");
     bio.textContent = profile.bio;

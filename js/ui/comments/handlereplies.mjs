@@ -11,7 +11,7 @@ import { addComment } from '../../API/feed/addcomment.mjs';
  * handleReplies(commentsSection, postId);
  * ```
  */
-export function handleReplies(commentsSection, postId) {
+export async function handleReply(commentsSection, postId) {
     // Add event listeners to reply buttons
     commentsSection.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function () {

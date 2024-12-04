@@ -1,8 +1,8 @@
-import { getPosts } from "../../API/feed/getposts.mjs";
-import { getProfiles } from "../../API/profiles/getprofiles.mjs";
-import { renderErrors } from "../../API/ui/rendererrors.mjs";
-import { toggleLoader } from "./toggleLoader.mjs";
-import { renderSearchResults } from "./rendersearchresults.mjs";
+import { getPosts } from "../feed/getposts.mjs";
+import { getProfiles } from "../profiles/getprofiles.mjs";
+import { renderErrors } from "../ui/rendererrors.mjs";
+import { toggleLoader } from "../../ui/shared/toggleLoader.mjs";
+import { renderSearchResults } from "../../ui/shared/rendersearchresults.mjs";
 
 
 /* API Doc:

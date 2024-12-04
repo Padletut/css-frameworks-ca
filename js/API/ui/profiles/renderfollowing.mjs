@@ -1,3 +1,5 @@
+import { splitName } from "../../../ui/shared/splitname.mjs";
+
 /**
  * Renders the Following of a profile.
  * @memberof module:Profile
@@ -49,6 +51,3 @@ export async function renderFollowing(profile) {
     }
 }
 
-function splitName(name) {
-    return name.split("_").join(" ");
-}

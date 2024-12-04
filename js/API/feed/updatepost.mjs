@@ -29,9 +29,12 @@ export async function updatePost(postId, title, body, tags, media) {
     const postData = {
         title,
         body,
-        tags,
-        media: media || {}
+        tags
     };
+
+    if (media) {
+        postData.media = media;
+    }
 
     const response = await fetchData(API_BASE_URL + API_POSTS + "/" + postId, {
         headers: headers(true),

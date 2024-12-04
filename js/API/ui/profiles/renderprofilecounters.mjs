@@ -7,7 +7,7 @@
  * renderCounters(profile);
  * ```
  */
-export function renderProfileCounters(profile) {
+export async function renderProfileCounters(profile) {
     const followingCounter = document.querySelector(".following-counter");
     const followersCounter = document.querySelector(".followers-counter");
     const postsCounter = document.querySelector(".posts-counter");

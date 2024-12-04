@@ -34,7 +34,7 @@ export async function addComment(postId, comment, replyToId = null) {
     });
 
     if (response.ok) {
-
+        console.log("Response:", response);
         return await response.json();
     }
 

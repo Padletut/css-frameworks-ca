@@ -11,7 +11,7 @@ import { deleteComment } from "../../API/feed/deletecomment.mjs";
  * handleDeletes(commentsSection, postId);
  * ```
  */
-export function handleDeletes(commentsSection, postId) {
+export async function handleDeletes(commentsSection, postId) {
     // Add event listeners to delete buttons
     commentsSection.querySelectorAll('.delete-button').forEach(button => {
         button.addEventListener('click', async function () {
