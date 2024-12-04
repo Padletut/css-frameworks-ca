@@ -1,5 +1,6 @@
 import { loadStorage } from "../../storage/loadstorage.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
+import { capitalizeFirstLetter } from "../shared/capitalizefirstletter.mjs";
 
 const loggedInUser = loadStorage("profile");
 
@@ -38,7 +39,7 @@ export function renderComments(comments, postOwner, isTopLevel = true) {
         });
 
         // Capitalize the first letter of the author's name
-        const authorName = comment.author.name.charAt(0).toUpperCase() + comment.author.name.slice(1);
+        const authorName = capitalizeFirstLetter(comment.author.name);
 
         return `
             <div class="comment mb-3" id="comment-${comment.id}">
