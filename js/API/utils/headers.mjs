@@ -1,5 +1,5 @@
-import { loadStorage } from "../storage/loadstorage.mjs";
-import { API_KEY } from "./constants.mjs";
+import { loadStorage } from "../../storage/loadstorage.mjs";
+import { API_KEY } from "../constants.mjs";
 
 /**
  * @module API

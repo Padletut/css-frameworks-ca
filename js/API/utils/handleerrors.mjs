@@ -1,4 +1,4 @@
-import { renderErrors } from "../ui/rendererrors.mjs";
+import { renderErrors } from "../../ui/shared/rendererrors.mjs";
 
 /**
  * Handles authorization errors and other response errors.

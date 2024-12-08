@@ -1,9 +1,9 @@
-import { addComment } from "../../API/feed/addcomment.mjs";
-import { renderComments } from "../comments/rendercomments.mjs";
-import { getPost } from "../../API/feed/getpost.mjs";
-import { loadStorage } from "../../storage/loadstorage.mjs";
-import { validateInputs } from "../bootstrap/validateinputs.mjs";
-import { renderErrors } from "../../API/ui/rendererrors.mjs";
+import { addComment } from "../API/feed/addcomment.mjs";
+import { renderComments } from "../ui/comments/rendercomments.mjs";
+import { getPost } from "../API/feed/getpost.mjs";
+import { loadStorage } from "../storage/loadstorage.mjs";
+import { validateInputs } from "../ui/bootstrap/validateinputs.mjs";
+import { renderErrors } from "../ui/shared/rendererrors.mjs";
 
 const loggedInUser = loadStorage("profile");
 

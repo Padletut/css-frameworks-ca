@@ -3,7 +3,7 @@ import { handleFormSubmission } from "./ui/bootstrap/handleformsubmission.mjs";
 import { setBodyPadding } from "./ui/bootstrap/setbodypadding.mjs";
 import { checkAuth } from "./ui/shared/checkauth.mjs";
 import { logout } from "./API/auth/logout.mjs";
-import { renderProfile } from "./API/ui/routes/renderprofile.mjs";
+import { renderProfile } from "./ui/profiles/renderprofile.mjs";
 import { renderPosts } from "./ui/feed/renderposts.mjs";
 import { loadStorage } from "./storage/loadstorage.mjs";
 import { loadModals } from "./ui/bootstrap/loadmodals.mjs";

@@ -1,7 +1,7 @@
 import { getPosts } from "../../API/feed/getposts.mjs";
 import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
 import { createPostCard } from "./createpostcard.mjs";
-import { renderErrors } from "../../API/ui/rendererrors.mjs";
+import { renderErrors } from "../shared/rendererrors.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
 import { createShowMoreButton } from "../shared/createshowmorebutton.mjs";
 import { filterPostsListener } from "../../events/filterpostslistener.mjs";

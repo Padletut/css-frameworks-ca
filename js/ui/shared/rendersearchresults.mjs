@@ -1,6 +1,6 @@
 import { createPostCard } from "../feed/createpostcard.mjs";
 import { getPost } from "../../API/feed/getpost.mjs";
-import { renderErrors } from "../../API/ui/rendererrors.mjs";
+import { renderErrors } from "./rendererrors.mjs";
 
 /**
  * Renders the search results to the feed container.

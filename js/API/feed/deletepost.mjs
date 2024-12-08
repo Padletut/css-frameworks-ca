@@ -1,5 +1,5 @@
 import * as global from "../constants.mjs";
-import { headers } from "../headers.mjs";
+import { headers } from "../utils/headers.mjs";
 import { handleErrors } from "../utils/handleerrors.mjs";
 import { renderPosts } from "../../ui/feed/renderposts.mjs";
 

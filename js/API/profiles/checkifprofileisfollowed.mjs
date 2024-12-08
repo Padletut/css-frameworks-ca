@@ -1,6 +1,6 @@
 import { getProfile } from './getprofile.mjs';
 import { loadStorage } from '../../storage/loadstorage.mjs';
-import { renderErrors } from '../ui/rendererrors.mjs';
+import { renderErrors } from '../../ui/shared/rendererrors.mjs';
 
 const loggedInUser = loadStorage('profile');
 

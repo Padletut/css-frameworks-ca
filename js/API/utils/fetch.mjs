@@ -1,4 +1,4 @@
-import { headers } from "../headers.mjs";
+import { headers } from "./headers.mjs";
 
 /**
  * @module Fetch

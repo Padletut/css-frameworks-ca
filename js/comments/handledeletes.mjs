@@ -1,4 +1,4 @@
-import { deleteComment } from "../../API/feed/deletecomment.mjs";
+import { deleteComment } from "../API/feed/deletecomment.mjs";
 
 /**
  * Handles the delete functionality for comments.

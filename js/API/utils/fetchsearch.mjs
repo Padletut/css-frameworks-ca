@@ -1,6 +1,6 @@
 import { getPosts } from "../feed/getposts.mjs";
 import { getProfiles } from "../profiles/getprofiles.mjs";
-import { renderErrors } from "../ui/rendererrors.mjs";
+import { renderErrors } from "../../ui/shared/rendererrors.mjs";
 import { toggleLoader } from "../../ui/shared/toggleLoader.mjs";
 import { renderSearchResults } from "../../ui/shared/rendersearchresults.mjs";
 

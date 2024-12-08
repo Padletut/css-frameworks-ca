@@ -1,5 +1,4 @@
-import { addComment } from '../../API/feed/addcomment.mjs';
-
+import { addComment } from "../API/feed/addcomment.mjs";
 /**
  * Handles the reply functionality for comments.
  * @param {HTMLElement} commentsSection - The container element for the comments.

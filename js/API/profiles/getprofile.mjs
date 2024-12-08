@@ -1,5 +1,5 @@
 import { fetchData } from "../utils/fetch.mjs";
-import { renderErrors } from "../ui/rendererrors.mjs";
+import { renderErrors } from "../../ui/shared/rendererrors.mjs";
 import * as global from "../constants.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
 

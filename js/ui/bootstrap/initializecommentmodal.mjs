@@ -1,10 +1,10 @@
 import { renderComments } from "../comments/rendercomments.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
-import { handleCommentReply } from "../comments/handlecommentreply.mjs";
-import { handleCommentEdit } from "../comments/handlecommentedit.mjs";
-import { handleDeletes } from "../comments/handledeletes.mjs";
-import { handleAddComment } from "../comments/handleaddcomment.mjs";
-import { renderErrors } from "../../API/ui/rendererrors.mjs";
+import { handleCommentReply } from "../../comments/handlecommentreply.mjs";
+import { handleCommentEdit } from "../../comments/handlecommentedit.mjs";
+import { handleDeletes } from "../../comments/handledeletes.mjs";
+import { handleAddComment } from "../../comments/handleaddcomment.mjs";
+import { renderErrors } from "../shared/rendererrors.mjs";
 
 const loggedInUser = loadStorage("profile");
 

@@ -1,4 +1,4 @@
-import { renderErrors } from "../../API/ui/rendererrors.mjs";
+import { renderErrors } from "./rendererrors.mjs";
 import { getPosts } from "../../API/feed/getposts.mjs";
 import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
 import { createPostCard } from "../../ui/feed/createpostcard.mjs";

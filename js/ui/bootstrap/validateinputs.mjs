@@ -1,6 +1,6 @@
 import { validateEmail } from './validateemail.mjs';
 import { validateTags } from './validatetags.mjs';
-import { renderErrors } from '../../API/ui/rendererrors.mjs';
+import { renderErrors } from '../shared/rendererrors.mjs';
 
 /**
  * Validates the inputs of a form.

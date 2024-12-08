@@ -1,5 +1,5 @@
 import * as constants from "../constants.mjs";
-import { headers } from "../headers.mjs";
+import { headers } from "../utils/headers.mjs";
 import { fetchData } from "../utils/fetch.mjs";
 import { handleErrors } from "../utils/handleerrors.mjs";
 
