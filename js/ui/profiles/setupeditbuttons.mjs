@@ -1,6 +1,6 @@
 import { editProfileAvatarAndBio } from "../profiles/editprofileavatarandbio.mjs";
 import { editProfileBanner } from "../profiles/editprofilebanner.mjs";
-import { checkProfileOwner } from "../../../API/profiles/profilecheckowner.mjs";
+import { checkProfileOwner } from "../../API/profiles/profilecheckowner.mjs";
 
 /**
  * Sets up event listeners for edit buttons.

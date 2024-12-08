@@ -1,15 +1,15 @@
 import { getProfile } from "../../profiles/getprofile.mjs";
-import { renderProfileBanner } from "../profiles/renderprofilebanner.mjs";
-import { renderProfileAvatar } from "../profiles/renderprofileavatar.mjs";
-import { renderProfileName } from "../profiles/renderprofilename.mjs";
-import { renderProfileBio } from "../profiles/renderprofilebio.mjs";
-import { renderProfileCounters } from "../profiles/renderprofilecounters.mjs";
+import { renderProfileBanner } from "../../../ui/profiles/renderprofilebanner.mjs";
+import { renderProfileAvatar } from "../../../ui/profiles/renderprofileavatar.mjs";
+import { renderProfileName } from "../../../ui/profiles/renderprofilename.mjs";
+import { renderProfileBio } from "../../../ui/profiles/renderprofilebio.mjs";
+import { renderProfileCounters } from "../../../ui/profiles/renderprofilecounters.mjs";
 import { renderErrors } from "../../ui/rendererrors.mjs";
 import { renderPosts } from "../../../ui/feed/renderposts.mjs";
-import { setupEditButtons } from "../profiles/setupeditbuttons.mjs";
-import { setupFollowButton } from "../profiles/setupfollowbutton.mjs";
+import { setupEditButtons } from "../../../ui/profiles/setupeditbuttons.mjs";
+import { setupFollowButton } from "../../../ui/profiles/setupfollowbutton.mjs";
 import { toggleLoader } from "../../../ui/shared/toggleLoader.mjs";
-import { handleFollowSection } from "../profiles/handlefollowsection.mjs";
+import { handleFollowSection } from "../../../ui/profiles/handlefollowsection.mjs";
 
 /**
  * @module Profile

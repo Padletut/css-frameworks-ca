@@ -4,7 +4,7 @@ import { createPostCard } from "./createpostcard.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
 import { createShowMoreButton } from "../shared/createshowmorebutton.mjs";
-import { filterPostsListener } from "../../API/ui/events/filterpostslistener.mjs";
+import { filterPostsListener } from "../../events/filterpostslistener.mjs";
 
 let nextPage;
 let isLastPage = false;

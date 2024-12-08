@@ -1,7 +1,7 @@
 import { followProfile } from "../profiles/followprofile.mjs";
 import { unfollowProfile } from "../profiles/unfollowprofile.mjs";
-import { checkIfProfileIsFollowed } from "../../profiles/checkifprofileisfollowed.mjs";
-import { loadStorage } from "../../../storage/loadstorage.mjs";
+import { checkIfProfileIsFollowed } from "../../API/profiles/checkifprofileisfollowed.mjs";
+import { loadStorage } from "../../storage/loadstorage.mjs";
 const loggedInUser = loadStorage("profile");
 
 /**

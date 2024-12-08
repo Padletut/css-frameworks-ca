@@ -1,4 +1,4 @@
-import { splitName } from "../../../ui/shared/splitname.mjs";
+import { splitName } from "../shared/splitname.mjs";
 
 /**
  * Renders the Following of a profile.

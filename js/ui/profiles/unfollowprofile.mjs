@@ -1,6 +1,6 @@
-import * as global from "../../constants.mjs";
-import { fetchData } from "../../utils/fetch.mjs";
-import { handleErrors } from "../../handleerrors/handleerrors.mjs";
+import * as global from "../../API/constants.mjs";
+import { fetchData } from "../../API/utils/fetch.mjs";
+import { renderErrors } from "../../API/ui/rendererrors.mjs";
 
 const { API_BASE_URL, API_PROFILES } = global;
 
@@ -26,6 +26,6 @@ export async function unfollowProfile(profileName) {
         }
     } catch (error) {
         console.error("Error unfollowing profile:", error);
-        handleErrors(new Error("An error occurred while unfollowing profile"));
+        renderErrors(new Error("An error occurred while unfollowing profile"));
     }
 }

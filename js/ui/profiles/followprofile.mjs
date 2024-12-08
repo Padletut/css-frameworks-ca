@@ -1,6 +1,6 @@
-import * as global from "../../constants.mjs";
-import { fetchData } from "../../utils/fetch.mjs";
-import { renderErrors } from "../rendererrors.mjs";
+import * as global from "../../API/constants.mjs";
+import { fetchData } from "../../API/utils/fetch.mjs";
+import { renderErrors } from "../../API/ui/rendererrors.mjs";
 
 
 const { API_BASE_URL, API_PROFILES } = global;

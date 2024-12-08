@@ -1,4 +1,4 @@
-import { loadStorage } from "../../../storage/loadstorage.mjs";
+import { loadStorage } from "../../storage/loadstorage.mjs";
 import { handleProfileUpdate } from "./handleprofileupdate.mjs";
 
 const loggedInUser = loadStorage("profile");

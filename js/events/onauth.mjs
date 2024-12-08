@@ -1,5 +1,5 @@
-import { login } from "../../auth/login.mjs";
-import { register } from "../../auth/register.mjs";
+import { login } from "../API/auth/login.mjs";
+import { register } from "../API/auth/register.mjs";
 
 /**
  * Handles the authentication process for login and registration forms.

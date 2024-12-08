@@ -1,5 +1,5 @@
-import { splitName } from "../../../ui/shared/splitname.mjs";
-import { capitalizeFirstLetter } from "../../../ui/shared/capitalizefirstletter.mjs";
+import { splitName } from "../shared/splitname.mjs";
+import { capitalizeFirstLetter } from "../shared/capitalizefirstletter.mjs";
 
 /**
  * Renders the profile name in the element with id "profile-id".

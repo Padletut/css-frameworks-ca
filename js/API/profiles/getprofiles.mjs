@@ -1,6 +1,6 @@
 import * as global from "../constants.mjs";
 import { fetchData } from "../utils/fetch.mjs";
-import { handleErrors } from "../handleerrors/handleerrors.mjs";
+import { renderErrors } from "../ui/rendererrors.mjs";
 
 const { API_BASE_URL, API_PROFILES, API_SEARCH } = global;
 
@@ -24,6 +24,6 @@ export async function getProfiles(search = false, queryParams) {
         const data = await response.json();
         return data;
     } catch (error) {
-        handleErrors(error);
+        renderErrors(new Error("An error occurred while loading the profiles"));
     }
 }

@@ -1,7 +1,7 @@
 import * as global from "../constants.mjs";
 import { saveStorage } from "../../storage/savestorage.mjs";
 import { fetchData } from "../utils/fetch.mjs";
-import { handleErrors } from "../handleerrors/handleerrors.mjs";
+import { handleErrors } from "../utils/handleerrors.mjs";
 
 const { API_BASE_URL, API_AUTH, API_LOGIN } = global;
 

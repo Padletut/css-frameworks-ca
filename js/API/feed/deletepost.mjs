@@ -1,6 +1,6 @@
 import * as global from "../constants.mjs";
 import { headers } from "../headers.mjs";
-import { handleErrors } from "../handleerrors/handleerrors.mjs";
+import { handleErrors } from "../utils/handleerrors.mjs";
 import { renderPosts } from "../../ui/feed/renderposts.mjs";
 
 const { API_BASE_URL, API_POSTS } = global;
