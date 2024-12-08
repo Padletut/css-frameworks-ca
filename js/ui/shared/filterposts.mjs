@@ -2,10 +2,9 @@ import { renderErrors } from "../../API/ui/rendererrors.mjs";
 import { getPosts } from "../../API/feed/getposts.mjs";
 import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
 import { createPostCard } from "../../ui/feed/createpostcard.mjs";
-import { fetchSearch } from "../../API/fetch/fetchsearch.mjs";
+import { fetchSearch } from "../../API/utils/fetchsearch.mjs";
 import { renderSearchResults } from "./rendersearchresults.mjs";
 import { createShowMoreButton } from "../../ui/shared/createshowmorebutton.mjs";
-import { filterPostsListener } from "../../API/ui/events/filterpostslistener.mjs";
 
 /**
  * Filters posts based on the selected tags.

@@ -1,4 +1,4 @@
-import { fetchData } from "../fetch/fetch.mjs";
+import { fetchData } from "../utils/fetch.mjs";
 import { headers } from "../headers.mjs";
 import { handleErrors } from "../handleerrors/handleerrors.mjs";
 import * as global from "../constants.mjs";

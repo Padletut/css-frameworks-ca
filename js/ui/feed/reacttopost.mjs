@@ -1,5 +1,5 @@
 import * as global from "../../API/constants.mjs";
-import { fetchData } from "../../API/fetch/fetch.mjs";
+import { fetchData } from "../../API/utils/fetch.mjs";
 import { renderErrors } from "../../API/ui/rendererrors.mjs";
 import { getPost } from "../../API/feed/getpost.mjs";
 
@@ -38,5 +38,6 @@ export async function reactToPost(postId, symbol, likeCounterElement) {
         }
     } catch (error) {
         console.error("Error toggling reaction:", error);
+        renderErrors(new Error("An error occurred while toggling the reaction"));
     }
 }
