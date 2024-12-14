@@ -15,9 +15,9 @@
     </head>
 
     <body>
-        <header class="fixed-top">
+        <header class="sticky-top">
             <nav class="navbar navbar-expand-lg bg-primary z-3" data-bs-theme="dark">
-                <div class="container-fluid profile-container">
+                <div class="container-fluid">
                     <a class="navbar-brand navbar-brand-custom" href="../feed/index.html">
                         <img src="../images/ConnectSphere logo.png" alt="Logo" width="64" height="64"
                             class="d-inline-block align-text-center">ConnectSphere
@@ -27,8 +27,8 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav justify-content-center mx-auto my-5 gap-3 my-lg-0">
+                    <div class="collapse navbar-collapse mb-4 mb-lg-0" id="navbarSupportedContent">
+                        <ul class="navbar-nav flex-row justify-content-center mx-auto my-5 gap-5 my-lg-0">
                             <li class="nav-item px-lg-2">
                                 <a class="nav-link active" aria-current="page" href="index.html">Profile</a>
                             </li>
@@ -39,7 +39,7 @@
                                 <a class="nav-link logout" href="#">Logout</a>
                             </li>
                         </ul>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-center">
                             <form class="search-form d-flex align-items-center">
                                 <input class="form-control me-2 bg-light custom-search" type="search"
                                     placeholder="Search" aria-label="Search">
@@ -78,7 +78,7 @@
             </div>
             <div class="container-fluid d-flex flex-column feed-container">
                 <h1 class="visually-hidden">Profile</h1>
-                <button type="button" id="openPostModalButton" class="btn btn-primary mb-3 btn-custom">
+                <button type="button" id="openPostModalButton" class="btn btn-primary mt-5 mb-3 btn-custom">
                     Create New Post
                 </button>
                 <div class="row justify-content-center row-gap-3">
