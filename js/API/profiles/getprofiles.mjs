@@ -25,5 +25,6 @@ export async function getProfiles(search = false, queryParams) {
         return data;
     } catch (error) {
         renderErrors(new Error("An error occurred while loading the profiles"));
+        console.error(error);
     }
 }

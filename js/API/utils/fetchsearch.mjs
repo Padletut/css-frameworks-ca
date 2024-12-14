@@ -21,7 +21,7 @@ Search profiles GET /social/profiles/search?q=<query> Search for profiles by the
  * ```
  */
 
-export async function fetchSearch(query, tags = null) {
+export async function fetchSearch(query) {
 
     const feedContainer = document.getElementById("feed-container");
     const loaderContainer = document.getElementById("loader-container");

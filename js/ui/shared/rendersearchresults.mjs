@@ -32,8 +32,8 @@ export function renderSearchResults(searchResults) {
     const postsList = document.createElement("div");
     postsList.classList.add("posts-list", "mb-4");
 
-    const profiles = searchResults.filter(result => !result.hasOwnProperty("title"));
-    const posts = searchResults.filter(result => result.hasOwnProperty("title"));
+    const profiles = searchResults.filter(result => !Object.prototype.hasOwnProperty.call(result, "title"));
+    const posts = searchResults.filter(result => Object.prototype.hasOwnProperty.call(result, "title"));
 
     if (profiles.length > 0) {
         const profilesHeader = document.createElement("h2");

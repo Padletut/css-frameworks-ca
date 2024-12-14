@@ -1,5 +1,3 @@
-import { renderPosts } from "../feed/renderposts.mjs";
-
 /**
  * Creates a "Show More" button to load additional posts.
  * @param {string} profileName - The name of the profile.

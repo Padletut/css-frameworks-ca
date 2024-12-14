@@ -1,11 +1,9 @@
 import { addComment } from "../API/feed/addcomment.mjs";
 import { renderComments } from "../ui/comments/rendercomments.mjs";
 import { getPost } from "../API/feed/getpost.mjs";
-import { loadStorage } from "../storage/loadstorage.mjs";
 import { validateInputs } from "../ui/bootstrap/validateinputs.mjs";
 import { renderErrors } from "../ui/shared/rendererrors.mjs";
 
-const loggedInUser = loadStorage("profile");
 
 /**
  * Handles adding a comment to a post and updating the UI.
@@ -34,8 +32,9 @@ export async function handleAddComment(commentsSection, postId, commentsCounterE
         const comment = form.comment.value;
         if (comment) {
             try {
+
                 // Add the comment to the post
-                const newComment = await addComment(postId, comment);
+                await addComment(postId, comment);
 
                 // Fetch the updated post data
                 const { comments } = await getPost(postId);

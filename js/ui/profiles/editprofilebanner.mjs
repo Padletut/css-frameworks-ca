@@ -1,8 +1,6 @@
-import * as global from "../../API/constants.mjs";
 import { loadStorage } from "../../storage/loadstorage.mjs";
 import { handleProfileUpdate } from "./handleprofileupdate.mjs";
 
-const { API_BASE_URL, API_PROFILES } = global;
 const loggedInUser = loadStorage("profile");
 
 /**

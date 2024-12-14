@@ -19,7 +19,7 @@ const { API_BASE_URL, API_PROFILES } = global;
  * await handleProfileUpdate(profile, updatedProfile, "editBioModal", "editBioForm");
  * ```
  */
-export async function handleProfileUpdate(profile, updatedProfile, modalId, formId) {
+export async function handleProfileUpdate(profile, updatedProfile, modalId) {
     const { name } = profile;
 
     try {
@@ -30,8 +30,6 @@ export async function handleProfileUpdate(profile, updatedProfile, modalId, form
         });
 
         if (response.ok) {
-            // Update the profile in local storage
-            const updatedProfileData = await response.json().data;
 
             // Hide the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));

@@ -47,7 +47,7 @@ export async function checkAuth() {
  * console.log(isValid); // true or false
  * ```
  */
-async function validateAccessToken(token) {
+async function validateAccessToken() {
     try {
         const profile = await getProfile();
         return !!profile;

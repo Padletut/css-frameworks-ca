@@ -5,7 +5,6 @@ import { createPostCard } from "../feed/createpostcard.mjs";
 import { fetchSearch } from "../../API/utils/fetchsearch.mjs";
 import { renderSearchResults } from "./rendersearchresults.mjs";
 import { createShowMoreButton } from "./createshowmorebutton.mjs";
-import { renderPosts } from "../feed/renderposts.mjs";
 
 /**
  * Filters posts based on the selected tags.
