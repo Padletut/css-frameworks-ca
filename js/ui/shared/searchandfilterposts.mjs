@@ -1,10 +1,11 @@
 import { renderErrors } from "./rendererrors.mjs";
 import { getPosts } from "../../API/feed/getposts.mjs";
 import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
-import { createPostCard } from "../../ui/feed/createpostcard.mjs";
+import { createPostCard } from "../feed/createpostcard.mjs";
 import { fetchSearch } from "../../API/utils/fetchsearch.mjs";
 import { renderSearchResults } from "./rendersearchresults.mjs";
-import { createShowMoreButton } from "../../ui/shared/createshowmorebutton.mjs";
+import { createShowMoreButton } from "./createshowmorebutton.mjs";
+import { renderPosts } from "../feed/renderposts.mjs";
 
 /**
  * Filters posts based on the selected tags.
@@ -19,7 +20,7 @@ import { createShowMoreButton } from "../../ui/shared/createshowmorebutton.mjs";
  * filterPosts("john_doe", ["tag1", "tag2"], feedContainer, filterDropdown, "Filter by tags");
  * ```
  **/
-export class FilterPosts {
+export class SearchAndFilterPosts {
     constructor(profileName, feedContainer) {
         this.profileName = profileName;
         this.feedContainer = feedContainer;
@@ -30,9 +31,19 @@ export class FilterPosts {
         this.filterDropdown = document.getElementById('filterDropdown');
         this.dropdownItems = document.querySelectorAll('.dropdown-item');
         this.searchForm = document.querySelector('.search-form');
+        this.searchInput = document.querySelector('.search-form input[type="search"]');
 
         this.setupFilterListeners();
         this.setupSearchListener();
+    }
+
+    createQueryParams(additionalParams = {}) {
+        return new URLSearchParams({
+            _author: "true",
+            _comments: "true",
+            limit: "10",
+            ...additionalParams,
+        });
     }
 
     async fetchPage(queryParams, profileName, page) {
@@ -48,6 +59,25 @@ export class FilterPosts {
         }
     }
 
+    async rerenderPosts() {
+        try {
+            const queryParams = this.createQueryParams();
+            const posts = await this.fetchPage(queryParams, this.profileName, this.currentPage);
+
+            this.feedContainer.innerHTML = "";
+            posts.forEach(post => createPostCard(post, this.profileName, this.feedContainer));
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (!this.isLastPage) {
+                createShowMoreButton(this.fetchNextPage.bind(this));
+            }
+        } catch (error) {
+            renderErrors(new Error("Failed to load posts " + error));
+            console.error("Error rendering posts:", error);
+        }
+    }
+
     async handleFilterClick(event) {
         event.preventDefault();
         const tagsAttribute = event.target.getAttribute('data-tag');
@@ -55,71 +85,60 @@ export class FilterPosts {
         this.selectedTags = tagsAttribute ? tagsAttribute.split(',') : null;
         this.currentPage = 1;
         this.isLastPage = false;
-        let allPosts = [];
 
         if (this.selectedTags) {
-            try {
-                const fetchPromises = this.selectedTags.map(async (tag) => {
-                    const queryParams = new URLSearchParams({
-                        _tag: tag,
-                        _author: "true",
-                        _comments: "true",
-                        limit: "10",
-                    });
-                    const posts = await this.fetchPage(queryParams, this.profileName, this.currentPage);
-                    allPosts = [...allPosts, ...posts];
-                });
-
-                await Promise.all(fetchPromises);
-
-                // Remove duplicates
-                this.uniquePosts = Array.from(new Set(allPosts.map(post => post.id)))
-                    .map(id => allPosts.find(post => post.id === id));
-
-                // Render unique posts
-                this.feedContainer.innerHTML = "";
-                this.uniquePosts.forEach(post => createPostCard(post, this.profileName, this.feedContainer));
-
-                // If filter selected, scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                // Create "Show More" button if there are more pages
-                if (!this.isLastPage) {
-                    createShowMoreButton(this.fetchNextPage.bind(this));
-                }
-
-            } catch (error) {
-                renderErrors(new Error("Failed to load posts " + error));
-                console.error("Error rendering posts:", error);
-            }
+            await this.fetchAndRenderFilteredPosts();
+        } else {
+            await this.rerenderPosts();
         }
         this.filterDropdown.textContent = filterText;
     }
 
-    async fetchNextPage() {
+    async fetchAndRenderFilteredPosts() {
         let allPosts = [];
         try {
             const fetchPromises = this.selectedTags.map(async (tag) => {
-                const queryParams = new URLSearchParams({
-                    _tag: tag,
-                    _author: "true",
-                    _comments: "true",
-                    limit: "100",
-                });
+                const queryParams = this.createQueryParams({ _tag: tag });
                 const posts = await this.fetchPage(queryParams, this.profileName, this.currentPage);
                 allPosts = [...allPosts, ...posts];
             });
 
             await Promise.all(fetchPromises);
 
-            // Remove duplicates
+            this.uniquePosts = Array.from(new Set(allPosts.map(post => post.id)))
+                .map(id => allPosts.find(post => post.id === id));
+
+            this.feedContainer.innerHTML = "";
+            this.uniquePosts.forEach(post => createPostCard(post, this.profileName, this.feedContainer));
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (!this.isLastPage) {
+                createShowMoreButton(this.fetchNextPage.bind(this));
+            }
+
+        } catch (error) {
+            renderErrors(new Error("Failed to load posts " + error));
+            console.error("Error rendering posts:", error);
+        }
+    }
+
+    async fetchNextPage() {
+        let allPosts = [];
+        try {
+            const fetchPromises = this.selectedTags.map(async (tag) => {
+                const queryParams = this.createQueryParams({ _tag: tag, limit: "100" });
+                const posts = await this.fetchPage(queryParams, this.profileName, this.currentPage);
+                allPosts = [...allPosts, ...posts];
+            });
+
+            await Promise.all(fetchPromises);
+
             const newPosts = Array.from(new Set(allPosts.map(post => post.id)))
                 .map(id => allPosts.find(post => post.id === id));
 
-            // Render new posts
             newPosts.forEach(post => createPostCard(post, this.profileName, this.feedContainer));
 
-            // Create "Show More" button if there are more pages
             if (!this.isLastPage) {
                 createShowMoreButton(this.fetchNextPage.bind(this));
             }
@@ -138,11 +157,11 @@ export class FilterPosts {
 
     async handleSearchSubmit(event) {
         event.preventDefault();
+
         const query = event.target.querySelector('input[type="search"]').value;
 
         try {
             if (this.selectedTags && this.uniquePosts.length > 0) {
-                // Filter uniquePosts based on the search query
                 const filteredPosts = this.uniquePosts.filter(post =>
                     post.title.includes(query) || post.body.includes(query)
                 );
@@ -156,10 +175,22 @@ export class FilterPosts {
         }
     }
 
+    async handleSearchInput(event) {
+        const query = event.target.value;
+
+        if (!query) {
+            this.currentPage = 1;
+            this.isLastPage = false;
+            await this.rerenderPosts();
+        }
+    }
+
     setupSearchListener() {
         if (this.searchForm) {
             this.searchForm.addEventListener('submit', this.handleSearchSubmit.bind(this));
         }
+        if (this.searchInput) {
+            this.searchInput.addEventListener('input', this.handleSearchInput.bind(this));
+        }
     }
 }
-

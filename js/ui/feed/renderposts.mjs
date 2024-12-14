@@ -4,7 +4,8 @@ import { createPostCard } from "./createpostcard.mjs";
 import { renderErrors } from "../shared/rendererrors.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
 import { createShowMoreButton } from "../shared/createshowmorebutton.mjs";
-import { filterPostsListener } from "../../events/filterpostslistener.mjs";
+import { SearchAndFilterPosts } from "../shared/searchandfilterposts.mjs";
+
 
 let nextPage;
 let isLastPage = false;
@@ -60,7 +61,7 @@ export async function renderPosts(profileName = null, append = false, tag = null
         renderErrors("Failed to load posts " + error);
         console.error("Error rendering posts:", error);
     } finally {
-        filterPostsListener(profileName, feedContainer);
+        new SearchAndFilterPosts(profileName, feedContainer);
         toggleLoader(false, loaderContainer);
     }
 }

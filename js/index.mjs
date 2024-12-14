@@ -8,6 +8,7 @@ import { renderPosts } from "./ui/feed/renderposts.mjs";
 import { loadStorage } from "./storage/loadstorage.mjs";
 import { loadModals } from "./ui/bootstrap/loadmodals.mjs";
 import { setFeedProfilePosition } from "./ui/shared/setfeedprofileposition.mjs";
+import { setupSearchListener } from "./ui/shared/setupsearchlistener.mjs";
 
 // Check if user is logged in
 let isLoggedIn = checkAuth();
