@@ -104,7 +104,7 @@ export class FilterPosts {
                     _tag: tag,
                     _author: "true",
                     _comments: "true",
-                    limit: "10",
+                    limit: "100",
                 });
                 const posts = await this.fetchPage(queryParams, this.profileName, this.currentPage);
                 allPosts = [...allPosts, ...posts];

@@ -40,7 +40,7 @@ export async function fetchSearch(query, tags = null) {
         });
 
         const profileResponse = await getProfiles(true, queryParams);
-        const postResponse = await getPosts(queryParams);
+        const postResponse = await getPosts(queryParams, true);
 
         const profiles = profileResponse.data;
         const posts = postResponse.data;
