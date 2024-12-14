@@ -6,7 +6,7 @@
  * ```
  */
 export function setBodyPadding() {
-    const header = document.querySelector('.fixed-top');
+    const header = document.querySelector('.sticky-top');
     const footer = document.querySelector('footer.fixed-bottom');
     const body = document.body;
 
@@ -15,7 +15,7 @@ export function setBodyPadding() {
         const footerHeight = footer.offsetHeight;
 
         // Set padding for the body
-        body.style.paddingTop = `${headerHeight + 30}px`;
+        //   body.style.paddingTop = `${headerHeight + 30}px`;
         body.style.paddingBottom = `${footerHeight + 30}px`;
     }
 }

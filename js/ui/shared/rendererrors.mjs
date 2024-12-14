@@ -22,6 +22,7 @@ export function renderErrors(error) {
         existingAlert.remove();
     }
 
+    const mainElement = document.querySelector('main');
     const errorElement = document.createElement('div');
     errorElement.className = 'alert alert-danger alert-dismissible fade show';
     errorElement.role = 'alert';
@@ -30,5 +31,8 @@ export function renderErrors(error) {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
 
-    document.body.prepend(errorElement);
+    mainElement.prepend(errorElement);
+    setTimeout(() => {
+        errorElement.remove();
+    }, 5000);
 }

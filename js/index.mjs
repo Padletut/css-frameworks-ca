@@ -26,6 +26,10 @@ const signInButton = document.getElementById("signInButton");
 
 handleFormSubmission(signInButton, "signInForm", "profile/index.html");
 
+const signUpButton = document.getElementById("signUpButton");
+
+handleFormSubmission(signUpButton, "signUpForm", "profile/index.html");
+
 
 // Set body padding on initial load and window resize
 window.addEventListener('load', setBodyPadding);
