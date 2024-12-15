@@ -180,7 +180,11 @@ export class SearchAndFilterPosts {
         if (!query) {
             this.currentPage = 1;
             this.isLastPage = false;
-            await this.rerenderPosts();
+            if (this.selectedTags && this.selectedTags.length > 0) {
+                await this.fetchAndRenderFilteredPosts();
+            } else {
+                await this.rerenderPosts();
+            }
         }
     }
 
