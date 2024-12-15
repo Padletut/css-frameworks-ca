@@ -4,7 +4,7 @@ import { createPostCard } from "./createpostcard.mjs";
 import { renderErrors } from "../shared/rendererrors.mjs";
 import { toggleLoader } from "../shared/toggleLoader.mjs";
 import { createShowMoreButton } from "../shared/createshowmorebutton.mjs";
-import { SearchAndFilterPosts } from "../../API/search/searchandfilterposts.mjs";
+import { SearchAndFilterPosts } from "../shared/searchandfilterposts.mjs";
 
 
 let nextPage;
