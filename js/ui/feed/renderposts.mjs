@@ -49,12 +49,16 @@ export async function renderPosts(profileName = null, append = false, tag = null
 
         // Ternary operator to check if profile name is present
         const response = profileName ? await getPostsbyUser(profileName, queryParams) : await getPosts(queryParams);
-        const posts = response.data;
+        if (response.data.length > 0) {
+            const posts = response.data;
+            const meta = response.meta;
+            nextPage = meta.nextPage;
+            isLastPage = meta.isLastPage;
 
-
-        posts.forEach(post => createPostCard(post, profileName, feedContainer));
-        if (!isLastPage && posts.length >= 10) {
-            createShowMoreButton(() => renderPosts(profileName, true, tag));
+            posts.forEach(post => createPostCard(post, profileName, feedContainer));
+            if (!isLastPage) {
+                createShowMoreButton(() => renderPosts(profileName, true, tag));
+            }
         }
 
     } catch (error) {
