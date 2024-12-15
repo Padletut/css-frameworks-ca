@@ -1,10 +1,11 @@
 import { renderErrors } from "../../ui/shared/rendererrors.mjs";
-import { getPosts } from "../feed/getposts.mjs";
-import { getPostsbyUser } from "../feed/getpostsbyuser.mjs";
+import { getPosts } from "../../API/feed/getposts.mjs";
+import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
+import { getProfiles } from "../../API/profiles/getprofiles.mjs";
 import { createPostCard } from "../../ui/feed/createpostcard.mjs";
-import { fetchSearch } from "../utils/fetchsearch.mjs";
 import { renderSearchResults } from "../../ui/shared/rendersearchresults.mjs";
 import { createShowMoreButton } from "../../ui/shared/createshowmorebutton.mjs";
+import { toggleLoader } from "../../ui/shared/toggleLoader.mjs";
 
 /**
  * Filters posts based on the selected tags.
@@ -69,7 +70,7 @@ export class SearchAndFilterPosts {
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             if (!this.isLastPage) {
-                createShowMoreButton(this.fetchNextPage.bind(this));
+                createShowMoreButton(() => this.fetchNextPage());
             }
         } catch (error) {
             renderErrors(new Error("Failed to load posts " + error));
@@ -113,7 +114,7 @@ export class SearchAndFilterPosts {
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             if (!this.isLastPage) {
-                createShowMoreButton(this.fetchNextPage.bind(this));
+                createShowMoreButton(() => this.fetchNextPage());
             }
 
         } catch (error) {
@@ -139,19 +140,13 @@ export class SearchAndFilterPosts {
             newPosts.forEach(post => createPostCard(post, this.profileName, this.feedContainer));
 
             if (!this.isLastPage) {
-                createShowMoreButton(this.fetchNextPage.bind(this));
+                createShowMoreButton(() => this.fetchNextPage());
             }
 
         } catch (error) {
             renderErrors(new Error("Failed to load more posts " + error));
             console.error("Error fetching next page:", error);
         }
-    }
-
-    setupFilterListeners() {
-        this.dropdownItems.forEach(item => {
-            item.addEventListener('click', this.handleFilterClick.bind(this));
-        });
     }
 
     async handleSearchSubmit(event) {
@@ -166,7 +161,7 @@ export class SearchAndFilterPosts {
                 );
                 renderSearchResults(filteredPosts);
             } else {
-                await fetchSearch(query);
+                await this.search(query);
             }
         } catch (error) {
             renderErrors(new Error("Failed to load search results"));
@@ -186,6 +181,46 @@ export class SearchAndFilterPosts {
                 await this.rerenderPosts();
             }
         }
+    }
+
+    async search(query) {
+        const feedContainer = this.feedContainer;
+        const loaderContainer = document.getElementById("loader-container");
+
+        if (!query) return;
+
+        if (!feedContainer) return;
+
+        try {
+            toggleLoader(true, loaderContainer);
+            const queryParams = new URLSearchParams({
+                _author: "true",
+                _comments: "true",
+                limit: "100",
+                q: query,
+            });
+
+            const profileResponse = await getProfiles(true, queryParams);
+            const postResponse = await getPosts(queryParams, true);
+
+            const profiles = profileResponse.data;
+            const posts = postResponse.data;
+
+            const allResults = [...profiles, ...posts];
+            renderSearchResults(allResults, feedContainer);
+
+        } catch (error) {
+            renderErrors(new Error("Failed to load search results " + error));
+            console.error("Error searching posts:", error);
+        } finally {
+            toggleLoader(false, loaderContainer);
+        }
+    }
+
+    setupFilterListeners() {
+        this.dropdownItems.forEach(item => {
+            item.addEventListener('click', this.handleFilterClick.bind(this));
+        });
     }
 
     setupSearchListener() {
