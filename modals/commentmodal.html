@@ -7,19 +7,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div id="comment-loader-container" class="justify-content-center align-items-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                 <div class="card bg-white rounded-3 flex-grow-1 flex-sm-grow-0 comment-card card-custom">
                     <div class="card-body">
-                        <form class="needs-validation d-flex flex-column gap-3" novalidate>
+                        <div class="comments-section mt-3">
+                            <!-- Comments will be dynamically inserted here -->
+                        </div>
+                        <form class="needs-validation d-flex flex-column gap-3 comment-form" novalidate>
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" placeholder="Write your comment here..." id="commentText"
-                                    required></textarea>
+                                <textarea class="form-control" name="comment" placeholder="Write your comment here..."
+                                    id="commentText" required></textarea>
                                 <label for="commentText">Write your comment here...</label>
                                 <div class="invalid-feedback">
                                     Please write a comment
                                 </div>
                             </div>
                             <div class="mb-3 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-custom" id="commentButton">Comment</button>
+                                <button type="submit" class="btn btn-custom add-comment-button"
+                                    id="commentButton">Comment</button>
                             </div>
                         </form>
                     </div>

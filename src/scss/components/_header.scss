@@ -2,33 +2,6 @@ header {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-// Navbar
-
-.navbar {
-
-    @media (max-width: 991px) {
-        .position-absolute {
-            position: relative !important;
-        }
-    }
-
-
-    .navbar-nav {
-        letter-spacing: 2px;
-    }
-
-    // Custom styles for navbar-brand after sm breakpoint
-    .navbar-brand-custom {
-        font-size: 1rem; // Default font size
-        letter-spacing: 4.8px;
-        padding: 0;
-
-        @media (min-width: 576px) {
-            // sm breakpoint
-            font-size: 1.5rem; // Increase font size after sm breakpoint
-        }
-    }
-}
 
 // Search
 
@@ -42,5 +15,12 @@ input.custom-search {
 
     &::placeholder {
         color: var(--bs-dark-border-subtle);
+    }
+}
+
+.header-auth-page {
+
+    .navbar {
+        min-height: $spacer*5;
     }
 }

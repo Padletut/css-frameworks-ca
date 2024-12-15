@@ -5,6 +5,7 @@
   "scripts": {
     "build": "sass src/scss:dist/css --style=compressed && postcss dist/css/*.css --use autoprefixer -d dist/css/",
     "watch": "sass --watch src/scss:dist/css",
+    "docs": "jsdoc -c ./conf.json -r",
     "start": "live-server",
     "dev": "npm-run-all --parallel watch start"
   },
@@ -13,7 +14,6 @@
     "url": "git+https://github.com/Padletut/css-frameworks-ca.git"
   },
   "keywords": [
-    "CSS",
     "CSS",
     "Frameworks",
     "Bootstrap",
@@ -28,14 +28,15 @@
   "homepage": "https://github.com/Padletut/css-frameworks-ca#readme",
   "dependencies": {
     "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3"
+    "bootstrap-icons": "^1.11.3",
+    "sass": "^1.80.5"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^6.0.0",
     "autoprefixer": "^10.4.7",
+    "jsdoc": "^4.0.4",
     "live-server": "^1.2.2",
     "npm-run-all": "^4.1.5",
-    "postcss-cli": "^9.0.0",
-    "sass": "^1.77.8"
+    "postcss-cli": "^9.0.0"
   }
 }

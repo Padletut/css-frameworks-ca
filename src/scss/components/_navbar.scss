@@ -1,0 +1,41 @@
+// Navbar
+
+.navbar {
+
+    .navbar-collapse {
+
+        .container-fluid {
+            @include media-breakpoint-up(lg) {
+                flex-direction: row !important;
+            }
+        }
+
+        @include media-breakpoint-down(lg) {
+            //    padding-top: $spacer*2;
+        }
+    }
+
+    .navbar-nav {
+        letter-spacing: 2px;
+
+        @include media-breakpoint-only(lg) {
+            gap: $spacer !important;
+        }
+
+        @include media-breakpoint-up(xxl) {
+            gap: $spacer*5 !important;
+        }
+    }
+
+    // Custom styles for navbar-brand after sm breakpoint
+    .navbar-brand-custom {
+        font-size: 1rem; // Default font size
+        letter-spacing: 4.8px;
+        padding: 0;
+
+        @media (min-width: 576px) {
+            // sm breakpoint
+            font-size: 1.5rem; // Increase font size after sm breakpoint
+        }
+    }
+}

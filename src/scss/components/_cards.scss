@@ -25,7 +25,10 @@
 .feed-container {
     max-width: 800px;
     row-gap: 1.5rem;
-    align-items: center;
+}
+
+#feed-container {
+    height: fit-content;
 }
 
 .create-post-card h1 {
@@ -39,6 +42,12 @@
 .feed-post-card {
     .post-card-header-userinformation {
         width: fit-content;
+
+        .post-profile-image {
+            img {
+                border-radius: 50%;
+            }
+        }
 
         .postheader-username {
             color: $black;
@@ -67,7 +76,24 @@
 }
 
 // Profile page
+
+.profile-container {
+    height: fit-content;
+    flex: 1;
+}
+
+@media (max-width: 991px) {
+    .feed-profile {
+        padding: 0;
+    }
+}
+
+.profile-section {
+    height: fit-content;
+}
+
 .profile-card {
+
     .card-header {
         #profile-image {
             box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.10), 0px 4px 6px 0px rgba(0, 0, 0, 0.25);
@@ -79,7 +105,8 @@
 
             img {
                 width: 128px;
-                height: auto;
+                height: 128px;
+                border-radius: 50%;
             }
         }
 
@@ -121,6 +148,7 @@
 
                 img {
                     max-width: 80px;
+                    max-height: 80px;
                 }
             }
 
@@ -131,6 +159,20 @@
     }
 }
 
+.profile-card-section {
+    height: fit-content;
+}
+
 .card-follow {
     min-height: fit-content;
+}
+
+// Search styles
+
+.post-list-item {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
 }
