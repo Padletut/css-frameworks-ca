@@ -46,6 +46,7 @@ export class SearchAndFilterPosts {
     }
 
     async fetchPage(queryParams, profileName, page) {
+        console.log("fetchPage", queryParams, profileName, page);
         queryParams.set('page', page);
         const response = profileName ? await getPostsbyUser(profileName, queryParams) : await getPosts(queryParams);
         if (response && response.data) {
@@ -59,9 +60,10 @@ export class SearchAndFilterPosts {
     }
 
     async rerenderPosts() {
+        console.log("SearchAndFilterPosts");
         try {
             const queryParams = this.createQueryParams();
-            const posts = await this.fetchPage(queryParams, this.profileName, this.currentPage);
+            const posts = await this.fetchNextPage(queryParams, this.profileName, this.currentPage);
 
             this.feedContainer.innerHTML = "";
             posts.forEach(post => createPostCard(post, this.profileName, this.feedContainer));
@@ -94,6 +96,7 @@ export class SearchAndFilterPosts {
     }
 
     async fetchAndRenderFilteredPosts() {
+        console.log("fetchAndRenderFilteredPosts", this.selectedTags);
         let allPosts = [];
         try {
             const fetchPromises = this.selectedTags.map(async (tag) => {
@@ -123,6 +126,7 @@ export class SearchAndFilterPosts {
     }
 
     async fetchNextPage() {
+        console.log("fetchNextPage", this.selectedTags);
         let allPosts = [];
         try {
             const fetchPromises = this.selectedTags.map(async (tag) => {
@@ -146,12 +150,6 @@ export class SearchAndFilterPosts {
             renderErrors(new Error("Failed to load more posts " + error));
             console.error("Error fetching next page:", error);
         }
-    }
-
-    setupFilterListeners() {
-        this.dropdownItems.forEach(item => {
-            item.addEventListener('click', this.handleFilterClick.bind(this));
-        });
     }
 
     async handleSearchSubmit(event) {
@@ -195,5 +193,11 @@ export class SearchAndFilterPosts {
         if (this.searchInput) {
             this.searchInput.addEventListener('input', this.handleSearchInput.bind(this));
         }
+    }
+
+    setupFilterListeners() {
+        this.dropdownItems.forEach(item => {
+            item.addEventListener('click', this.handleFilterClick.bind(this));
+        });
     }
 }
