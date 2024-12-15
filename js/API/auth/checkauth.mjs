@@ -1,5 +1,5 @@
 import { loadStorage } from "../../storage/loadstorage.mjs";
-import { getProfile } from "../../API/profiles/getprofile.mjs";
+import { getProfile } from "../profiles/getprofile.mjs";
 
 /**
  * Checks if the user is authenticated and redirects to the login page if not.

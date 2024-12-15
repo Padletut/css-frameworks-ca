@@ -1,6 +1,6 @@
 import { initializeCommentModal } from "../bootstrap/initializecommentmodal.mjs";
 import { postCheckOwner } from "../../API/feed/postcheckowner.mjs";
-import { reactToPost } from "./reacttopost.mjs";
+import { reactToPost } from "../../API/react/reacttopost.mjs";
 import { getPost } from "../../API/feed/getpost.mjs";
 import { capitalizeFirstLetter } from "../shared/capitalizefirstletter.mjs";
 import { splitName } from "../shared/splitname.mjs";
