@@ -1,8 +1,8 @@
 import { renderErrors } from "../../ui/shared/rendererrors.mjs";
-import { getPosts } from "../../API/feed/getposts.mjs";
-import { getPostsbyUser } from "../../API/feed/getpostsbyuser.mjs";
+import { getPosts } from "../feed/getposts.mjs";
+import { getPostsbyUser } from "../feed/getpostsbyuser.mjs";
 import { createPostCard } from "../../ui/feed/createpostcard.mjs";
-import { fetchSearch } from "../../API/utils/fetchsearch.mjs";
+import { fetchSearch } from "../utils/fetchsearch.mjs";
 import { renderSearchResults } from "../../ui/shared/rendersearchresults.mjs";
 import { createShowMoreButton } from "../../ui/shared/createshowmorebutton.mjs";
 
