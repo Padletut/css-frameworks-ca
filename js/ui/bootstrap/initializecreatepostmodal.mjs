@@ -1,4 +1,4 @@
-import { openModal } from "./openmodal.mjs";
+import { openPostModal } from "./openpostmodal.mjs";
 
 /**
  * Initializes the create post modal.
@@ -17,7 +17,7 @@ export function initializeCreatePostModal(post, profileName) {
     if (openPostModalButton) {
         openPostModalButton.addEventListener("click", function (event) {
             event.preventDefault();
-            openModal("create", null, profileName);
+            openPostModal("create", null, profileName);
         });
     }
 }

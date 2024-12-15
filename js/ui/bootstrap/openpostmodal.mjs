@@ -12,7 +12,7 @@ import { renderPosts } from "../feed/renderposts.mjs";
  * ```javascript
  * openModal("create", null, "john_doe");
  * */
-export function openModal(state, post, profileName) {
+export function openPostModal(state, post, profileName) {
     const createNewPostModalElement = document.getElementById("createPostModal");
     if (createNewPostModalElement) {
         const createNewPostModal = new bootstrap.Modal(createNewPostModalElement);

@@ -1,4 +1,4 @@
-import { openModal } from "./openmodal.mjs";
+import { openPostModal } from "./openpostmodal.mjs";
 
 /**
  * Initializes the update post modal.
@@ -14,5 +14,5 @@ import { openModal } from "./openmodal.mjs";
 export function initializeUpdatePostModal(post, profileName) {
 
     // Handle update post modal    
-    openModal("update", post, profileName);
+    openPostModal("update", post, profileName);
 }
